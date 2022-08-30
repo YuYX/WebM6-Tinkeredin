@@ -83,7 +83,7 @@
             </div>  
         </div>  --}}
  
-      <div class="col-md-10">   
+      <div class="col-md-9">   
             <div class="row mb-5">
                 <div class="card col-md-1">
                     <img class="rounded-circle mx-auto  profile-image"  
@@ -92,7 +92,7 @@
                     src="/storage/{{ $profile->image }}" alt="">   
                 </div>
                 <div class="card col-md-11">
-                    <div class="card-header"> 
+                    <div class="card-body"> 
                         <a class="nav-link" href="{{ route('post.create')}}">Start a post</a>
                     </div> 
                 </div> 
@@ -151,19 +151,18 @@
         </div> 
           
         {{-- <div> --}}
-          <div class="weather-container" >
-            <div style="position: relative;">
-              <ul class="cities"></ul>
-            </div> 
-
-            <div class="weather-form" style="position: fixed;"> 
+          <div class="weather-container" > 
+            <div class="weather-form" style="position: relative;"> 
               <form>
-                <input type="text" placeholder="Search for a city" style="border-style: groove" autofocus>
+                <input class="city-input" type="text" placeholder="Search for a city" autofocus>
                 <button type="submit">SUBMIT</button>
                 <span class="msg"></span>
               </form>
             </div>  
 
+            <div class="weather-details" style="position: fixed;">
+              <ul class="cities"></ul> 
+            </div> 
           </div>  
         {{-- </div>  --}}
       </div>  

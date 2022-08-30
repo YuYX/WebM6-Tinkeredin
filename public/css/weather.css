@@ -8,12 +8,12 @@
         --orange: #ff8c00;
       }
       
-      * {
+      /* * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-weight: normal;
-      }
+      } */
       
       a {
         color: inherit;
@@ -34,7 +34,22 @@
         background: none;
         outline: 1px;
         color: inherit;
-      }
+      } 
+
+      input.city-input {  
+        border-style:groove;
+        border-color: blue;
+        margin-top: 10px;
+      };
+
+      button[type=submit] {
+        padding:5px 15px; 
+        background:#ddd; 
+        border:0 none;
+        cursor:pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; 
+    }
       
       img {
         display: block;
@@ -78,24 +93,27 @@
       } */
       
       .cities {
-        display: grid;
-        grid-gap: 2px 2px;
-        grid-template-columns: repeat(4, 1fr); 
+        display:block;
+        position:relative; 
+        padding-left: 0;
+        /* grid-gap: 2px 2px; */
+        /* grid-template-columns: repeat(4, 1fr);  */
       }
       
       .city { 
-        position:fixed;
-        margin-top: 50px;
+        position:relative; 
+        max-width: 160px;
+        margin-top: 10px;
         border-radius: 20px;
         background:blanchedalmond;
-        color: var(--text_med);   
+        color: var(--text_med);    
       }
       
       .city::after {
         content: '';
-        width: 90%;
+        width: 100%;
         height: 20px;
-        position: absolute;
+        position: relative;
         bottom: 12px;
         left: 0%;
         z-index: -1;

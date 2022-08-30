@@ -2,7 +2,7 @@
 .radio-container {
     display: block;
     position: relative;
-    padding-left: 70px;
+    padding-left: 50px;
     margin-bottom: 2px;
     cursor: pointer;
     font-size: 16px;
@@ -13,7 +13,7 @@
   }
 
   .radio-text {
-    margin-left: 40px;
+    margin-left: 10px;
     color:#ccc;
   }
   
@@ -28,7 +28,7 @@
   .checkmark {
     position: absolute;
     top: 6px;
-    left: 30px;
+    left: 10px;
     height: 16px;
     width: 16px; 
     background-color: #eee;

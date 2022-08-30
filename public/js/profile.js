@@ -30,6 +30,7 @@ $(function(){
         //check if there's already a city
         const listItems = list.querySelectorAll(".weather-form .city");
         //Only display one city - YYX
+         
         if(listItems.length>0) listItems[0].remove();
         const listItemsArray = Array.from(listItems); 
         
@@ -65,40 +66,7 @@ $(function(){
         } 
       
         //ajax here
-        fetch_weather_info(inputVal,apiKey);
-    //     // const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
-         
-    //     // fetch(url)
-    //     //   .then(response => response.json())
-    //     //   .then(data => {
-    //     //     const { main, name, sys, weather } = data;
-    //     //     const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
-    //     //       weather[0]["icon"]
-    //     //     }.svg`; 
-      
-    //     //     const li = document.createElement("li");
-    //     //     li.classList.add("city");
-    //     //     const markup = `
-    //     //       <h2 class="city-name" data-name="${name},${sys.country}">
-    //     //         <span>${name}</span>
-    //     //         <sup>${sys.country}</sup>
-    //     //       </h2>
-    //     //       <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
-    //     //       <figure>
-    //     //         <img class="city-icon" src="${icon}" alt="${
-    //     //       weather[0]["description"]
-    //     //     }">
-    //     //         <figcaption>${weather[0]["description"]}</figcaption>
-    //     //       </figure>
-    //     //     `;
-    //     //     li.innerHTML = markup;
-    //     //     list.appendChild(li);
-             
-    //     //     setCookie("weather_city", inputVal, 10);
-    //     //   })
-    //     //   .catch(() => {
-    //     //     msg.textContent = "Please search for a valid city 😩";
-    //     //   });
+        fetch_weather_info(inputVal,apiKey); 
       
         msg.textContent = "";
         form.reset();
@@ -118,7 +86,7 @@ function fetch_weather_info(inputVal, apiKey){
             }.svg`;   
 
             const li = document.createElement("li");
-            li.classList.add("city");
+            li.classList.add("city"); 
             const markup = `
               <h2 class="city-name" data-name="${name},${sys.country}">
                 <span>${name}</span>
@@ -132,9 +100,14 @@ function fetch_weather_info(inputVal, apiKey){
                 <figcaption>${weather[0]["description"]}</figcaption>
               </figure>
             `;
-            li.innerHTML = markup;  
-            const list = document.querySelector(".cities");
-            list.appendChild(li);  
+            li.innerHTML = markup;   
+            // const list = document.querySelector(".cities"); 
+            // list.appendChild(li);   
+            var tmpFirstChild = $(".cities").children(":first");
+            if(tmpFirstChild != null) { 
+              tmpFirstChild.remove();
+            }
+            $(".cities").prepend(li);  
             
             setCookie("weather_city", inputVal, 10);
           })

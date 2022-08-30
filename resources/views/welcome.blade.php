@@ -47,7 +47,10 @@
             @endif  
             
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <canvas class="fireworks" style="background-color:#e2e8f0"></canvas>
+                <div class="mt-8  overflow-hidden ">
+                    <canvas class="fireworks" style="background-color:#e2e8f0"></canvas>
+                </div>
+
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20 title">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">
