@@ -45,6 +45,7 @@ class PostController extends Controller
         $user = AUth::user();
         $post = new Post();
         $imagePath = request('postpic')->store('uploads', 'public'); 
+         
 
         $post->user_id = $user->id;
         $post->caption = request('caption');

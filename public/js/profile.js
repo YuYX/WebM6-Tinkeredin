@@ -9,7 +9,7 @@ $(function(){
     const apiKey = "4d8fb5b93d4af21d66a2948710284366"; 
 
     effects_On_Component(".profile-image", "animate__flip animate__infinite");  
-
+       
     //fetch_weather_info("Singapore",apiKey); 
 
     if(checkCookie("weather_city")){
@@ -25,8 +25,8 @@ $(function(){
     const list = document.querySelector(".cities");
     form.addEventListener("submit", e => {
         e.preventDefault();
-        let inputVal = input.value; 
-        
+        let inputVal = input.value;   
+
         //check if there's already a city
         const listItems = list.querySelectorAll(".weather-form .city");
         //Only display one city - YYX
@@ -72,6 +72,19 @@ $(function(){
         form.reset();
         input.focus();
     });
+});  
+
+$(window).on("scroll", function() {
+  localStorage.setItem("scrollTop", window.scrollY.toFixed());
+  document.getElementById("x-location").innerHTML = window.scrollY.toFixed(); 
+});
+
+$(window).on("load", function(){ 
+  if (localStorage.scrollTop != 'undefined') {  
+    //document.getElementById("r-location").innerHTML = localStorage.scrollTop;  
+    window.scroll(0, localStorage.scrollTop); 
+};
+
 });
 
 function fetch_weather_info(inputVal, apiKey){
@@ -118,6 +131,18 @@ function fetch_weather_info(inputVal, apiKey){
         // msg.textContent = "";
 }
 
+function add_image2list(imageURL, imageClass, imageContainerID){
+  const objImg = document.createElement("img"); 
+  objImg.classList.add(imageClass);
+  objImg.classList.add("modal-image") ;
+  objImg.classList.add("img-thumbnail") ;
+  objImg.classList.add("col-sm-6") ;
+  objImg.classList.add("col-md-4") ;
+  objImg.setAttribute("src",imageURL); 
+  const objContainer = document.querySelector("#"+imageContainerID);
+  objContainer.appendChild(objImg);
+}
+
 function apply_offcanvas_location(location)
 {
   component = ".offcanvas";
@@ -141,7 +166,7 @@ function apply_offcanvas_location(location)
           if($(component).hasClass(location) == false){
             $(component).addClass(location);
           }
-  } 
+} 
 
 function effects_On_Component(component, effect) { 
     $(component).addClass("animate__animated " + effect); 

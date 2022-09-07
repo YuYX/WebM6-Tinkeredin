@@ -20,10 +20,14 @@
                                 if(input.files && input.files[0]){
                                     var reader = new FileReader();
                                     reader.onload = function(e){
-                                        $('#postpicPreview').attr('src', e.target.result);
-                                        $('#postpicOld').attr('src', "/storage/{{ $post->image }}");
+                                        var curImgs = document.getElementsByClassName("editing-image");
+                                        if(curImgs && curImgs.length<9){ //Limit to 9 pics.
+                                            $('#postpicPreview').attr('src', e.target.result);
+                                            add_image2list(e.target.result, "editing-image","editing-images");
+                                            $('#postpicOld').attr('src', "/storage/{{ $post->image }}");                                            
+                                        }
                                     }
-                                    reader.readAsDataURL(input.files[0]);
+                                    reader.readAsDataURL(input.files[0]); 
                                 }
                             }
                             $("#postpic").change(function(){  
@@ -32,6 +36,9 @@
                         </script>
                     </div>
 
+                    <div class="container-fluid row" id="editing-images"> 
+                    </div>
+                    
                     <div class="form-group row">
                         <label for="caption">Caption</label>
                         <input class="form-control" type="text" name="caption" id="caption" 

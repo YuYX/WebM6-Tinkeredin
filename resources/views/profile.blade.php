@@ -151,8 +151,8 @@
         </div> 
           
         {{-- <div> --}}
-          <div class="weather-container" > 
-            <div class="weather-form" style="position: relative;"> 
+          <div class="weather-container"  style="position: fixed;"> 
+            <div class="weather-form" style="position:sticky;"> 
               <form>
                 <input class="city-input" type="text" placeholder="Search for a city" autofocus>
                 <button type="submit">SUBMIT</button>
@@ -160,9 +160,15 @@
               </form>
             </div>  
 
-            <div class="weather-details" style="position: fixed;">
+            <div class="weather-details" style="position: sticky;">
               <ul class="cities"></ul> 
-            </div> 
+            </div>  
+
+            <div class="scroll-location" style="position: sticky;">
+              <label>Location:</label>
+              <label id="x-location">X</label>  
+            </div>
+
           </div>  
         {{-- </div>  --}}
       </div>  
