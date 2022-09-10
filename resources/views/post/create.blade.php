@@ -10,9 +10,8 @@
                 <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="postpic">Post Pictures</label>
+                        <label for="postpic">Choose Image</label>
                         <input type="file" name="postpic" id="postpic">
-                        <input type="hidden" name="postpics" id="postpics">
 
                         <script type="text/javascript"> 
                             function readURL(input){
@@ -31,7 +30,10 @@
                             $("#postpic").change(function(){  
                                 readURL(this); 
                             });
-                        </script>
+                        </script> 
+                        
+                        <label for="postpics">Choose Multiple Images</label>
+                        <input type="file" name="postpics[]" id="postpics" multiple>
 
                     </div>
                     <div class="container-fluid row" id="adding-images"> 

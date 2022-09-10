@@ -131,16 +131,37 @@ function fetch_weather_info(inputVal, apiKey){
         // msg.textContent = "";
 }
 
-function add_image2list(imageURL, imageClass, imageContainerID){
+function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   const objImg = document.createElement("img"); 
   objImg.classList.add(imageClass);
   objImg.classList.add("modal-image") ;
   objImg.classList.add("img-thumbnail") ;
   objImg.classList.add("col-sm-6") ;
   objImg.classList.add("col-md-4") ;
-  objImg.setAttribute("src",imageURL); 
+  objImg.setAttribute("src",imageSrc); 
+  objImg.style.height="auto"; //To keep images' aspect ratio.
+  objImg.style.opacity=0.7;
+
+  // const objSpan = document.createElement("span");
+  // objSpan.classList.add("close");
+  // objSpan.style.zIndex = 0;
+  // objSpan.innerHTML="&times;";
+
+  objImg.addEventListener("click", function(){
+    const objPreviewImg = document.querySelector("#"+imagePreviewID);
+    objPreviewImg.setAttribute("src", this.src);
+  });
+  objImg.addEventListener("mouseover", function(){
+    this.style.opacity=1;
+    this.style.transition = '0.5s';
+  });
+  objImg.addEventListener("mouseleave", function(){
+    this.style.opacity=0.7;
+    this.style.transition = '0.5s';
+  });
+
   const objContainer = document.querySelector("#"+imageContainerID);
-  objContainer.appendChild(objImg);
+  objContainer.appendChild(objImg); 
 }
 
 function apply_offcanvas_location(location)

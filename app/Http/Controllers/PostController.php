@@ -40,12 +40,20 @@ class PostController extends Controller
             'caption' => 'required', 
             'content' => 'required',
             'postpic' => ['required', 'image'], 
+            // 'postpics' => ['required', 'images'],
         ]);
 
         $user = AUth::user();
         $post = new Post();
-        $imagePath = request('postpic')->store('uploads', 'public'); 
+        $imagePath = request('postpic')->store('uploads', 'public');  
          
+        // if($request->hasfile('postpics')){
+        //     foreach($request->file('postpics') as $postpics_image){
+        //         $postpics_name = $postpics_image->getClientOriginalName();
+        //         $postpics_image->move(public_path().'/images/', $postpics_name);
+        //         $data[] = $postpics_name;
+        //     }
+        // }
 
         $post->user_id = $user->id;
         $post->caption = request('caption');
@@ -98,15 +106,19 @@ class PostController extends Controller
         $request->validate([
             'caption' => 'required',
             'content' => 'required',
-            'postpic' => ['required', 'image']
+            'postpic' => ['required', 'image'],
+            'postpics'=> 'nullable',
         ]);
 
         $post = Post::find($postId);
         if(!empty($post)){
             $post->caption = request('caption');
             $post->content = request('content');
-            $imagePath = request('postpic')->store('uploads', 'public'); 
+            $imagePath = request('postpic')->store('uploads', 'public');  
+            $imagePaths = request('postpic')->store('uploads', 'public');  
+;
             $post->image = $imagePath;
+            $post->images = $imagePaths;
             $updated  = $post->update();
             if($updated){
                 return redirect('/profile');  

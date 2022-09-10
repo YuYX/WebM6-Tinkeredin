@@ -83,7 +83,11 @@
             </div>  
         </div>  --}}
  
-      <div class="col-md-9">   
+      <div class="col-md-1 left-hand-col">
+
+      </div>
+
+      <div class="col-md-8">   
             <div class="row mb-5">
                 <div class="card col-md-1">
                     <img class="rounded-circle mx-auto  profile-image"  
@@ -118,7 +122,7 @@
             @endforeach
       </div> 
         
-      <div class="col-md-2 right-hand-col">
+      <div class="col-md-3 right-hand-col">
         <div>
             <div class="radio-item">
               <label class="radio-container radio-text">Left

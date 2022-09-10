@@ -22,18 +22,44 @@
                                     reader.onload = function(e){
                                         var curImgs = document.getElementsByClassName("editing-image");
                                         if(curImgs && curImgs.length<9){ //Limit to 9 pics.
-                                            $('#postpicPreview').attr('src', e.target.result);
-                                            add_image2list(e.target.result, "editing-image","editing-images");
-                                            $('#postpicOld').attr('src', "/storage/{{ $post->image }}");                                            
+                                            $('#postpicPreview').attr('src', e.target.result);    
+                                            $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
                                         }
                                     }
                                     reader.readAsDataURL(input.files[0]); 
                                 }
                             }
                             $("#postpic").change(function(){  
-                                readURL(this); 
+                                readURL(this);  
                             });
                         </script>
+
+                        <label for="postpics">Choose Multiple Images</label>
+                        <input type="file" name="postpics[]" id="postpics" multiple>
+
+                        <script type="text/javascript"> 
+                            function readURLs(input){
+                                if(input.files && input.files[0]){ 
+                                    var fileCount = input.files.length;
+                                    for (i=0; i<fileCount; i++){
+                                        var reader = new FileReader();
+                                        reader.onload = function(e){
+                                            var curImgs = document.getElementsByClassName("editing-image");
+                                            if(curImgs && curImgs.length<9){ //Limit to 9 pics.
+                                                $('#postpicPreview').attr('src', e.target.result); 
+                                                add_image2list(e.target.result, "editing-image", "editing-images", "postpicPreview");
+                                                $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
+                                            }
+                                        }
+                                        reader.readAsDataURL(input.files[i]); 
+                                    }
+                                }
+                            }
+                            $("#postpics").change(function(){  
+                                readURLs(this); 
+                            });
+                        </script> 
+
                     </div>
 
                     <div class="container-fluid row" id="editing-images"> 
