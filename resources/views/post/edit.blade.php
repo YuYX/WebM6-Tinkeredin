@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="content">Caption</label>
+                        <label for="content">Content</label>
                         <input class="form-control" type="text" name="content" id="content" 
                         value="{{ $post->content }}">
                     </div>

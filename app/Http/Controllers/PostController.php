@@ -45,20 +45,22 @@ class PostController extends Controller
 
         $user = AUth::user();
         $post = new Post();
-        $imagePath = request('postpic')->store('uploads', 'public');  
+        $imagePath = request('postpic')->store('uploads', 'public');   
          
-        // if($request->hasfile('postpics')){
-        //     foreach($request->file('postpics') as $postpics_image){
-        //         $postpics_name = $postpics_image->getClientOriginalName();
-        //         $postpics_image->move(public_path().'/images/', $postpics_name);
-        //         $data[] = $postpics_name;
-        //     }
-        // }
+        if($request->hasfile('postpics')){
+            foreach($request->file('postpics') as $postpics_image){
+                $postpics_name = $postpics_image->getClientOriginalName();
+                $postpics_image->move(public_path().'/images/', $postpics_name); 
+                $postpics_data[] = $postpics_name;
+            }
+            $post->images = json_encode($postpics_data);  
+        }
 
         $post->user_id = $user->id;
         $post->caption = request('caption');
         $post->content = request('content');
         $post->image = $imagePath;
+        
         $saved = $post->save();
 
         if($saved){
@@ -115,14 +117,25 @@ class PostController extends Controller
             $post->caption = request('caption');
             $post->content = request('content');
             $imagePath = request('postpic')->store('uploads', 'public');  
-            $imagePaths = request('postpic')->store('uploads', 'public');  
+            
+            if($request->hasfile('postpics')){
+                foreach($request->file('postpics') as $postpics_image){
+                    // $postpics_name = $postpics_image->getClientOriginalName();
+                    // $postpics_image->move(public_path().'/images/', $postpics_name); 
+                    // $postpics_image->store('uploads', 'public');  
+                    // $postpics_data[] = $postpics_name; 
+                    $postpics_name = $postpics_image->store('uploads', 'public');  
+                    $postpics_data[] = $postpics_name;
+                }
+                
+                $post->images = json_encode($postpics_data);  
+            } 
 ;
-            $post->image = $imagePath;
-            $post->images = $imagePaths;
+            $post->image = $imagePath;  
             $updated  = $post->update();
             if($updated){
                 return redirect('/profile');  
-            } 
+            }
         }
     }
 

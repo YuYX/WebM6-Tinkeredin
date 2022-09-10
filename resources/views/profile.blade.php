@@ -103,8 +103,15 @@
             </div>
 
             @foreach ($posts as $post) 
-            <div class="card mb-3" style="background-color:lightcyan">
-                <div class="mb-5 row pt-2">
+            <div class="card mb-3" style="background-color:lightcyan; ">
+                <div class="mb-5 row pt-2" >
+                    <div class="col-1" style="display:block;">
+                      <img class="rounded-circle mx-auto" width="24" height="24"
+                        src="/storage/{{ $profile->image }}"> 
+                    </div>
+                    <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div>
+                    <div class="col-4 mt-1 ">Created at: {{ $post->created_at }} </div>
+                    <div class="col-4 mt-1 " >Updated at: {{ $post->updated_at }} </div>
                     <h5>{{ $post->caption }}</h5>
                     <h6>{{ $post->content }}</h6>
 
@@ -116,7 +123,20 @@
                     <hr class="solid" style="margin-left:20px; width:95%;">
                     <a href="/post/{{$post->id}}">
                         <img src="/storage/{{$post->image}}" class="w-100">
-                    </a>
+                    </a> 
+
+                    <script type="text/javascript"> 
+                      
+                    </script>
+
+                    <div class="container-fluid row" id="showing-images">  
+                          {{-- @foreach (json_decode($post->images) as $image) { 
+                              <div class="col-lg-4 col-sm-12 col-md-6 mb-3">
+                                  <img src="storage/{{$image}}">
+                              </div>
+                          @endforeach  --}}
+                    </div>
+
                 </div>  
             </div>
             @endforeach

@@ -22,7 +22,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>{{ "Eureka!" }}</title> 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -47,11 +48,25 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" 
+            style="background-color: #d8e7f2;">
             <div class="container"> 
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }} 
+                <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
+                <a style="color:rgb(231, 72, 228); font-size: 30px;" 
+                    class="navbar-brand" 
+                    href="{{ url('/') }}">
+                    {{-- {{ config('app.name', 'Laravel') }}  --}}
+                    Eureka!
                 </a> 
+                <label class="one-line-text"
+                    style="color:rgb(40, 7, 161); font-size: 18px;">
+                    A place to share anything interesting.</label>
+
+                    {{-- <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form> --}}
+
                 <button class="navbar-toggler" 
                         type="button" 
                         data-bs-toggle="collapse" 
@@ -84,17 +99,17 @@
                                 </li>
                             @endif
                         @else 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" 
                                 href="{{ route('post.create')}}">Create post</a>
-                            </li>   
+                            </li>    --}}
                             
-                            @if(isset($post))
+                            {{-- @if(isset($post))
                             <li class="nav-item">
                                 <a class="nav-link" 
                                 href="{{ route('post.edit', $post)}}">Edit post</a>
                             </li>  
-                            @endif  
+                            @endif   --}}
 
                             {{-- <li class="nav-item">
                                 <a class="nav-link" 

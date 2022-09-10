@@ -131,6 +131,21 @@ function fetch_weather_info(inputVal, apiKey){
         // msg.textContent = "";
 }
 
+function show_images_thumbnail(imageListInJson, imageClass, imageContainerID){
+
+  const objImg = document.createElement("img"); 
+  objImg.classList.add(imageClass);
+  objImg.classList.add("modal-image") ;
+  objImg.classList.add("img-thumbnail") ;
+  objImg.classList.add("col-sm-6") ;
+  objImg.classList.add("col-md-4") ;
+  objImg.setAttribute("src",imageSrc); 
+  objImg.style.height="auto"; //To keep images' aspect ratio.
+
+  const objContainer = document.querySelector("#"+imageContainerID);
+  objContainer.appendChild(objImg); 
+}
+
 function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   const objImg = document.createElement("img"); 
   objImg.classList.add(imageClass);
