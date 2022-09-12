@@ -58,7 +58,7 @@
             
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8"> 
                 {{-- <h1>Eureka!</h1> --}}
-                <div class="mt-8  overflow-hidden ">
+                <div class="mt-8 overflow-hidden ">
                     <img id="welcome-backimage" 
                         style="display:none;"  
                         src="/images/chinese-gardens.jpg">

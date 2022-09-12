@@ -164,6 +164,7 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   objContainer.appendChild(objImg); 
 }
 
+
 function apply_offcanvas_location(location)
 {
   component = ".offcanvas";

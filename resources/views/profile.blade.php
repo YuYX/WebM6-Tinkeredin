@@ -84,7 +84,7 @@
         </div>  --}}
  
       <div class="col-md-1 left-hand-col">
-
+        
       </div>
 
       <div class="col-md-8">   
@@ -117,7 +117,7 @@
                     @if ($post->image)
                       <div class="col-2">
                         <a href="/post/{{$post->id}}"> 
-                          <img class="img-thumbnail mx-auto mt-1" src="/storage/{{$post->image}}" class="w-100">
+                          <img class="img-thumbnail-{{$post->id}} mx-auto mt-1" src="/storage/{{$post->image}}" class="w-100">
                         </a>  
                       </div> 
                       <div  class="col-10"> 
@@ -141,7 +141,13 @@
                         @foreach (json_decode($post->images) as $image)   
                           <img class=" mx-auto image-fluid col-sm-4 col-md-3 mt-2 mb-1"
                             style="max-width: 20%; height: auto;" 
-                            src="storage/{{$image}}" 
+                            src="storage/{{$image}}"  
+                            alt="{{$post->id}}"
+                            @if ($post->image)
+                            onclick="postImgOnClick(event)"
+                            @else
+                            onclick="postImgOnClick2(event)"
+                            @endif
                           >  
                         @endforeach 
                     </div>
@@ -151,6 +157,46 @@
             </div>
             @endforeach
       </div> 
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+      </div>  
+
+      <script> 
+          const modal = document.getElementById("myModal");
+
+          function postImgOnClick(e){ 
+            var img_class=".img-thumbnail-"+e.target.alt;
+            $(img_class).attr("src", e.target.src);
+            postImgOnClick2(e);
+ 
+            // var curModalImg = document.getElementById("img01"); 
+            // var CurCaptionText = document.getElementById("caption");
+            // modal.style.display = "block";   
+            // curModalImg.src = e.target.src; 
+          }
+
+          function postImgOnClick2(e){  
+            // var img_class=".img-thumbnail-"+e.target.alt;
+            // $(img_class).attr("src", e.target.src);
+ 
+            var curModalImg = document.getElementById("img01"); 
+            var CurCaptionText = document.getElementById("caption");
+            modal.style.display = "block";   
+            curModalImg.src = e.target.src; 
+          }
+
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+
+          //When the user clicks on <span> (x), close the modal
+          span.onclick = function() { 
+            modal.style.display = "none";
+          }
+      </script>
         
       <div class="col-md-3 right-hand-col">
         <div>
@@ -206,6 +252,6 @@
           </div>  
         {{-- </div>  --}}
       </div>  
-    </div>
+    </div>  
   </div>
 @endsection

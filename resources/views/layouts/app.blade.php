@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -49,7 +50,8 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" 
-            style="background-color: #d8e7f2;">
+            style="display:flex; background-color: #d8e7f2;">
+            
             <div class="container"> 
                 <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
                 <a style="color:rgb(231, 72, 228); font-size: 30px;" 
@@ -58,14 +60,20 @@
                     {{-- {{ config('app.name', 'Laravel') }}  --}}
                     Eureka!
                 </a> 
+
                 <label class="one-line-text"
                     style="color:rgb(40, 7, 161); font-size: 18px;">
-                    A place to share anything interesting.</label>
-
-                    {{-- <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form> --}}
+                    A place to share anything interesting.
+                </label> 
+  
+                <form class="mx-5 ">
+                    <input class="user-search" type="text" 
+                        style="background-color: rgba(19, 243, 243, 0.849); border-radius:4px;"
+                        placeholder="Search for an user" aria-label="Search">
+                    <button class="btn btn-outline-success mx-auto" 
+                        type="submit">Search
+                    </button> 
+                </form>
 
                 <button class="navbar-toggler" 
                         type="button" 
@@ -75,7 +83,7 @@
                         aria-expanded="false" 
                         aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->

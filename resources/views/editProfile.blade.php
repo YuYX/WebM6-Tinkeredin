@@ -55,7 +55,7 @@
                                 accept="image/*">
 
                             <script type="text/javascript"> 
-                                function readURL(input){
+                                function readURL2(input){
                                     if(input.files && input.files[0]){
                                         var reader = new FileReader();
                                         reader.onload = function(e){
@@ -67,7 +67,7 @@
                                     }
                                 }
                                 $("#backpic").change(function(){  
-                                    readURL(this); 
+                                    readURL2(this); 
                                 });
                             </script>
 
