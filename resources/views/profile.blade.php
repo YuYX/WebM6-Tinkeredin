@@ -112,31 +112,41 @@
                     <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div>
                     <div class="col-4 mt-1 ">Created at: {{ $post->created_at }} </div>
                     <div class="col-4 mt-1 " >Updated at: {{ $post->updated_at }} </div>
-                    <h5>{{ $post->caption }}</h5>
-                    <h6>{{ $post->content }}</h6>
+
+                    <div class="row">
+                    @if ($post->image)
+                      <div class="col-2">
+                        <a href="/post/{{$post->id}}"> 
+                          <img class="img-thumbnail mx-auto mt-1" src="/storage/{{$post->image}}" class="w-100">
+                        </a>  
+                      </div> 
+                      <div  class="col-10"> 
+                        <h5>{{ $post->caption }}</h5>
+                        <h6>{{ $post->content }}</h6>
+                      </div>  
+                    @else
+                      <div   class="col-12"> 
+                        <h5>{{ $post->caption }}</h5>
+                        <h6>{{ $post->content }}</h6>
+                      </div>  
+                    @endif
+                  </div>
 
                     <div class="pt-3"> 
                         <a href="{{ route('post.edit', $post->id) }}">Edit</a>
                         <a href="{{ route('post.destroy', $post->id) }}">Delete</a> 
+                    </div> 
+
+                    <div class="container-fluid row" id="showing-images">
+                        @foreach (json_decode($post->images) as $image)   
+                          <img class=" mx-auto image-fluid col-sm-4 col-md-3 mt-2 mb-1"
+                            style="max-width: 20%; height: auto;" 
+                            src="storage/{{$image}}" 
+                          >  
+                        @endforeach 
                     </div>
 
-                    <hr class="solid" style="margin-left:20px; width:95%;">
-                    <a href="/post/{{$post->id}}">
-                        <img src="/storage/{{$post->image}}" class="w-100">
-                    </a> 
-
-                    <script type="text/javascript"> 
-                      
-                    </script>
-
-                    <div class="container-fluid row" id="showing-images">  
-                          {{-- @foreach (json_decode($post->images) as $image) { 
-                              <div class="col-lg-4 col-sm-12 col-md-6 mb-3">
-                                  <img src="storage/{{$image}}">
-                              </div>
-                          @endforeach  --}}
-                    </div>
-
+                    <hr class="solid" style="margin-left:20px; width:95%;">  
                 </div>  
             </div>
             @endforeach

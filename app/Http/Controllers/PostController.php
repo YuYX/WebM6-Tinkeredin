@@ -39,27 +39,35 @@ class PostController extends Controller
         $data = request()->validate([
             'caption' => 'required', 
             'content' => 'required',
-            'postpic' => ['required', 'image'], 
-            // 'postpics' => ['required', 'images'],
+            'postpic' => 'nullable', //['required', 'image'],
+            'postpics'=> 'nullable',
         ]);
 
         $user = AUth::user();
         $post = new Post();
-        $imagePath = request('postpic')->store('uploads', 'public');   
+
+        if($request->hasfile('postpic')){
+            $imagePath = request('postpic')->store('uploads', 'public');  
+            $post->image = $imagePath;
+        }
          
         if($request->hasfile('postpics')){
             foreach($request->file('postpics') as $postpics_image){
-                $postpics_name = $postpics_image->getClientOriginalName();
-                $postpics_image->move(public_path().'/images/', $postpics_name); 
+                // $postpics_name = $postpics_image->getClientOriginalName();
+                // $postpics_image->move(public_path().'/images/', $postpics_name); 
+                // $postpics_image->store('uploads', 'public');  
+                // $postpics_data[] = $postpics_name; 
+                $postpics_name = $postpics_image->store('uploads', 'public');  
                 $postpics_data[] = $postpics_name;
             }
+            
             $post->images = json_encode($postpics_data);  
-        }
+        } 
 
         $post->user_id = $user->id;
         $post->caption = request('caption');
         $post->content = request('content');
-        $post->image = $imagePath;
+        // $post->image = $imagePath;
         
         $saved = $post->save();
 
@@ -108,7 +116,7 @@ class PostController extends Controller
         $request->validate([
             'caption' => 'required',
             'content' => 'required',
-            'postpic' => ['required', 'image'],
+            'postpic' => 'nullable', //['required', 'image'],
             'postpics'=> 'nullable',
         ]);
 
@@ -116,7 +124,11 @@ class PostController extends Controller
         if(!empty($post)){
             $post->caption = request('caption');
             $post->content = request('content');
-            $imagePath = request('postpic')->store('uploads', 'public');  
+
+            if($request->hasfile('postpic')){
+                $imagePath = request('postpic')->store('uploads', 'public');  
+                $post->image = $imagePath; 
+            }
             
             if($request->hasfile('postpics')){
                 foreach($request->file('postpics') as $postpics_image){
@@ -131,7 +143,7 @@ class PostController extends Controller
                 $post->images = json_encode($postpics_data);  
             } 
 ;
-            $post->image = $imagePath;  
+            // $post->image = $imagePath;  
             $updated  = $post->update();
             if($updated){
                 return redirect('/profile');  

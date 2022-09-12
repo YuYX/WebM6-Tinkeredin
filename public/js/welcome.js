@@ -18,7 +18,7 @@ $(function(){
     // setTimeout(animated_effect_on_component(".text-gray-400", "animate__backInUp  animate__slower"), 2000); 
     //footer-icon text-gray-400
     delay_animated_effect().then(after_delay_animated_effect).then(final_animated_effect);
-});
+}); 
 
 function delay_animated_effect() {
     return new Promise(function(resolve, reject) { 
@@ -57,18 +57,18 @@ function animeJS_effect()
     window.human = false;
 
     var canvasEl = document.querySelector('.fireworks');
-    var ctx = canvasEl.getContext('2d');
+    var ctx = canvasEl.getContext('2d');  
     var numberOfParticules = 50;
     var pointerX = 0;
     var pointerY = 0;
     var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousemove';
     var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
-
+   
     function setCanvasSize() {
         canvasEl.width = window.innerWidth;
-        canvasEl.height = window.innerHeight/5;
+        canvasEl.height = window.innerHeight/2; 
         canvasEl.style.width = window.innerWidth + 'px';
-        canvasEl.style.height = window.innerHeight/5 + 'px';
+        canvasEl.style.height = window.innerHeight/2 + 'px';
        // canvasEl.getContext('2d').scale(2, 2);
     }
 
@@ -188,6 +188,6 @@ function animeJS_effect()
 
     autoClick();
     setCanvasSize();
-    window.addEventListener('resize', setCanvasSize, false);
+    window.addEventListener('resize', setCanvasSize, false);  
 }
  

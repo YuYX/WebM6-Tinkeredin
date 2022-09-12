@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('caption'); 
             $table->text('content');
-            $table->string('image'); 
-            $table->text('images')->nullable();;
+            $table->string('image')->nullable(); 
+            $table->text('images')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
