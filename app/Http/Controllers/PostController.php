@@ -38,6 +38,7 @@ class PostController extends Controller
     {
         $data = request()->validate([
             'caption' => 'required', 
+            'url'     => 'nullable',
             'content' => 'required',
             'postpic' => 'nullable', //['required', 'image'],
             'postpics'=> 'nullable',
@@ -52,11 +53,7 @@ class PostController extends Controller
         }
          
         if($request->hasfile('postpics')){
-            foreach($request->file('postpics') as $postpics_image){
-                // $postpics_name = $postpics_image->getClientOriginalName();
-                // $postpics_image->move(public_path().'/images/', $postpics_name); 
-                // $postpics_image->store('uploads', 'public');  
-                // $postpics_data[] = $postpics_name; 
+            foreach($request->file('postpics') as $postpics_image){ 
                 $postpics_name = $postpics_image->store('uploads', 'public');  
                 $postpics_data[] = $postpics_name;
             }
@@ -67,6 +64,11 @@ class PostController extends Controller
         $post->user_id = $user->id;
         $post->caption = request('caption');
         $post->content = request('content');
+
+        if($request->filled('url')) {
+            $post->url = request('url');
+        }
+         
         // $post->image = $imagePath;
         
         $saved = $post->save();

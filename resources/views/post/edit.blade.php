@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             {{-- <div class="col-4"></div> --}}
-            <div class="col-8">
+            <div class="col-4">
                 <img src="/storage/{{ $post->image }}" class="w-100" id="postpicPreview"> 
             </div>
             <div class="col-4"> 
@@ -69,6 +69,12 @@
                         <label for="caption">Caption</label>
                         <input class="form-control" type="text" name="caption" id="caption" 
                         value="{{ $post->caption }}">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="caption">URL</label>
+                        <input class="form-control" type="text" name="url" id="url" 
+                        value="{{ $post->url }}">
                     </div>
 
                     <div class="form-group row">

@@ -90,7 +90,7 @@
       <div class="col-md-8">   
             <div class="row mb-5">
                 <div class="card col-md-1">
-                    <img class="rounded-circle mx-auto  profile-image"  
+                    <img class="rounded-circle mx-auto mt-1 profile-image"  
                         width="40" height="40" 
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
                     src="/storage/{{ $profile->image }}" alt="">   
@@ -103,44 +103,47 @@
             </div>
 
             @foreach ($posts as $post) 
-            <div class="card mb-3" style="background-color:lightcyan; ">
-                <div class="mb-5 row pt-2" >
+            <div class="row mb-3" style="background-color:lightcyan; ">
+                <div class="mb-1 row pt-2" >
                     <div class="col-1" style="display:block;">
                       <img class="rounded-circle mx-auto" width="24" height="24"
                         src="/storage/{{ $profile->image }}"> 
                     </div>
                     <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div>
-                    <div class="col-4 mt-1 ">Created at: {{ $post->created_at }} </div>
-                    <div class="col-4 mt-1 " >Updated at: {{ $post->updated_at }} </div>
-
+                    <div class="col-4 mt-1 ">Created: {{ $post->created_at }} </div>
+                    <div class="col-4 mt-1 " >Updated: {{ $post->updated_at }} </div>
+                    <hr class="solid mt-1" style="margin-left: 10px; width:100%;">
                     <div class="row">
                     @if ($post->image)
                       <div class="col-2">
                         <a href="/post/{{$post->id}}"> 
-                          <img class="img-thumbnail-{{$post->id}} mx-auto mt-1" src="/storage/{{$post->image}}" class="w-100">
+                          <img class="img-thumbnail img-thumbnail-{{$post->id}} mx-auto mt-2" 
+                            src="/storage/{{$post->image}}" >
                         </a>  
                       </div> 
                       <div  class="col-10"> 
-                        <h5>{{ $post->caption }}</h5>
+                        {{-- <h5>{{ $post->caption }}</h5> --}}
+                        <a style="font-size:18px; text-decoration: none !important;" href="{{ $post->url }}">{{ $post->caption }}</a>
                         <h6>{{ $post->content }}</h6>
                       </div>  
                     @else
                       <div   class="col-12"> 
-                        <h5>{{ $post->caption }}</h5>
+                        {{-- <h5>{{ $post->caption }}</h5> --}}
+                        <a style="text-decoration: none !important;" href="{{ $post->url }}">{{ $post->caption }}</a>
                         <h6>{{ $post->content }}</h6>
                       </div>  
                     @endif
                   </div>
-
+                  
+                  {{-- <hr class="solid" style="margin-left:20px; width:95%;"> --}}
                     <div class="pt-3"> 
-                        <a href="{{ route('post.edit', $post->id) }}">Edit</a>
+                        <a class="p-2" href="{{ route('post.edit', $post->id) }}">Edit</a>
                         <a href="{{ route('post.destroy', $post->id) }}">Delete</a> 
                     </div> 
-
                     <div class="container-fluid row" id="showing-images">
                         @foreach (json_decode($post->images) as $image)   
-                          <img class=" mx-auto image-fluid col-sm-4 col-md-3 mt-2 mb-1"
-                            style="max-width: 20%; height: auto;" 
+                          <img class="image-fluid col-sm-4 col-md-3 mt-2 mb-1"
+                            style="width:20%; height:auto;" 
                             src="storage/{{$image}}"  
                             alt="{{$post->id}}"
                             @if ($post->image)
@@ -150,9 +153,7 @@
                             @endif
                           >  
                         @endforeach 
-                    </div>
-
-                    <hr class="solid" style="margin-left:20px; width:95%;">  
+                    </div> 
                 </div>  
             </div>
             @endforeach

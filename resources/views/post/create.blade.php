@@ -9,10 +9,10 @@
             <div class="col-4">
                 <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
-                    <div class="form-group row">
+                    <div class="form-group row"> 
                         <label for="postpic">Choose Image</label>
-                        <input type="file" name="postpic" id="postpic">
-
+                        <input type="file" name="postpic" id="postpic"> 
+                        <div class="container-fluid row" id="adding-featured-images"> 
                         <script type="text/javascript"> 
                             function readURL(input){
                                 if(input.files && input.files[0]){
@@ -21,7 +21,7 @@
                                         var curImgs = document.getElementsByClassName("adding-image");
                                         if(curImgs && curImgs.length<9){ //Limit to 9 pics.
                                             $('#postpicPreview').attr('src', e.target.result);
-                                            add_image2list(e.target.result, "adding-image","adding-images");                                           
+                                            add_image2list(e.target.result, "adding-image","adding-featured-images");                                           
                                         }
                                     }
                                     reader.readAsDataURL(input.files[0]); 
@@ -30,7 +30,7 @@
                             $("#postpic").change(function(){  
                                 readURL(this); 
                             });
-                        </script> 
+                        </script>  
                         
                         <label for="postpics">Choose Multiple Images</label>
                         <input type="file" name="postpics[]" id="postpics" multiple>
@@ -54,15 +54,19 @@
                             $("#postpics").change(function(){  
                                 readURLs(this); 
                             });
-                        </script> 
-
+                        </script>   
                     </div>
-                    <div class="container-fluid row" id="adding-images"> 
+                        <div class="container-fluid row" id="adding-images"> 
                     </div>
 
                     <div class="form-group row">
                         <label for="caption">Caption</label>
                         <input class="form-control" type="text" name="caption" id="caption">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="caption">URL</label>
+                        <input class="form-control" type="text" name="url" id="url">
                     </div>
 
                     <div class="form-group row">
