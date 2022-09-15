@@ -13,13 +13,62 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="profilepic">Profile picture</label>
-                        <input type="file" name="profilepic" id="profilepic">
+                        <div>
+                            <label for="profilepic">Profile picture</label>
+                            <input type="file" name="profilepic" id="profilepic">
+                        </div>
+
+                        <script type="text/javascript"> 
+                            function readURL(input){
+                                if(input.files && input.files[0]){
+                                    var reader = new FileReader();
+                                    reader.onload = function(e){
+                                        var ObjImg = document.getElementById("profile_image");
+                                        ObjImg.setAttribute("src", e.target.result)
+                                    }
+                                   
+                                    reader.readAsDataURL(input.files[0]); 
+                                }
+                            }
+                            $("#profilepic").change(function(){  
+                                readURL(this); 
+                            });
+                        </script>
+
+                        <div class="mb-2 mt-2"> 
+                            <img id="profile_image" src="" 
+                                style="width: 25%;">
+                        </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="backpic">Background picture</label>
-                        <input type="file" name="backpic" id="backpic">
+                        <div>
+                            <label for="backpic">Background picture</label>
+                            <input type="file" name="backpic" id="backpic">
+
+                            <script type="text/javascript"> 
+                                function readURL2(input){
+                                    if(input.files && input.files[0]){
+                                        var reader = new FileReader();
+                                        reader.onload = function(e){
+                                            var ObjImg = document.getElementById("profile_backimage");
+                                            ObjImg.setAttribute("src", e.target.result)
+                                        }
+                                       
+                                        reader.readAsDataURL(input.files[0]); 
+                                    }
+                                }
+                                $("#backpic").change(function(){  
+                                    readURL2(this); 
+                                });
+                            </script>
+
+                        </div>
+                        
+                        <div class="mb-2 mt-2">
+                            <img id="profile_backimage" src=""
+                                style="width: 40%;">
+                        </div>
                     </div>
 
                     <div class="form-group row">

@@ -19,13 +19,21 @@ $(function(){
       } 
     }
 
-    const form = document.querySelector(".weather-form form");
-    const input =document.querySelector(".weather-form input");
+    const form_user_search = document.querySelector(".user-search-form");
+    const input_user_search = document.querySelector(".user-search");
+    form_user_search.addEventListener("submit", e => {
+      e.preventDefault();
+      let inputKeyword = input_user_search.value; 
+       
+    });
+
+    const form_weather = document.querySelector(".weather-form form");
+    const input_weather=document.querySelector(".weather-form input");
     const msg = document.querySelector(".weather-form .msg");
     const list = document.querySelector(".cities");
-    form.addEventListener("submit", e => {
+    form_weather.addEventListener("submit", e => {
         e.preventDefault();
-        let inputVal = input.value;   
+        let inputVal = input_weather.value;   
 
         //check if there's already a city
         const listItems = list.querySelectorAll(".weather-form .city");
@@ -163,6 +171,68 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   const objContainer = document.querySelector("#"+imageContainerID);
   objContainer.appendChild(objImg); 
 }
+
+// function postImgOnClick(e){ 
+//   var img_class=".img-thumbnail-"+e.target.alt;
+//   $(img_class).attr("src", e.target.src);
+//   postImgOnClick2(e); 
+// }  
+
+// function postImgOnClick2(e){ 
+//   const modal = $('#myModal');  
+//   var curModalImg = $("#img01"); 
+//   var CurCaptionText = $(".caption");
+//   modal.style.display = "block";   
+//   curModalImg.src = e.target.src;  
+// } 
+
+// function postImgOnClick(e){ 
+//   var img_class=".img-thumbnail-"+e.target.alt;
+//   var featuredImg = document.getElementsByClassName(img_class);
+//   featuredImg.src = e.target.src;
+//   postImgOnClick2(e); 
+// }
+
+function postImgOnClick2(e){   
+  const modal = document.getElementById('myModal');
+  var curModalImg = document.querySelector('.modal-content');
+  if(curModalImg == null){
+    curModalImg = document.createElement('img'); 
+    curModalImg.setAttribute('class','modal-content');
+  }
+  curModalImg.src = e.target.src; 
+  
+  var CurCaptionText = document.getElementById("caption");
+  modal.style.display = "block";   
+  
+  modal.appendChild(curModalImg);
+} 
+
+// function postImageOnClock_Carousel(imgArray){    
+//   const modal = document.getElementById('myModal');
+//   const olContainer = document.getElementsByClassName('carousel-indicators');
+//   const divContainer = document.getElementsByClassName('carousel-inner'); 
+//   for(let i=0; i<imgArray.length; i++){
+//     var tmpLi = document.createElement('li');
+//     tmpLi.setAttribute('data-target', '#carouselExampleIndicators');
+//     tmpLi.setAttribute('data-slide-to', i);
+//     if(i==0) tmpLi.setAttribute('class', 'active');
+//     olContainer.appendChild(tmpLi); 
+
+//     var divItem = document.createElement('div');
+//     divItem.setAttribute('class', 'carousel-item');
+//     if(i==0) divItem.classList.add('active');
+//     var tmpImg = document.createElement('img');
+//     tmpImg.classList.add('modal-content');
+//     tmpImg.classList.add('d-block');
+//     tmpImg.classList.add('w-100');
+//     tmpImg.setAttribute('src',"/storage/"+imgArray[i]);
+//     divItem.appendChild(tmpImg);
+//     divContainer.appendChild(divItem);
+//   }
+//   modal.style.display = "block";   
+// }
+
 
 
 function apply_offcanvas_location(location)

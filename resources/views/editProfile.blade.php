@@ -12,8 +12,8 @@
                     <div class="form-group row">
                         <label for="description">Description</label>
                         <input class="form-control" type="text" name="description" 
-                        id="description" 
-                        value = "{{$profile->description}}"> 
+                            id="description" 
+                            value = "{{$profile->description}}"> 
                     </div>
 
                     <div class="form-group row">
@@ -39,7 +39,6 @@
                                     readURL(this); 
                                 });
                             </script>
-
                         </div>
                         <div class="mb-2 mt-2"> 
                             <img id="profile_image" src="/storage/{{$profile->image}}" 
@@ -70,7 +69,6 @@
                                     readURL2(this); 
                                 });
                             </script>
-
                         </div>
                         <div class="mb-2 mt-2">
                             <img id="profile_backimage" src="/storage/{{$profile->back_image}}"

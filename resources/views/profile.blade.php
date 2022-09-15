@@ -89,21 +89,21 @@
 
       <div class="col-md-8">   
             <div class="row mb-5">
-                <div class="card col-md-1">
-                    <img class="rounded-circle mx-auto mt-1 profile-image"  
+                <div class="card profile-image-container col-md-1">
+                    <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
                         width="40" height="40" 
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
                     src="/storage/{{ $profile->image }}" alt="">   
                 </div>
                 <div class="card col-md-11">
                     <div class="card-body"> 
-                        <a class="nav-link" href="{{ route('post.create')}}">Start a post</a>
+                        <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
                     </div> 
                 </div> 
-            </div>
+            </div> 
 
             @foreach ($posts as $post) 
-            <div class="row mb-3" style="background-color:lightcyan; ">
+            <div class="row mb-3" style="background-color:lightcyan; border-radius:8px;">
                 <div class="mb-1 row pt-2" >
                     <div class="col-1" style="display:block;">
                       <img class="rounded-circle mx-auto" width="24" height="24"
@@ -147,9 +147,10 @@
                             src="storage/{{$image}}"  
                             alt="{{$post->id}}"
                             @if ($post->image)
-                            onclick="postImgOnClick(event)"
+                              {{-- onclick="postImgOnClick(event)" --}}
+                              onclick="postImageOnClock_Carousel({{$post->images}}, {{$loop->index}})"
                             @else
-                            onclick="postImgOnClick2(event)"
+                              onclick="postImgOnClick2(event)"
                             @endif
                           >  
                         @endforeach 
@@ -159,12 +160,57 @@
             @endforeach
       </div> 
 
+      {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> --}}
+
       <!-- The Modal -->
-      <div id="myModal" class="modal">
+      <div id="myModal" class="modal"> 
         <span class="close">&times;</span>
-        <img class="modal-content" id="img01">
-        <div id="caption"></div>
-      </div>  
+  
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+          {{-- <div class="carousel-indicators"></div>
+          <div class="carousel-inner"></div> --}}
+          <button class="carousel-control-prev" 
+            type="button" data-bs-target="#carouselExampleIndicators"  
+            data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Prev</span>
+          </button>
+          <button class="carousel-control-next" 
+            type="button" data-bs-target="#carouselExampleIndicators" 
+            data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
+        </div>        
+
+        {{-- <img class="modal-content" id="img01"> --}}
+        {{-- <div id="caption"></div> --}}
+      </div>   
 
       <script> 
           const modal = document.getElementById("myModal");
@@ -172,23 +218,65 @@
           function postImgOnClick(e){ 
             var img_class=".img-thumbnail-"+e.target.alt;
             $(img_class).attr("src", e.target.src);
-            postImgOnClick2(e);
- 
-            // var curModalImg = document.getElementById("img01"); 
-            // var CurCaptionText = document.getElementById("caption");
-            // modal.style.display = "block";   
-            // curModalImg.src = e.target.src; 
+            postImgOnClick2(e); 
           }
 
-          function postImgOnClick2(e){  
-            // var img_class=".img-thumbnail-"+e.target.alt;
-            // $(img_class).attr("src", e.target.src);
+          function postImageOnClock_Carousel(imgArray,index){    
+            const outerContainer = document.querySelector('#carouselExampleIndicators');
+
+            var divIContainer = document.querySelector('.carousel-indicators');
+            if(divIContainer != null) divIContainer.remove();
+            divIContainer = document.createElement('div');//('carousel-indicators');
+            divIContainer.setAttribute('class', 'carousel-indicators');
+
+            var divContainer = document.querySelector('.carousel-inner');
+            if(divContainer != null) divContainer.remove();
+            divContainer = document.createElement('div'); //('carousel-inner');   
+            divContainer.setAttribute('class', 'carousel-inner');  
  
-            var curModalImg = document.getElementById("img01"); 
-            var CurCaptionText = document.getElementById("caption");
+            for(let i=0; i<imgArray.length; i++){
+              var tmpBtn = document.createElement('button');
+              tmpBtn.setAttribute('type', 'button');
+              tmpBtn.setAttribute('data-bs-target', '#carouselExampleIndicators');
+              tmpBtn.setAttribute('data-bs-slide-to', i);  
+              if(i==index) {
+                tmpBtn.setAttribute('class', 'active'); 
+                tmpBtn.setAttribute('aria-current', 'true');  
+              }
+              divIContainer.appendChild(tmpBtn);   
+
+              var divItem = document.createElement('div');
+              divItem.setAttribute('class', 'carousel-item');
+              if(i==index) divItem.classList.add('active');
+              var tmpImg = document.createElement('img');
+              tmpImg.classList.add('modal-content');
+              tmpImg.classList.add('d-block');
+              tmpImg.classList.add('w-100');
+              tmpImg.setAttribute('src',"/storage/"+imgArray[i]);
+              divItem.appendChild(tmpImg); 
+              divContainer.appendChild(divItem);                  
+
+              outerContainer.appendChild(divIContainer);
+              outerContainer.appendChild(divContainer);             
+
+            }  
             modal.style.display = "block";   
-            curModalImg.src = e.target.src; 
           }
+
+            // var curModalImg = document.getElementById("img01"); 
+          // function postImgOnClick2(e){   
+          //   var curModalImg = document.querySelector('.modal-content');
+          //   if(curModalImg == null){
+          //     curModalImg = document.createElement('img'); 
+          //     curModalImg.setAttribute('class','modal-content');
+          //   }
+          //   curModalImg.src = e.target.src; 
+            
+          //   var CurCaptionText = document.getElementById("caption");
+          //   modal.style.display = "block";   
+            
+          //   modal.appendChild(curModalImg);
+          // }
 
           // Get the <span> element that closes the modal
           var span = document.getElementsByClassName("close")[0];
