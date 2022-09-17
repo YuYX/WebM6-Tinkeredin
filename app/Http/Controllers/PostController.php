@@ -144,7 +144,7 @@ class PostController extends Controller
                 
                 $post->images = json_encode($postpics_data);  
             } 
-;
+// ;
             // $post->image = $imagePath;  
             $updated  = $post->update();
             if($updated){

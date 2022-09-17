@@ -142,7 +142,7 @@
                     </div> 
                     <div class="container-fluid row" id="showing-images">
                         @foreach (json_decode($post->images) as $image)   
-                          <img class="image-fluid col-sm-4 col-md-3 mt-2 mb-1"
+                          <img class="post-preview-image image-fluid col-sm-4 col-md-3 mt-2 mb-1"
                             style="width:20%; height:auto;" 
                             src="storage/{{$image}}"  
                             alt="{{$post->id}}"
@@ -158,34 +158,7 @@
                 </div>  
             </div>
             @endforeach
-      </div> 
-
-      {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div> --}}
+      </div>  
 
       <!-- The Modal -->
       <div id="myModal" class="modal"> 
@@ -194,7 +167,7 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
           {{-- <div class="carousel-indicators"></div>
           <div class="carousel-inner"></div> --}}
-          <button class="carousel-control-prev" 
+          {{-- <button class="carousel-control-prev" 
             type="button" data-bs-target="#carouselExampleIndicators"  
             data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -205,7 +178,7 @@
             data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
-          </button>
+          </button> --}}
         </div>        
 
         {{-- <img class="modal-content" id="img01"> --}}
@@ -221,25 +194,26 @@
             postImgOnClick2(e); 
           }
 
-          function postImageOnClock_Carousel(imgArray,index){    
-            const outerContainer = document.querySelector('#carouselExampleIndicators');
+          function postImageOnClock_Carousel(imgArray,idx){    
+            const outerContainer = document.querySelector('#carouselExampleIndicators'); 
 
             var divIContainer = document.querySelector('.carousel-indicators');
             if(divIContainer != null) divIContainer.remove();
             divIContainer = document.createElement('div');//('carousel-indicators');
             divIContainer.setAttribute('class', 'carousel-indicators');
+            // divIContainer.setAttribute('class', 'carousel-preview'); 
 
             var divContainer = document.querySelector('.carousel-inner');
             if(divContainer != null) divContainer.remove();
             divContainer = document.createElement('div'); //('carousel-inner');   
-            divContainer.setAttribute('class', 'carousel-inner');  
+            divContainer.setAttribute('class', 'carousel-inner');   
  
             for(let i=0; i<imgArray.length; i++){
               var tmpBtn = document.createElement('button');
               tmpBtn.setAttribute('type', 'button');
               tmpBtn.setAttribute('data-bs-target', '#carouselExampleIndicators');
               tmpBtn.setAttribute('data-bs-slide-to', i);  
-              if(i==index) {
+              if(i==idx) {
                 tmpBtn.setAttribute('class', 'active'); 
                 tmpBtn.setAttribute('aria-current', 'true');  
               }
@@ -247,19 +221,46 @@
 
               var divItem = document.createElement('div');
               divItem.setAttribute('class', 'carousel-item');
-              if(i==index) divItem.classList.add('active');
+              if(i==idx) divItem.classList.add('active');
               var tmpImg = document.createElement('img');
               tmpImg.classList.add('modal-content');
               tmpImg.classList.add('d-block');
-              tmpImg.classList.add('w-100');
+              tmpImg.classList.add('w-100'); 
               tmpImg.setAttribute('src',"/storage/"+imgArray[i]);
               divItem.appendChild(tmpImg); 
-              divContainer.appendChild(divItem);                  
+              divContainer.appendChild(divItem);      
+              
+              var btnSpan;
+              var btnPrev = document.querySelector('.carousel-control-prev');
+              if(btnPrev != null) btnPrev.remove();
+              btnPrev = document.createElement('button'); 
+              btnPrev.setAttribute('class','carousel-control-prev'); 
+              btnPrev.setAttribute('type','button');
+              btnPrev.setAttribute('data-bs-target','#carouselExampleIndicators');
+              btnPrev.setAttribute('data-bs-slide','prev');
+              btnSpan = document.createElement('span');
+              btnSpan.setAttribute('class', 'carousel-control-prev-icon');
+              btnSpan.setAttribute('aria-hidden', 'true');
+              btnPrev.appendChild(btnSpan);
+
+              var btnNext = document.querySelector('.carousel-control-next');
+              if(btnNext != null) btnNext.remove();
+              btnNext = document.createElement('button'); 
+              btnNext.setAttribute('class','carousel-control-next');
+              btnNext.setAttribute('type','button');
+              btnNext.setAttribute('data-bs-target','#carouselExampleIndicators');
+              btnNext.setAttribute('data-bs-slide','next');
+              btnSpan = document.createElement('span');
+              btnSpan.setAttribute('class', 'carousel-control-next-icon');
+              btnSpan.setAttribute('aria-hidden', 'true'); 
+              btnNext.appendChild(btnSpan); 
 
               outerContainer.appendChild(divIContainer);
-              outerContainer.appendChild(divContainer);             
+              outerContainer.appendChild(divContainer); 
+              outerContainer.appendChild(btnPrev);
+              outerContainer.appendChild(btnNext);          
 
-            }  
+            }   
             modal.style.display = "block";   
           }
 
@@ -282,8 +283,8 @@
           var span = document.getElementsByClassName("close")[0];
 
           //When the user clicks on <span> (x), close the modal
-          span.onclick = function() { 
-            modal.style.display = "none";
+          span.onclick = function() {  
+            modal.style.display = "none"; 
           }
       </script>
         
@@ -327,7 +328,7 @@
                 <button type="submit">SUBMIT</button>
                 <span class="msg"></span>
               </form>
-            </div>  
+            </div>    
 
             <div class="weather-details" style="position: sticky;">
               <ul class="cities"></ul> 

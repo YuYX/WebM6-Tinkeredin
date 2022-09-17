@@ -15,17 +15,16 @@ $(function(){
     if(checkCookie("weather_city")){
       var w_city = getCookie("weather_city"); 
       if(w_city != ""){
-        fetch_weather_info(w_city,apiKey);
+        fetch_weather_info(w_city,apiKey);  
       } 
     }
 
-    const form_user_search = document.querySelector(".user-search-form");
-    const input_user_search = document.querySelector(".user-search");
-    form_user_search.addEventListener("submit", e => {
-      e.preventDefault();
-      let inputKeyword = input_user_search.value; 
-       
-    });
+    // const form_user_search = document.querySelector(".user-search-form");
+    // const input_user_search = document.querySelector(".user-search");
+    // form_user_search.addEventListener("submit", e => {
+    //   e.preventDefault();
+    //   let inputKeyword = input_user_search.value;  
+    // });
 
     const form_weather = document.querySelector(".weather-form form");
     const input_weather=document.querySelector(".weather-form input");
@@ -91,8 +90,7 @@ $(window).on("load", function(){
   if (localStorage.scrollTop != 'undefined') {  
     //document.getElementById("r-location").innerHTML = localStorage.scrollTop;  
     window.scroll(0, localStorage.scrollTop); 
-};
-
+  }; 
 });
 
 function fetch_weather_info(inputVal, apiKey){
@@ -170,28 +168,7 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
 
   const objContainer = document.querySelector("#"+imageContainerID);
   objContainer.appendChild(objImg); 
-}
-
-// function postImgOnClick(e){ 
-//   var img_class=".img-thumbnail-"+e.target.alt;
-//   $(img_class).attr("src", e.target.src);
-//   postImgOnClick2(e); 
-// }  
-
-// function postImgOnClick2(e){ 
-//   const modal = $('#myModal');  
-//   var curModalImg = $("#img01"); 
-//   var CurCaptionText = $(".caption");
-//   modal.style.display = "block";   
-//   curModalImg.src = e.target.src;  
-// } 
-
-// function postImgOnClick(e){ 
-//   var img_class=".img-thumbnail-"+e.target.alt;
-//   var featuredImg = document.getElementsByClassName(img_class);
-//   featuredImg.src = e.target.src;
-//   postImgOnClick2(e); 
-// }
+} 
 
 function postImgOnClick2(e){   
   const modal = document.getElementById('myModal');
@@ -202,38 +179,10 @@ function postImgOnClick2(e){
   }
   curModalImg.src = e.target.src; 
   
-  var CurCaptionText = document.getElementById("caption");
-  modal.style.display = "block";   
-  
+  // var CurCaptionText = document.getElementById("caption");
+  modal.style.display = "block";    
   modal.appendChild(curModalImg);
-} 
-
-// function postImageOnClock_Carousel(imgArray){    
-//   const modal = document.getElementById('myModal');
-//   const olContainer = document.getElementsByClassName('carousel-indicators');
-//   const divContainer = document.getElementsByClassName('carousel-inner'); 
-//   for(let i=0; i<imgArray.length; i++){
-//     var tmpLi = document.createElement('li');
-//     tmpLi.setAttribute('data-target', '#carouselExampleIndicators');
-//     tmpLi.setAttribute('data-slide-to', i);
-//     if(i==0) tmpLi.setAttribute('class', 'active');
-//     olContainer.appendChild(tmpLi); 
-
-//     var divItem = document.createElement('div');
-//     divItem.setAttribute('class', 'carousel-item');
-//     if(i==0) divItem.classList.add('active');
-//     var tmpImg = document.createElement('img');
-//     tmpImg.classList.add('modal-content');
-//     tmpImg.classList.add('d-block');
-//     tmpImg.classList.add('w-100');
-//     tmpImg.setAttribute('src',"/storage/"+imgArray[i]);
-//     divItem.appendChild(tmpImg);
-//     divContainer.appendChild(divItem);
-//   }
-//   modal.style.display = "block";   
-// }
-
-
+}   
 
 function apply_offcanvas_location(location)
 {
