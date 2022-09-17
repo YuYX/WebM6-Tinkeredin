@@ -6,7 +6,7 @@
             <div class="col-4"> 
                 <img src="" class="w-100" id="postpicPreview">  
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="form-group row"> 
@@ -71,7 +71,9 @@
 
                     <div class="form-group row">
                         <label for="content">Content</label>
-                        <input class="form-control" type="text" name="content" id="content">
+                        {{-- <input class="form-control" type="text" name="content" id="content"> --}}
+                        <textarea class="form-control" type="text" name="content" id="content" rows="6">
+                        </textarea>
                     </div>
 
                     <div class="form-group row">
@@ -79,7 +81,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-4"></div>
+            <div class="col-2"></div>
         </div>
     </div>
 @endsection

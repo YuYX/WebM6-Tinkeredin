@@ -7,7 +7,7 @@
             <div class="col-4">
                 <img src="/storage/{{ $post->image }}" class="w-100" id="postpicPreview"> 
             </div>
-            <div class="col-4"> 
+            <div class="col-6"> 
                 <div>Updating Post ID: <strong>{{$post->id}}</strong></div>
                 <form action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data" method="POST">
                     @csrf
@@ -79,8 +79,12 @@
 
                     <div class="form-group row">
                         <label for="content">Content</label>
-                        <input class="form-control" type="text" name="content" id="content" 
-                        value="{{ $post->content }}">
+                        {{-- <input class="form-control" type="text" name="content" id="content" 
+                        value="{{ $post->content }}"> --}}
+                        <textarea class="form-control" type="text" 
+                            name="content" id="content" rows="6">
+                            "{{ $post->content }}"
+                        </textarea>
                     </div>
 
                     <div class="form-group row">
@@ -94,7 +98,7 @@
                 </form>
                 
             </div>
-            <div class="col-4"></div>
+            <div class="col-2"></div>
         </div>
     </div>
 @endsection

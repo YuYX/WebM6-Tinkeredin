@@ -102,7 +102,13 @@
                 </div> 
             </div> 
 
+            {{-- Only show the first 10 posts. --}}
+            {{-- How to implement that it can automatically load the subsequent 10 posts
+               once user scrolled to the bottom?  --}}
+            <?php $no_post = 0; ?>
             @foreach ($posts as $post) 
+            <?php $no_post = $no_post+1; ?>
+            @if($no_post<=10)
             <div class="row mb-3" style="background-color:lightcyan; border-radius:8px;">
                 <div class="mb-1 row pt-2" >
                     <div class="col-1" style="display:block;">
@@ -157,6 +163,7 @@
                     </div> 
                 </div>  
             </div>
+            @endif
             @endforeach
       </div>  
 
