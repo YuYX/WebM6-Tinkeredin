@@ -108,7 +108,7 @@
             <?php $no_post = 0; ?>
             @foreach ($posts as $post) 
             <?php $no_post = $no_post+1; ?>
-            @if($no_post<=10)
+            @if($no_post<=20)
             <div class="row mb-3" style="background-color:lightcyan; border-radius:8px;">
                 <div class="mb-1 row pt-2" >
                     <div class="col-1" style="display:block;">

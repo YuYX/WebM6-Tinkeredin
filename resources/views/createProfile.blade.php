@@ -44,7 +44,7 @@
                     <div class="form-group row">
                         <div>
                             <label for="backpic">Background picture</label>
-                            <input type="file" name="backpic" id="backpic">
+                            <input class="mt-2" type="file" name="backpic" id="backpic">
 
                             <script type="text/javascript"> 
                                 function readURL2(input){

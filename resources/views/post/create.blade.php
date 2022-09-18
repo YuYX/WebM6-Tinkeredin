@@ -72,8 +72,8 @@
                     <div class="form-group row">
                         <label for="content">Content</label>
                         {{-- <input class="form-control" type="text" name="content" id="content"> --}}
-                        <textarea class="form-control" type="text" name="content" id="content" rows="6">
-                        </textarea>
+                        <textarea class="form-control" 
+                            type="text" name="content" id="content" rows="6"></textarea>
                     </div>
 
                     <div class="form-group row">

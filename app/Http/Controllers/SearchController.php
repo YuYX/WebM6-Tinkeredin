@@ -16,7 +16,8 @@ class SearchController extends Controller
         $users = User::query()
                     ->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%")
-                    ->get();        
+                    ->join('profiles', 'users.id', '=', 'profiles.user_id') 
+                    ->get();    
         return view('search', compact('users'));
     }
 }

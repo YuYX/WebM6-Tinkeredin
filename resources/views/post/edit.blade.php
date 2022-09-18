@@ -82,9 +82,7 @@
                         {{-- <input class="form-control" type="text" name="content" id="content" 
                         value="{{ $post->content }}"> --}}
                         <textarea class="form-control" type="text" 
-                            name="content" id="content" rows="6">
-                            "{{ $post->content }}"
-                        </textarea>
+                            name="content" id="content" rows="6">"{{ $post->content }}"</textarea>
                     </div>
 
                     <div class="form-group row">
