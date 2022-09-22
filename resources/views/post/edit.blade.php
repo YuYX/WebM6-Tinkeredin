@@ -52,7 +52,8 @@
                                             }
                                         }
                                         reader.readAsDataURL(input.files[i]); 
-                                    }
+                                    } 
+                                    window.scroll(0, document.body.scrollHeight);    
                                 }
                             }
                             $("#postpics").change(function(){  

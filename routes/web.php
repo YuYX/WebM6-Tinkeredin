@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// Route::view('/', 'welcome');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -43,5 +44,8 @@ Route::resource('post', App\Http\Controllers\PostController::class);
 
 Route::get('/search', 
 [App\Http\Controllers\SearchController::class,'search'])->name('search');
+
+Route::get('/relation/{follower_id}/{following_id',
+[App\Http\Controllers\Auth\RegisterController::class, 'index']);
 
  

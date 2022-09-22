@@ -24,24 +24,46 @@
             </div>  --}}
 
             
-            <h3 style="color:blueviolet;">Results of search:</h3>  
+            <h3 style="color:blueviolet;"><span><strong>{{ $numResult }}</strong></span> results found in searching for "{{ $search_keyword }}":</h3>  
             @foreach ($users as $user)  
             <div class="row mb-3" style="background-color:lightcyan; border-radius:8px;">
                 <div class="mb-1 row pt-2" >
                     <div class="col-1" style="display:block;">
-                      <img class="rounded-circle mx-auto" width="40" height="40"
+                      <img class="search-profile-image rounded-circle mx-auto" width="40" height="40" 
                         src="/storage/{{ $user->image }}"> 
-                    </div>
+                    </div> 
+
                     <div class="col-2 text-danger "> {{ $user->name }} </div>
                     <div class="col-6"> {{ $user->email }} </div>
                     <div class="col-2" > 
-                        <button class="btn btn-outline-primary">Follow</button>
+                        <?php
+                            
+                            switch(strtolower($user->status)) {
+                                case 'pending':
+                                    $btnText = "Withdraw";
+                                    $InfoText = "Request Pending";
+                                    break;
+                                case 'following':
+                                    $btnText = "Unfollow";
+                                    $InfoText = "Following";
+                                    break;
+                                default:
+                                    $btnText = "Follow";
+                                    $InfoText = "Not Following";
+                                    break;
+                            }
+                        ?> 
+                        <button class="btn btn-outline-primary">{{$btnText}}</button> 
                     </div>
                     <div class="col-1" >
                         <button class="btn btn-primary mx-0">Posts</button> 
                     </div> 
                 </div>  
-                <div class="text-primary">{{ $user->description }}</div>
+
+                <div class="mb-1 row pt-2" >
+                    <div class="col-9 text-primary">{{ $user->description }}</div>
+                    <div class="col-1 text-secondary text-nowrap ">{{ $InfoText }}</div>
+                </div>
                 <hr class="solid mt-1" style="margin-left: 10px; width:100%;">  
             </div>
             @endforeach

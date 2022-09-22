@@ -81,17 +81,20 @@ $(function(){
     });
 });  
 
-$(window).on("scroll", function() {
+$(window).on("scroll", function() { 
+  // if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){}
+
   localStorage.setItem("scrollTop", window.scrollY.toFixed());
   document.getElementById("x-location").innerHTML = window.scrollY.toFixed(); 
+
 });
 
 $(window).on("load", function(){ 
   if (localStorage.scrollTop != 'undefined') {  
     //document.getElementById("r-location").innerHTML = localStorage.scrollTop;  
-    window.scroll(0, localStorage.scrollTop); 
+    
   }; 
-});
+}); 
 
 function fetch_weather_info(inputVal, apiKey){
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
@@ -145,6 +148,7 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   objImg.classList.add("col-sm-6") ;
   objImg.classList.add("col-md-4") ; 
   objImg.style.height="auto"; //To keep images' aspect ratio.
+  objImg.style['object-fit'] = "contain";
   objImg.style.opacity=0.7;
   objImg.setAttribute("src",imageSrc); 
 
@@ -168,7 +172,7 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
 
   const objContainer = document.querySelector("#"+imageContainerID);
   objContainer.appendChild(objImg); 
-} 
+}  
 
 function postImgOnClick2(e){   
   const modal = document.getElementById('myModal');

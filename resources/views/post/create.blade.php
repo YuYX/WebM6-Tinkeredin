@@ -48,12 +48,12 @@
                                             }
                                         }
                                         reader.readAsDataURL(input.files[i]); 
-                                    }
+                                    } 
                                 }
                             }
                             $("#postpics").change(function(){  
                                 readURLs(this); 
-                            });
+                            }); 
                         </script>   
                     </div>
                         <div class="container-fluid row" id="adding-images"> 

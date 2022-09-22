@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('follower_id');
             $table->unsignedBigInteger('following_id');
             $table->string('status');
+            $table->boolean('block');
             $table->timestamps();
 
             $table->foreign('follower_id')->references('id')->on('users');

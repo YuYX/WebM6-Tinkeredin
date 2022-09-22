@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
-use App\Models\Post;
+use App\Models\Post; 
+use App\Models\Relation;
 use Illuminate\Console\View\Components\Alert;
 
 class ProfileController extends Controller
@@ -60,15 +61,35 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-        $profile = Profile::where('user_id', $user->id)->first();
-        $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $user = Auth::user(); 
+        $profile = Profile::where('user_id', $user->id)->first(); 
+
+        // $posts = Post::where('user_id', $user->id)    
+        //             ->orderBy('posts.created_at', 'desc')
+        //             ->get();
+
+        $posts = Post::whereIn('user_id', function($query) use ($user){
+                        $query->select('following_id')
+                                ->from('relations')
+                                ->where([ ['follower_id', $user->id],
+                                          ['status', '=', 'Following']
+                                        ] );
+                        })
+                        ->orWhere('user_id', $user->id)
+                        ->orderBy('posts.created_at', 'desc')
+                        ->get();
+
+        $numFollowings = Relation::where('following_id', $user->id)->count();
+        $numFollowers  = Relation::where('follower_id', $user->id)->count();
+        
         $numPosts = Post::where('user_id',$user->id)->count();
         return view('profile', [
             'user' => Auth::user(),
             'profile' => $profile,
             'posts' => $posts,
             'numPosts' => $numPosts,
+            'numFollowings' => $numFollowings,
+            'numFollowers' => $numFollowers,
         ]);
     }
     /*public function index()
