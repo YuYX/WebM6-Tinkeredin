@@ -8,33 +8,23 @@
         
       </div>
 
-      <div class="col-md-10">   
-            {{-- <div class="row mb-5">
-                <div class="card profile-image-container col-md-1">
-                    <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
-                        width="40" height="40" 
-                        data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
-                    src="/storage/{{ $profile->image }}" alt="">   
-                </div>
-                <div class="card col-md-11">
-                    <div class="card-body"> 
-                        <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
-                    </div> 
-                </div> 
-            </div>  --}}
-
-            
+      <div class="col-md-10">    
             <h3 style="color:blueviolet;"><span><strong>{{ $numResult }}</strong></span> results found in searching for "{{ $search_keyword }}":</h3>  
-            @foreach ($users as $user)  
+            @foreach ($users as $user)   
+            @if ($user->following_id == null or $user->following_id == $login_user->id) 
             <div class="row mb-3" style="background-color:lightcyan; border-radius:8px;">
                 <div class="mb-1 row pt-2" >
-                    <div class="col-1" style="display:block;">
-                      <img class="search-profile-image rounded-circle mx-auto" width="40" height="40" 
+                    <div class="col-2" style="display:block;">
+                      <img class="search-profile-image rounded-circle mx-auto" 
+                        {{-- width="40" height="40"  --}}
+                        style="height:40px; width:auto; max-width:40px; display:inline-block;"
                         src="/storage/{{ $user->image }}"> 
+                      <span class="text-danger">{{ $user->name }}</span>
                     </div> 
 
-                    <div class="col-2 text-danger "> {{ $user->name }} </div>
-                    <div class="col-6"> {{ $user->email }} </div>
+                    {{-- <div class="col-2 text-danger "> {{ $user->name }} </div> --}}
+                    <div class="col-5"> {{ $user->email }} </div> 
+                    <div class="col-2"></div>
                     <div class="col-2" > 
                         <?php
                             
@@ -53,10 +43,10 @@
                                     break;
                             }
                         ?> 
-                        <button class="btn btn-outline-primary">{{$btnText}}</button> 
+                        <button class="follow-operation btn btn-outline-primary">{{$btnText}}</button> 
                     </div>
                     <div class="col-1" >
-                        <button class="btn btn-primary mx-0">Posts</button> 
+                        <button class="block-operation btn btn-danger mx-0">Block</button> 
                     </div> 
                 </div>  
 
@@ -66,6 +56,7 @@
                 </div>
                 <hr class="solid mt-1" style="margin-left: 10px; width:100%;">  
             </div>
+            @endif
             @endforeach
       </div>    
 

@@ -11,6 +11,7 @@ use Illuminate\Console\View\Components\Alert;
 
 class ProfileController extends Controller
 {
+    //--------------------------------------------------------------------------
     public function edit()
     { 
         $user = Auth::user();
@@ -20,7 +21,7 @@ class ProfileController extends Controller
             'profile' => $profile,
         ]);
     }
-
+    //--------------------------------------------------------------------------
     public function postEdit($id)
     {
        $data = request()->validate([
@@ -58,7 +59,7 @@ class ProfileController extends Controller
            return redirect('/profile');
        }
     }
-
+    //--------------------------------------------------------------------------
     public function index()
     {
         $user = Auth::user(); 
@@ -68,14 +69,17 @@ class ProfileController extends Controller
         //             ->orderBy('posts.created_at', 'desc')
         //             ->get();
 
-        $posts = Post::whereIn('user_id', function($query) use ($user){
+        $posts = Post::leftJoin('profiles', 'posts.user_id', '=', 'profiles.user_id')   
+                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                        ->select('profiles.image as profile_image','posts.*', 'users.name as user_name')
+                        ->whereIn('posts.user_id', function($query) use ($user){
                         $query->select('following_id')
                                 ->from('relations')
                                 ->where([ ['follower_id', $user->id],
                                           ['status', '=', 'Following']
                                         ] );
                         })
-                        ->orWhere('user_id', $user->id)
+                        ->orWhere('posts.user_id', $user->id)  
                         ->orderBy('posts.created_at', 'desc')
                         ->get();
 
@@ -92,6 +96,7 @@ class ProfileController extends Controller
             'numFollowers' => $numFollowers,
         ]);
     }
+    //--------------------------------------------------------------------------
     /*public function index()
     {
         $user = Auth::user();
@@ -106,12 +111,12 @@ class ProfileController extends Controller
             'numPosts' => $numPosts,
         ]);
     }*/
-
+    //--------------------------------------------------------------------------
     public function create()
     {
         return view('createProfile');
     } 
-    
+    //--------------------------------------------------------------------------
     public function postCreate()
     {
         $data = request()->validate([

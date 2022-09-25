@@ -101,7 +101,7 @@
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1">
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
-                        width="40" height="40" 
+                        style="height:40px; width:auto; max-width:40px;" {{-- width="40" height="40"   --}}
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
                     src="/storage/{{ $profile->image }}" alt="">   
                 </div>
@@ -112,7 +112,7 @@
                 </div> 
             </div> 
 
-            {{-- Only show the first 10 posts. --}}
+            {{-- Only show the first 20 posts. --}}
             {{-- How to implement that it can automatically load the subsequent 10 posts
                once user scrolled to the bottom?  --}}
             
@@ -124,17 +124,20 @@
                   @if($post->user_id == $user->id)
                   <div class="ind-post-area row mb-3" style="background-color:lightcyan; border-radius:8px;">
                   @else
-                  <div class="ind-post-area row mb-3" style="background-color:lightblue; border-radius:8px;">
+                  <div class="ind-post-area row mb-3" style="background-color:rgb(200, 255, 255); border-radius:8px;">
                   @endif
-                      <div class="mb-1 row pt-2" >
-                          <div class="col-1" style="display:block;">
-                            <img class="rounded-circle mx-auto" width="24" height="24"
-                              src="/storage/{{ $profile->image }}"> 
-                          </div>
-                          <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div>
+                      <div class="mb-1 row pt-2" > 
+                          <div class="col-3"> 
+                            <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
+                              {{-- src="/storage/{{ $profile->image }}"  --}}
+                              src="/storage/{{ $post->profile_image }}"
+                            ><span class="text-danger">{{ $post->user_name }}</span>
+                          </div> 
+                          {{-- <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div> --}}
+                          {{-- <div class="col-2 mt-1 text-danger "> {{ $post->user_name }} </div> --}}
                           <div class="col-4 mt-1 ">Created: {{ $post->created_at }} </div>
                           <div class="col-4 mt-1 " >Updated: {{ $post->updated_at }} </div>
-                          <hr class="solid mt-1" style="margin-left: 10px; width:100%;">
+                          <hr class="solid" style="margin-left: 10px; width:100%;">
                           <div class="row">
                           @if ($post->image)
                             <div class="col-2">
@@ -161,12 +164,17 @@
                           @endif
                         </div>
                         
-                        {{-- <hr class="solid" style="margin-left:20px; width:95%;"> --}}
+                        {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
                         @if ($post->user_id == $user->id)
                           <div class="pt-3"> 
-                              <a class="p-2" href="{{ route('post.edit', $post->id) }}">Edit</a>
-                              <a href="{{ route('post.destroy', $post->id) }}">Delete</a> 
+                              <a class="p-2" href="{{ route('post.edit', $post->id) }}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span class="glyphicon glyphicon-user" style="margin-right: 10px">Edit</a>
+                              <a href="{{ route('post.destroy', $post->id) }}">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                <span class="glyphicon glyphicon-user" style="margin-right: 10px">Delete</a> 
                           </div> 
+                          <hr class="solid" style="margin-left: 10px; width:100%;">
                         @endif
                           <div class="container-fluid row" id="showing-images">
                             @if ($post->images != null)
@@ -186,6 +194,22 @@
                             @endif
                           </div> 
                       </div>  
+                      <div class="container pb-2 pt-2" style="background-color: rgb(180, 249, 249); border-radius:8px;">
+                        <div class="row text-center align-items-center">
+                          <div class="col" style="color:gray; font-size:16px;">
+                            <i class="fa fa-thumbs-o-up fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
+                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like
+                          </div>
+                          <div class="col" style="color:gray; font-size:16px;">
+                            <i class="fa fa-commenting-o fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
+                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment
+                          </div>
+                          <div class="col" style="color:gray; font-size:16px;">
+                            <i class="fa fa-share fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
+                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Share
+                          </div>
+                        </div>
+                      </div> 
                   </div>
                 @endif
               @endforeach 

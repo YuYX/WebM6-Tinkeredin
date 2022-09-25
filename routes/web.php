@@ -45,7 +45,10 @@ Route::resource('post', App\Http\Controllers\PostController::class);
 Route::get('/search', 
 [App\Http\Controllers\SearchController::class,'search'])->name('search');
 
-Route::get('/relation/{follower_id}/{following_id',
-[App\Http\Controllers\Auth\RegisterController::class, 'index']);
+Route::get('/relation',
+[App\Http\Controllers\SearchController::class, 'follow_request'])->name('follow');
+
+// Route::get('/relation/{follower_id}/{following_id}',
+// [App\Http\Controllers\RelationController::class, 'index']);
 
  

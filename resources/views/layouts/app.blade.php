@@ -29,6 +29,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/84806e9d1b.js" crossorigin="anonymous"></script>
   
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" 
             integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" 
@@ -65,7 +66,8 @@
                     style="color:rgb(40, 7, 161); font-size: 18px;">
                     A place to share anything interesting.
                 </label> 
-  
+                 
+                @auth
                 <form class="mx-5 user-search-form" 
                         action="{{ route('search', ['search_for'=>'user-search']) }}" method="GET">
                     @csrf
@@ -76,6 +78,7 @@
                         type="submit">Search
                     </button> 
                 </form>
+                @endauth
 
                 <button class="navbar-toggler" 
                         type="button" 
