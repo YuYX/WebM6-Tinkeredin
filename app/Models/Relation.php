@@ -9,9 +9,9 @@ class Relation extends Model
 {
     use HasFactory;  
 
-    protected $attributes = [
-        'status'    => 'Not Following',
-        'block' => false,
-    ];
+    // protected $attributes = [
+    //     'status'    => 'Not Following',
+    //     'block' => false,
+    // ];
  
 }

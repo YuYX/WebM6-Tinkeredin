@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Relation;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; 
- 
-use Symfony\Component\Console\Input\Input as InputInput;
+use Illuminate\Support\Facades\Auth;  
 
 class RelationController extends Controller
 { 
@@ -18,7 +16,7 @@ class RelationController extends Controller
             'follower_id'   => 'required', 
             'following_id'  => 'required',  
             'status'        => 'nullable',
-            'block'         => 'nullable',
+            // 'block'         => 'nullable',
         ]);
  
         $relation = new Relation();
@@ -26,7 +24,7 @@ class RelationController extends Controller
         $relation->following_id  = request('following_id');
 
         $relation->status = $request->filled('status') ? request('status') : "Pending"; 
-        $relation->block = $request->filled('block') ? request('block') : "false"; 
+        // $relation->block = $request->filled('block') ? request('block') : "false"; 
 
         $saved = $relation->save();
 
@@ -35,14 +33,15 @@ class RelationController extends Controller
         } 
     } 
 
-    public function follow_request(Request $request)  
+    public function follow(Request $request, $follow_array)  
     {
-        $relation = new Relation();
-        $relation->follower_id = $request->Input('follower_id');
-        $relation->following_id = $request->Input('following_id');
+        $relation = new Relation(); 
 
-        $relation->status = $request->has('status') ? $request->Input('status') : "Pending";
-        $relation->block = $request->has('block') ? $request->Input('block') : "false"; 
+        $decodedArray = json_decode($follow_array);
+
+        $relation->follower_id = $decodedArray['follower_id'];
+        $relation->following_id = $decodedArray['following_id']; 
+        $relation->status = $decodedArray['status']; 
         
         $saved = $relation->save();
 

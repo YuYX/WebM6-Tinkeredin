@@ -25,6 +25,9 @@ class SearchController extends Controller
 
         $users = User::leftJoin('profiles', 'profiles.user_id', '=', 'users.id') 
                     ->leftJoin('relations', 'follower_id', '=', 'users.id')   
+                    ->select('users.*', 
+                             'profiles.image', 'profiles.description', 
+                             'relations.follower_id', 'relations.following_id', 'relations.status')
                     ->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%")    
                     ->get();     
@@ -46,5 +49,5 @@ class SearchController extends Controller
                                'numResult' => $numResult,
                                'login_user' => $user
                               ]);
-    } 
+    }  
 }

@@ -167,7 +167,7 @@
                         {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
                         @if ($post->user_id == $user->id)
                           <div class="pt-3"> 
-                              <a class="p-2" href="{{ route('post.edit', $post->id) }}">
+                              <a class="p-2" href="{{ route('post.edit', $post->id) }}">   
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 <span class="glyphicon glyphicon-user" style="margin-right: 10px">Edit</a>
                               <a href="{{ route('post.destroy', $post->id) }}">
