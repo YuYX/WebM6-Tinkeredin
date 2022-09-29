@@ -4,9 +4,33 @@
   <?php 
     $no_post_loaded = 0;
     $no_post = 0; 
+
+    function calcDateTimeDiff_2_Day_Hour_Min($timestamp)
+    {
+                              $time_diff = floor( (time()-strtotime($timestamp))/60 );
+                              $time_diff_in_min = $time_diff;
+                              if($time_diff<60){
+                                $time_duration = $time_diff."m";
+                              }else{
+                                $time_diff = floor( $time_diff_in_min/(60) );
+                                if($time_diff<24){
+                                  $time_duration = $time_diff."h";
+                                }else{
+                                  $time_diff = floor( $time_diff_in_min/(60*24) );
+                                  $time_duration = $time_diff."d";
+                                }
+                              }   
+                              return($time_duration);
+    }
+
   ?>
 
-  <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas offcanvas-start" 
+      data-bs-scroll="true" 
+      data-bs-backdrop="true"  
+      tabindex="-1" 
+      id="offcanvasExample" 
+      aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome to My Profile Page</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -110,7 +134,7 @@
                         <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
                     </div> 
                 </div> 
-            </div> 
+            </div>  
 
             {{-- Only show the first 20 posts. --}}
             {{-- How to implement that it can automatically load the subsequent 10 posts
@@ -134,9 +158,10 @@
                             ><span class="text-danger">{{ $post->user_name }}</span>
                           </div> 
                           {{-- <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div> --}}
-                          {{-- <div class="col-2 mt-1 text-danger "> {{ $post->user_name }} </div> --}}
-                          <div class="col-4 mt-1 ">Created: {{ $post->created_at }} </div>
-                          <div class="col-4 mt-1 " >Updated: {{ $post->updated_at }} </div>
+                          {{-- <div class="col-2 mt-1 text-danger "> {{ $post->user_name }} </div> --}}  
+
+                          <div class="col-2 mt-1 ">Created: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
+                          {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
                           <hr class="solid" style="margin-left: 10px; width:100%;">
                           <div class="row">
                           @if ($post->image)
@@ -204,9 +229,39 @@
                             <i class="fa fa-commenting-o fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment
                           </div>
-                          <div class="col" style="color:gray; font-size:16px;">
+                          <div class="col dropdown" style="color:gray; font-size:16px;">
                             <i class="fa fa-share fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
-                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Share
+                            {{-- <span class="glyphicon glyphicon-user " style="margin-right: 10px">Share --}}
+                              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                              style="color:gray; font-size:16px;">
+                                Share
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="https://www.facebook.com/dialog/share">
+                                  <i class="fa fa-xl fa-facebook-official" style="color:blue;" aria-hidden="true"></i>
+                                  Share on Facebook
+                                </a></li>
+                                <li><a class="dropdown-item" href="https://twitter.com/intent/tweet">
+                                  <i class="fa fa-xl fa-twitter-square" style="color:cornflowerblue" aria-hidden="true"></i>
+                                  Tweet it!
+                                </a></li>
+                                <li><a class="dropdown-item" href="https://telegram.me/share">
+                                  <i class="fa fa-xl fa-telegram" style="color:cornflowerblue" aria-hidden="true"></i>
+                                  Share to Telegram
+                                </a></li>
+                                <li><a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url=https://css-tricks.com">
+                                  <i class="fa fa-xl fa-linkedin-square" aria-hidden="true"></i>
+                                  Share to LinkedIn
+                                </a></li>
+                                <li><a class="dropdown-item" href="whatsapp://send?text={{ $post->url }}}}">
+                                  <i class="fa fa-xl fa-whatsapp" style="color:lightgreen" aria-hidden="true"></i>
+                                  Share to WhatsUp
+                                </a></li>
+                                <li><a class="dropdown-item" href="weixin://dl/moments">
+                                  <i class="fa fa-xl fa-weixin" style="color:lightgreen" aria-hidden="true"></i>
+                                  Share to WeChat <span style="color:blue">微信</span>
+                                </a></li> 
+                              </ul>
                           </div>
                         </div>
                       </div> 
@@ -268,8 +323,8 @@
               var tmpImg = document.createElement('img');
               tmpImg.classList.add('modal-content');
               tmpImg.classList.add('d-block');
-              tmpImg.classList.add('w-100');  
-              tmpImg.setAttribute('src',"/storage/"+imgArray[i]); 
+              tmpImg.classList.add('w-100');   
+              tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
               divItem.appendChild(tmpImg); 
               divContainer.appendChild(divItem);      
               

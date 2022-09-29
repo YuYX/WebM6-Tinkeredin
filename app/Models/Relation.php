@@ -13,5 +13,11 @@ class Relation extends Model
     //     'status'    => 'Not Following',
     //     'block' => false,
     // ];
+
+    protected $fillable = [
+        'follower_id',
+        'following_id',
+        'status',
+    ];
  
 }

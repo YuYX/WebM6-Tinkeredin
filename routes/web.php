@@ -45,7 +45,7 @@ Route::resource('post', App\Http\Controllers\PostController::class);
 Route::get('/search', 
 [App\Http\Controllers\SearchController::class,'search'])->name('search');
 
-Route::post('/relation/{follower_id}/{following_id}/{status}/follow',
+Route::get('/relation/{follower_id}/{following_id}/{status}/follow',
 [App\Http\Controllers\RelationController::class, 'follow'])->name('relation.follow'); 
 
 // Route::get('/relation/{follower_id}/{following_id}',

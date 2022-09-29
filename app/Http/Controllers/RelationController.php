@@ -33,20 +33,27 @@ class RelationController extends Controller
         } 
     } 
 
-    public function follow(Request $request, $follow_array)  
-    {
-        $relation = new Relation(); 
+    public function follow(Request $request)  
+    {   
+        $relation_search = Relation::where('relations.follower_id', '=', $request->follower_id)
+                                     ->where('relations.following_id', '=', $request->following_id )->first(); 
+                                     
+        if($relation_search != null)     
+        { 
+            $saved = $relation_search->update(['status'=>$request->status]);
+        }      
+        else
+        {
+            $relation = new Relation(); 
 
-        $decodedArray = json_decode($follow_array);
+            $relation->follower_id = $request->follower_id;
+            $relation->following_id = $request->following_id; 
+            $relation->status = $request->status; 
+            $saved = $relation->save();
+        }     
 
-        $relation->follower_id = $decodedArray['follower_id'];
-        $relation->following_id = $decodedArray['following_id']; 
-        $relation->status = $decodedArray['status']; 
-        
-        $saved = $relation->save();
-
-        if($saved){
-            return redirect('/search');
-        } 
+        if($saved){ 
+            return back();
+        }  
     }
 }
