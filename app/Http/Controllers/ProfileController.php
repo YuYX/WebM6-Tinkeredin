@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\Post; 
 use App\Models\Relation;
+use App\Models\User;
 use Illuminate\Console\View\Components\Alert;
 
 class ProfileController extends Controller
@@ -63,11 +64,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user(); 
-        $profile = Profile::where('user_id', $user->id)->first(); 
-
-        // $posts = Post::where('user_id', $user->id)    
-        //             ->orderBy('posts.created_at', 'desc')
-        //             ->get();
+        $profile = Profile::where('user_id', $user->id)->first();  
 
         $posts = Post::leftJoin('profiles', 'posts.user_id', '=', 'profiles.user_id')   
                         ->leftJoin('users', 'posts.user_id', '=', 'users.id')
@@ -83,8 +80,18 @@ class ProfileController extends Controller
                         ->orderBy('posts.created_at', 'desc')
                         ->get();
 
-        $numFollowings = Relation::where('following_id', $user->id)->count();
-        $numFollowers  = Relation::where('follower_id', $user->id)->count();
+        // $numFollowings = Relation::where('following_id', $user->id)->count();
+        // $numFollowers  = Relation::where('follower_id', $user->id)->count();
+
+        $relations_4_following = Relation::where('relations.follower_id', $user->id)
+                                    ->where('relations.status', '=', 'Following')
+                                    ->select('relations.following_id')->get();
+        $users_i_follow  = User::whereIn('users.id', $relations_4_following)->get();
+
+        $relations_4_followed = Relation::where('relations.following_id', $user->id)
+                                    ->where('relations.status', '=', 'Following')
+                                    ->select('relations.follower_id')->get();
+        $users_follow_me = User:: whereIn('users.id', $relations_4_followed)->get();
         
         $numPosts = Post::where('user_id',$user->id)->count();
         return view('profile', [
@@ -92,8 +99,10 @@ class ProfileController extends Controller
             'profile' => $profile,
             'posts' => $posts,
             'numPosts' => $numPosts,
-            'numFollowings' => $numFollowings,
-            'numFollowers' => $numFollowers,
+            // 'numFollowings' => $numFollowings,
+            // 'numFollowers' => $numFollowers,
+            'users_i_follow' => $users_i_follow,
+            'users_follow_me' => $users_follow_me,
         ]);
     }
     //--------------------------------------------------------------------------

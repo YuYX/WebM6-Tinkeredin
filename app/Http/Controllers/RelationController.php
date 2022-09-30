@@ -32,6 +32,7 @@ class RelationController extends Controller
             return redirect('/search');
         } 
     } 
+ 
 
     public function follow(Request $request)  
     {   

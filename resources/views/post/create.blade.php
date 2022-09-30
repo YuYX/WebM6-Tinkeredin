@@ -10,7 +10,7 @@
                 <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="form-group row"> 
-                        <label for="postpic">Choose Image</label>
+                        <label class="mt-1" for="postpic"><span style="color:blue;">Choose Featured Picture</span></label>
                         <input type="file" name="postpic" id="postpic"> 
                         <div class="container-fluid row" id="adding-featured-images"> 
                         <script type="text/javascript"> 
@@ -21,7 +21,7 @@
                                         var curImgs = document.getElementsByClassName("adding-image");
                                         if(curImgs && curImgs.length<9){ //Limit to 9 pics.
                                             $('#postpicPreview').attr('src', e.target.result);
-                                            add_image2list(e.target.result, "adding-image","adding-featured-images");                                           
+                                            update_featuredImage(e.target.result,"featured-image", "postpicPreview");                                           
                                         }
                                     }
                                     reader.readAsDataURL(input.files[0]); 
@@ -31,8 +31,15 @@
                                 readURL(this); 
                             });
                         </script>  
-                        
-                        <label for="postpics">Choose Multiple Images</label>
+
+                        <div class="container-fluid row mt-1" id="featured-image-container"> 
+                            <img src="" 
+                                class="img-thumbnail col-sm-6 col-md-4" alt="Featured picture"
+                                {{-- style="height:auto; object-fit:contain; opacity: 0.7;" --}}
+                                id="featured-image">  
+                        </div>
+                                                
+                        <label class="mt-1" for="postpics"><span style="color:blue;">Choose Multiple Images</span></label>
                         <input type="file" name="postpics[]" id="postpics" multiple>
                         <script type="text/javascript"> 
                             function readURLs(input){
@@ -43,7 +50,7 @@
                                         reader.onload = function(e){
                                             var curImgs = document.getElementsByClassName("adding-image");
                                             if(curImgs && curImgs.length<9){ //Limit to 9 pics.
-                                                $('#postpicPreview').attr('src', e.target.result); 
+                                                // $('#postpicPreview').attr('src', e.target.result); 
                                                 add_image2list(e.target.result, "adding-image", "adding-images", "postpicPreview"); 
                                             }
                                         }
@@ -60,23 +67,23 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="caption">Caption</label>
+                        <label class="mt-1" for="caption"><span style="color:blue;">Caption</span></label>
                         <input class="form-control" type="text" name="caption" id="caption">
                     </div>
 
                     <div class="form-group row">
-                        <label for="caption">URL</label>
+                        <label class="mt-1" for="caption"><span style="color:blue;">URL</span></label>
                         <input class="form-control" type="text" name="url" id="url">
                     </div>
 
                     <div class="form-group row">
-                        <label for="content">Content</label>
+                        <label class="mt-1" for="content"><span style="color:blue;">Content</span></label>
                         {{-- <input class="form-control" type="text" name="content" id="content"> --}}
                         <textarea class="form-control" 
                             type="text" name="content" id="content" rows="6"></textarea>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row mt-1">
                         <button type="submit" class="btn btn-primary">Post!</button>
                     </div>
                 </form>

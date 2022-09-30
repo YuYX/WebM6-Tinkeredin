@@ -7,20 +7,20 @@
 
     function calcDateTimeDiff_2_Day_Hour_Min($timestamp)
     {
-                              $time_diff = floor( (time()-strtotime($timestamp))/60 );
-                              $time_diff_in_min = $time_diff;
-                              if($time_diff<60){
-                                $time_duration = $time_diff."m";
-                              }else{
-                                $time_diff = floor( $time_diff_in_min/(60) );
-                                if($time_diff<24){
-                                  $time_duration = $time_diff."h";
-                                }else{
-                                  $time_diff = floor( $time_diff_in_min/(60*24) );
-                                  $time_duration = $time_diff."d";
-                                }
-                              }   
-                              return($time_duration);
+          $time_diff = floor( (time()-strtotime($timestamp))/60 );
+          $time_diff_in_min = $time_diff;
+          if($time_diff<60){
+                $time_duration = $time_diff."m";
+          }else{
+                $time_diff = floor( $time_diff_in_min/(60) );
+            if($time_diff<24){
+                $time_duration = $time_diff."h";
+            }else{
+              $time_diff = floor( $time_diff_in_min/(60*24) );
+              $time_duration = $time_diff."d";
+            }
+          }   
+          return($time_duration);
     }
 
   ?>
@@ -58,65 +58,46 @@
                 <span>You have <strong>{{$numPosts}}</strong> posts</span> 
                 <hr style="width:100%;">
                 <div class="row justify-content-md-center">
-                  <div class='col col-sm-4'><span >Following: <strong>{{$numFollowers}}</strong></span></div>
-                  <div class='col col-sm-4'><span>Followers: <strong>{{$numFollowings}}</strong></span></div>
+                  {{-- <div class='col col-sm-4'><span >Following: <strong>{{$numFollowers}}</strong></span></div> --}}
+                  {{-- <div class='col col-sm-4'><span>Followers: <strong>{{$numFollowings}}</strong></span></div> --}} 
+                  <div class='col col-sm-4 dropdown-center dropup'> 
+                      <span >Following: </span>
+                      <button class="btn dropdown-no-of-following" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{$users_i_follow->count()}}</button> 
+                      <ul class="dropdown-menu dropdown-menu-dark dropdown-followings">
+                        @foreach($users_i_follow as $user_i_follow)
+                        <li><a class="dropdown-item" href="#">{{$user_i_follow->name}}</a></li>
+                        @endforeach 
+                      </ul> 
+                  </div>
+
+                  {{-- <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown button
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul> --}}
+
+                  <div class='col col-sm-4 dropdown-center dropup'>
+                    <span>Followers: </strong></span>
+                    <button class="btn dropdown-no-of-follower" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{$users_follow_me->count()}}</button> 
+                      <ul class="dropdown-menu dropdown-menu-dark dropdown-followers ">
+                        @foreach($users_follow_me as $user_follow_me)
+                        <li><a class="dropdown-item" href="#">{{$user_follow_me->name}}</a></li>
+                        @endforeach 
+                      </ul> 
+                  </div>
                 </div>
             </div>  
         </div>  
-    </div>  
- 
-    {{-- <div class="api">
-        <div class="container">🌞 An OpenWeather API key is needed due to Copyrights issue.
-        </div>
-      </div> --}}
-      {{-- <section class="top-banner">
-        <div class="weather-container"> 
-          <form>
-            <input type="text" placeholder="Search for a city" autofocus>
-            <button type="submit">SUBMIT</button>
-            <span class="msg"></span>
-          </form>
-        </div>
-      </section> --}} 
-      {{-- <section class="ajax-section">
-        <div class="weather-container">
-          <ul class="cities"></ul>
-        </div>
-      </section>  --}}
-  </div>
-
-  {{-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-    Link with href
-  </a>
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-    Button with data-bs-target
-  </button> --}}
+    </div>   
+  </div> 
 
   <div class="container">  
-    <div class="row justify-content-center"> 
-        {{-- <div class="col-md-3 profile-sidebar">    
-            <div class="card cardeffect sticky-top " 
-                style="background-color:beige;" > 
-                  
-                    <img class="rounded card-img-top mb-5" 
-                    src="/storage/{{ $profile->back_image }}" alt=""> 
-                    <div class="mx-auto">
-                        <img class="rounded-circle card-img-overlay mx-auto" 
-                            width="120" height="120"
-                            src="/storage/{{ $profile->image }}" alt="">  
-                    </div> 
-                    
-                <div class="card-body" style="text-align: center">
-                    <strong>{{$user->name}}</strong><br>
-                    <div class="pt-3">{{ $profile->description }}</div>
-                    <div class="pt-3"> 
-                        <a href="/profile/edit">Edit profile</a>
-                    </div>
-                    <span>You have <strong>{{$numPosts}}</strong> posts</span>
-                </div>  
-            </div>  
-        </div>  --}}
- 
+    <div class="row justify-content-center">   
       <div class="col-md-1 left-hand-col">
         
       </div>
@@ -125,9 +106,9 @@
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1">
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
-                        style="height:40px; width:auto; max-width:40px;" {{-- width="40" height="40"   --}}
+                        style="height:40px; width:auto; max-width:40px; --animate-duration: 2s;" {{-- width="40" height="40"   --}}
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
-                    src="/storage/{{ $profile->image }}" alt="">   
+                      src="/storage/{{ $profile->image }}" alt="">   
                 </div>
                 <div class="card col-md-11">
                     <div class="card-body"> 
@@ -151,7 +132,7 @@
                   <div class="ind-post-area row mb-3" style="background-color:rgb(200, 255, 255); border-radius:8px;">
                   @endif
                       <div class="mb-1 row pt-2" > 
-                          <div class="col-3"> 
+                          <div class="col-4"> 
                             <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
                               {{-- src="/storage/{{ $profile->image }}"  --}}
                               src="/storage/{{ $post->profile_image }}"
@@ -160,7 +141,7 @@
                           {{-- <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div> --}}
                           {{-- <div class="col-2 mt-1 text-danger "> {{ $post->user_name }} </div> --}}  
 
-                          <div class="col-2 mt-1 ">Created: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
+                          <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
                           {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
                           <hr class="solid" style="margin-left: 10px; width:100%;">
                           <div class="row">
@@ -178,7 +159,14 @@
                             </div> 
                             <div  class="col-10"> 
                               {{-- <h5>{{ $post->caption }}</h5> --}}
-                              <a style="font-size:18px; text-decoration: none !important;" href="{{ $post->url }}">{{ $post->caption }}</a>
+                              @if(strstr($post->url, "www.youtube.com") && strstr($post->url, "embed"))
+                                <a style="font-size:18px; text-decoration: none !important;">{{ $post->caption }}</a>
+                                {{-- <video controls autoplay><source src={{$post->url}}></video> --}}
+                                  <iframe width="480" height="360" src={{$post->url}}>
+                                  </iframe>
+                              @else
+                                <a style="font-size:18px; text-decoration: none !important;"href="{{ $post->url }}">{{ $post->caption }}</a>
+                              @endif
                               <h6>{{ $post->content }}</h6>
                             </div>  
                           @else
@@ -221,14 +209,28 @@
                       </div>  
                       <div class="container pb-2 pt-2" style="background-color: rgb(180, 249, 249); border-radius:8px;">
                         <div class="row text-center align-items-center">
+                          
                           <div class="col" style="color:gray; font-size:16px;">
                             <i class="fa fa-thumbs-o-up fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like
-                          </div>
+                          </div> 
+
                           <div class="col" style="color:gray; font-size:16px;">
                             <i class="fa fa-commenting-o fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
-                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment
-                          </div>
+                            {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment --}}
+                              <button class="btn " type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseExample-{{ $post->id }}" 
+                                aria-expanded="false" 
+                                aria-controls="collapseExample">
+                                Comment
+                              </button> 
+                              {{-- <div class="collapse" id="collapseExample"> 
+                                <textarea class="form-control" type="text" placeholder="Write your comment here..."
+                                  name="post-comment" id="post-comment" rows="1"></textarea>
+                              </div> --}}
+                          </div> 
+
                           <div class="col dropdown" style="color:gray; font-size:16px;">
                             <i class="fa fa-share fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             {{-- <span class="glyphicon glyphicon-user " style="margin-right: 10px">Share --}}
@@ -262,8 +264,24 @@
                                   Share to WeChat <span style="color:blue">微信</span>
                                 </a></li> 
                               </ul>
+                          </div> 
+                        </div> 
+
+                        <div class="collapse row" id="collapseExample-{{ $post->id }}">
+                          <div class="col-md-1 " style="display:flex; justify-content:right;">  
+                            <img class="rounded-circle mt-1" style="height:30px; width:auto; max-width:30px; "  
+                              src="/storage/{{ $profile->image }}"
+                            >
                           </div>
-                        </div>
+                          <div class="col-md-11" > 
+                            <form enctype="multipart/form-data" method="POST">
+                              @csrf
+                              <textarea class="form-control" type="text" placeholder="Write your comment here..."
+                                name="post-comment" id="post-comment" rows="1"></textarea>
+                            </form>
+                          </div>  
+                        </div>   
+
                       </div> 
                   </div>
                 @endif

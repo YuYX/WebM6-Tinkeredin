@@ -8,7 +8,7 @@ $(function(){
     /*SUBSCRIBE HERE FOR API KEY: https://home.openweathermap.org/users/sign_up*/
     const apiKey = "4d8fb5b93d4af21d66a2948710284366"; 
 
-    effects_On_Component(".profile-image", "animate__flip animate__infinite");  
+    effects_On_Component(".profile-image", "animate__flipInY animate__slower animate__infinite");  
        
     //fetch_weather_info("Singapore",apiKey); 
 
@@ -140,7 +140,31 @@ function fetch_weather_info(inputVal, apiKey){
         // msg.textContent = "";
 } 
 
-function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
+function update_featuredImage(imageSrc, featuredImageID, imagePreviewID){
+  const objImg = document.querySelector("#"+featuredImageID);
+  objImg.style.height="auto"; //To keep images' aspect ratio.
+  objImg.style['object-fit'] = "contain";
+  objImg.style.opacity=0.7;
+  objImg.setAttribute("src",imageSrc);  
+
+  objImg.addEventListener("click", function(){
+    const objPreviewImg = document.querySelector("#"+imagePreviewID);
+    objPreviewImg.setAttribute("src", this.src);
+  });
+  objImg.addEventListener("mouseover", function(){
+    this.style.opacity=1;
+    this.style.transition = '0.5s';
+  });
+  objImg.addEventListener("mouseleave", function(){
+    this.style.opacity=0.7;
+    this.style.transition = '0.5s';
+  });
+
+  const objContainer = document.querySelector("#"+imageContainerID);
+  objContainer.appendChild(objImg); 
+}
+
+function add_image2list(imageSrc, imageClass,imageContainerID,imagePreviewID){  
   const objImg = document.createElement("img"); 
   objImg.classList.add(imageClass);
   objImg.classList.add("modal-image") ;
@@ -150,12 +174,7 @@ function add_image2list(imageSrc, imageClass, imageContainerID,imagePreviewID){
   objImg.style.height="auto"; //To keep images' aspect ratio.
   objImg.style['object-fit'] = "contain";
   objImg.style.opacity=0.7;
-  objImg.setAttribute("src",imageSrc); 
-
-  // const objSpan = document.createElement("span");
-  // objSpan.classList.add("close");
-  // objSpan.style.zIndex = 0;
-  // objSpan.innerHTML="&times;";
+  objImg.setAttribute("src",imageSrc);  
 
   objImg.addEventListener("click", function(){
     const objPreviewImg = document.querySelector("#"+imagePreviewID);

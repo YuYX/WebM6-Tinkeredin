@@ -13,6 +13,11 @@
           rel="stylesheet" 
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" 
           crossorigin="anonymous">  --}}
+
+    <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   
     <!-- css file -->
     <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
@@ -27,6 +32,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>{{ "Eureka!" }}</title> 
@@ -61,9 +67,9 @@
             <div class="container"> 
                 <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
                 <a style="color:rgb(231, 72, 228); font-size: 30px;" 
-                    class="navbar-brand" 
+                    class="navbar-brand animate__animated animate__rotateInDownLeft animate__slower animate__repeat-3"   
                     href="{{ url('/') }}">
-                    {{-- {{ config('app.name', 'Laravel') }}  --}}
+                    {{-- {{ config('app.name', 'Laravel') }}  --}} 
                     Eureka!
                 </a> 
 
@@ -139,24 +145,24 @@
                                 href="{{ '/profile' }}">Home</a>
                             </li> 
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                            </li>
+                            </li> --}}
 
                             {{-- Somehow the dropdown is not working? --}}
                             <li class="nav-item dropdown">
-                                {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle"  
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle"  
                                     href="#" role="button" 
                                     data-bs-toggle="dropdown" 
                                     aria-haspopup="true" 
                                     aria-expanded="false" 
                                     v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>  --}}
+                                    <span style="color:blue;font-weight:bold;">{{ Auth::user()->name }}</span>
+                                </a> 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"

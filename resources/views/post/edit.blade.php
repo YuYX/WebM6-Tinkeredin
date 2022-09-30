@@ -13,7 +13,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
-                        <label for="postpic">Choose Image</label>
+                        <label class="mt-1" for="postpic"><strong>Choose Featured Picture</strong></label>
                         <input type="file" name="postpic" id="postpic"> 
                         <script type="text/javascript"> 
                             function readURL(input){
@@ -23,6 +23,7 @@
                                         var curImgs = document.getElementsByClassName("editing-image");
                                         if(curImgs && curImgs.length<9){ //Limit to 9 pics.
                                             $('#postpicPreview').attr('src', e.target.result);    
+                                            update_featuredImage(e.target.result, "featured-image","postpicPreview");
                                             $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
                                         }
                                     }
@@ -34,7 +35,14 @@
                             });
                         </script>
 
-                        <label for="postpics">Choose Multiple Images</label>
+                        <div class="container-fluid row mt-1" id="featured-image-container"> 
+                            <img src="" 
+                                class="img-thumbnail col-sm-6 col-md-4" alt="Featured picture"
+                                {{-- style="height:auto; object-fit:contain; opacity: 0.7;" --}}
+                                id="featured-image">  
+                        </div>
+
+                        <label class="mt-1" for="postpics"><strong>Choose Multiple Images</strong></label>
                         <input type="file" name="postpics[]" id="postpics" multiple>
 
                         <script type="text/javascript"> 
@@ -46,9 +54,9 @@
                                         reader.onload = function(e){
                                             var curImgs = document.getElementsByClassName("editing-image");
                                             if(curImgs && curImgs.length<9){ //Limit to 9 pics.
-                                                $('#postpicPreview').attr('src', e.target.result); 
+                                                // $('#postpicPreview').attr('src', e.target.result); 
                                                 add_image2list(e.target.result, "editing-image", "editing-images", "postpicPreview");
-                                                $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
+                                                // $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
                                             }
                                         }
                                         reader.readAsDataURL(input.files[i]); 
@@ -67,26 +75,26 @@
                     </div>
                     
                     <div class="form-group row">
-                        <label for="caption">Caption</label>
+                        <label class="mt-1" for="caption"><strong>Caption</strong></label>
                         <input class="form-control" type="text" name="caption" id="caption" 
                         value="{{ $post->caption }}">
                     </div>
 
                     <div class="form-group row">
-                        <label for="caption">URL</label>
+                        <label class="mt-1" for="caption"><strong>URL</strong></label>
                         <input class="form-control" type="text" name="url" id="url" 
                         value="{{ $post->url }}">
                     </div>
 
                     <div class="form-group row">
-                        <label for="content">Content</label>
+                        <label class="mt-1" for="content"><strong>Content</strong></label>
                         {{-- <input class="form-control" type="text" name="content" id="content" 
                         value="{{ $post->content }}"> --}}
                         <textarea class="form-control" type="text" 
                             name="content" id="content" rows="6">"{{ $post->content }}"</textarea>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row mt-1">
                         <button type="submit" class="btn btn-primary">Update Post</button>
                     </div>
 
