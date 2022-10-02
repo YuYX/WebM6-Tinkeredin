@@ -40,12 +40,17 @@ class PostController extends Controller
             'caption' => 'required', 
             'url'     => 'nullable',
             'content' => 'required',
-            'postpic' => 'nullable', //['required', 'image'],
-            'postpics'=> 'nullable',
+            'postpic' => 'nullable', ['file', '200'],
+            'postpics'=> 'nullable', ['file','200'],
         ]);
 
         $user = AUth::user();
-        $post = new Post();
+        $post = new Post(); 
+        
+        // post_max_size and upload_max_filesize
+        // post_max_size = 2M, 
+        // upload_max_filesize = 8M,
+        // dd(phpinfo());
 
         if($request->hasfile('postpic')){
             $imagePath = request('postpic')->store('uploads', 'public');  
@@ -118,8 +123,8 @@ class PostController extends Controller
         $request->validate([
             'caption' => 'required',
             'content' => 'required',
-            'postpic' => 'nullable', //['required', 'image'],
-            'postpics'=> 'nullable',
+            'postpic' => 'nullable',  ['file', '200'],
+            'postpics'=> 'nullable',  ['file', '200'],
         ]);
 
         $post = Post::find($postId);

@@ -23,7 +23,7 @@
           return($time_duration);
     }
 
-  ?>
+  ?> 
 
   <div class="offcanvas offcanvas-start" 
       data-bs-scroll="true" 
@@ -69,16 +69,7 @@
                         <li><a class="dropdown-item" href="#">{{$user_i_follow->name}}</a></li>
                         @endforeach 
                       </ul> 
-                  </div>
-
-                  {{-- <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown button
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul> --}}
+                  </div> 
 
                   <div class='col col-sm-4 dropdown-center dropup'>
                     <span>Followers: </strong></span>
@@ -98,21 +89,80 @@
 
   <div class="container">  
     <div class="row justify-content-center">   
-      <div class="col-md-1 left-hand-col">
+      <div class="col-md-2 left-hand-col" style="background-color:whitesmoke;">
+        <div class="mt-5">
+          <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
+               src="/storage/{{ $profile->image }}"  
+          ><span class="text-danger">{{  $user->name }}</span>
+        </div> 
         
+        <div class="mt-4 row">
+          <div class="col-md-2">
+            {{-- <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:rgb(24, 183, 236)"></ion-icon> --}}
+            <i class="fa-solid fa-user-group mt-2" style="font-size:18px; color:rgb(24, 183, 236)"></i>
+          </div>
+          <div class="col-md-10">
+            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followings</button> --}}
+            <a class = "btn " method = "GET" 
+              href="{{ route('search.search_following') }}">My Followings</a>
+          </div>
+        </div>
+        
+        <div class="mt-2 row">
+          <div class="col-md-2">
+            <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon>
+            {{-- <i class="fa-solid fa-user-plus"></i> --}}
+          </div>
+          <div class="col-md-10">
+            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Requests Sent</button> --}}
+            <a class = "btn " method = "GET" 
+              href="{{ route('search.request_sent') }}"
+            >Requests Sent</a>
+          </div>
+        </div>
+
+        <div class="mt-2 row">
+          <div class="col-md-2">
+            <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
+          </div>
+          <div class="col-md-10">
+            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followers</button> --}}
+            <a class = "btn " method = "GET" 
+              href="{{ route('search.search_follower') }}"
+            >My Followers</a>
+          </div>
+        </div> 
+        
+        <div class="mt-2 row">
+          <div class="col-md-2">
+            <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:blue;"></ion-icon>
+          </div>
+          <div class="col-md-10">
+            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Friends Requests</button> --}}
+            <a class = "btn " method = "GET" 
+              href="{{ route('search.request_received') }}"
+            >Requests Received</a>
+          </div>
+        </div>
+         
       </div>
 
-      <div class="col-md-8">   
+      <div class="col-md-8"  style="background-color:whitesmoke">   
             <div class="row mb-5">
-                <div class="card profile-image-container col-md-1">
+                <div class="card profile-image-container col-md-1" 
+                    style="background-image:url('/storage/{{ $profile->back_image }}'); 
+                           border-style:none;
+                           background-size:cover;">
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
-                        style="height:40px; width:auto; max-width:40px; --animate-duration: 2s;" {{-- width="40" height="40"   --}}
+                        style="height:40px; width:auto; max-width:40px; 
+                              --animate-duration: 2s; "  
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
                       src="/storage/{{ $profile->image }}" alt="">   
                 </div>
                 <div class="card col-md-11">
                     <div class="card-body"> 
-                        <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
+                        <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, 
+                          <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
                     </div> 
                 </div> 
             </div>  
@@ -213,33 +263,30 @@
                           <div class="col" style="color:gray; font-size:16px;">
                             <i class="fa fa-thumbs-o-up fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like
-                          </div> 
+                          </div>   
 
                           <div class="col" style="color:gray; font-size:16px;">
                             <i class="fa fa-commenting-o fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment --}}
-                              <button class="btn " type="button" 
+                              <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
+                                onclick="commentCollapse('collapseComment-'+{{ $post->id }})"
                                 data-bs-toggle="collapse" 
-                                data-bs-target="#collapseExample-{{ $post->id }}" 
+                                data-bs-target="#collapseComment-{{ $post->id }}" 
                                 aria-expanded="false" 
-                                aria-controls="collapseExample">
+                                aria-controls="collapseComment-{{ $post->id }}">
                                 Comment
-                              </button> 
-                              {{-- <div class="collapse" id="collapseExample"> 
-                                <textarea class="form-control" type="text" placeholder="Write your comment here..."
-                                  name="post-comment" id="post-comment" rows="1"></textarea>
-                              </div> --}}
-                          </div> 
-
+                              </button>  
+                          </div>  
+                          
                           <div class="col dropdown" style="color:gray; font-size:16px;">
                             <i class="fa fa-share fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             {{-- <span class="glyphicon glyphicon-user " style="margin-right: 10px">Share --}}
                               <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                              style="color:gray; font-size:16px;">
+                                style="color:gray; font-size:16px;">
                                 Share
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="https://www.facebook.com/dialog/share">
+                                <li><a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ $post->url }}">
                                   <i class="fa fa-xl fa-facebook-official" style="color:blue;" aria-hidden="true"></i>
                                   Share on Facebook
                                 </a></li>
@@ -247,15 +294,17 @@
                                   <i class="fa fa-xl fa-twitter-square" style="color:cornflowerblue" aria-hidden="true"></i>
                                   Tweet it!
                                 </a></li>
-                                <li><a class="dropdown-item" href="https://telegram.me/share">
+                                {{-- <li><a class="dropdown-item" href="https://telegram.me/share"> --}}
+                                <li><a class="dropdown-item" href="https://telegram.me/share/url?url={{ $post->url }}&text={{ $post->caption }}">
+                                  {{-- https://telegram.me/share/url?url=<URL>&text=<TEXT> --}}
                                   <i class="fa fa-xl fa-telegram" style="color:cornflowerblue" aria-hidden="true"></i>
                                   Share to Telegram
                                 </a></li>
-                                <li><a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url=https://css-tricks.com">
+                                <li><a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ $post->url }}">
                                   <i class="fa fa-xl fa-linkedin-square" aria-hidden="true"></i>
                                   Share to LinkedIn
                                 </a></li>
-                                <li><a class="dropdown-item" href="whatsapp://send?text={{ $post->url }}}}">
+                                <li><a class="dropdown-item" href="whatsapp://send?text={{ $post->url }}">
                                   <i class="fa fa-xl fa-whatsapp" style="color:lightgreen" aria-hidden="true"></i>
                                   Share to WhatsUp
                                 </a></li>
@@ -267,16 +316,23 @@
                           </div> 
                         </div> 
 
-                        <div class="collapse row" id="collapseExample-{{ $post->id }}">
-                          <div class="col-md-1 " style="display:flex; justify-content:right;">  
+                        {{-- Collapse Content for Comment Button --}}
+                        <div class="collapse row " id="collapseComment-{{ $post->id }}"> 
+                          <div class="col-md-1 card" 
+                            style="display:flex; border-style:none;
+                                   justify-content:right; 
+                                   background-image:url('/storage/{{ $profile->back_image }}'); 
+                                   background-size:cover;">  
                             <img class="rounded-circle mt-1" style="height:30px; width:auto; max-width:30px; "  
                               src="/storage/{{ $profile->image }}"
                             >
                           </div>
-                          <div class="col-md-11" > 
+                          <div class="col-md-11 card-body" > 
                             <form enctype="multipart/form-data" method="POST">
                               @csrf
-                              <textarea class="form-control" type="text" placeholder="Write your comment here..."
+                              <textarea class="form-control" type="text" 
+                                style="resize: none;"
+                                placeholder="Write your comment here..."
                                 name="post-comment" id="post-comment" rows="1"></textarea>
                             </form>
                           </div>  
@@ -293,7 +349,9 @@
       <div id="myModal" class="modal"> 
         <span class="close">&times;</span>
   
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true" data-wrap="false">
+        <div id="carouselExampleIndicators" 
+             class="carousel slide"  
+             data-bs-ride="true" data-wrap="false">
          
         </div>        
 
@@ -302,6 +360,10 @@
       </div>   
 
       <script> 
+          function commentCollapse(commentAreaId){  
+            $("#"+commentAreaId).collapse("toggle");
+          }
+
           const modal = document.getElementById("myModal");
 
           function postImgOnClick(e){ 
@@ -336,13 +398,14 @@
               divIContainer.appendChild(tmpBtn);   
 
               var divItem = document.createElement('div');
-              divItem.setAttribute('class', 'carousel-item');
+              divItem.setAttribute('class', 'carousel-item');  
               if(i==idx) divItem.classList.add('active');
               var tmpImg = document.createElement('img');
-              tmpImg.classList.add('modal-content');
+              // tmpImg.classList.add('modal-content');
               tmpImg.classList.add('d-block');
               tmpImg.classList.add('w-100');   
               tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
+              tmpImg.setAttribute('max-height', '90vh'); 
               divItem.appendChild(tmpImg); 
               divContainer.appendChild(divItem);      
               
@@ -404,44 +467,24 @@
           }
       </script>
         
-      <div class="col-md-3 right-hand-col">
+      <div class="col-md-2 right-hand-col" style="background-color:whitesmoke;">
+
         <div>
-            <div class="radio-item">
-              <label class="radio-container radio-text">Left
-                <input id="offcanvas-start" type="radio" checked="checked" name="radio" 
-                onclick="apply_offcanvas_location('offcanvas-start')">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-            <div class="radio-item">
-              <label class="radio-container radio-text">Right
-                <input id="offcanvas-end"  type="radio" name="radio" 
-                onclick="apply_offcanvas_location('offcanvas-end')">
-                <span class="checkmark"></span>
-              </label> 
-            </div>  
-            <div class="radio-item">
-              <label class="radio-container radio-text">Top
-                <input id="offcanvas-top"  type="radio" name="radio" 
-                onclick="apply_offcanvas_location('offcanvas-top')">
-                <span class="checkmark"></span>
-              </label>
-            </div> 
-            <div class="radio-item">
-              <label class="radio-container radio-text">Bottom
-                <input id="offcanvas-bottom"  type="radio" name="radio" 
-                onclick="apply_offcanvas_location('offcanvas-bottom')">
-                <span class="checkmark"></span>
-              </label>
-            </div> 
-        </div> 
+          <audio controls autoplay muted id="back_music" style="width: 180px;"> 
+            <source src="{{ url('music/avamaxmaybeurdproblem.mp3') }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <script>
+            var audio = document.getElementById("back_music");
+            audio.volume = 0.1;
+          </script>
+        </div>
           
-        {{-- <div> --}}
-          <div class="weather-container"  style="position: fixed;"> 
+        <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
               <form>
-                <input class="city-input" type="text" placeholder="Search for a city" autofocus>
-                <button type="submit">SUBMIT</button>
+                <input class="city-input" type="text" placeholder="City Name" size="15"  autofocus>
+                <button type="submit">Go</button>
                 <span class="msg"></span>
               </form>
             </div>    
@@ -454,9 +497,39 @@
               <label>Location:</label>
               <label id="x-location">X</label>  
             </div>
+        </div>  
 
+        <div class="mt-5" style="display:none;">
+          <div class="radio-item">
+            <label class="radio-container radio-text">Left
+              <input id="offcanvas-start" type="radio" checked="checked" name="radio" 
+              onclick="apply_offcanvas_location('offcanvas-start')">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="radio-item">
+            <label class="radio-container radio-text">Right
+              <input id="offcanvas-end"  type="radio" name="radio" 
+              onclick="apply_offcanvas_location('offcanvas-end')">
+              <span class="checkmark"></span>
+            </label> 
           </div>  
-        {{-- </div>  --}}
+          <div class="radio-item">
+            <label class="radio-container radio-text">Top
+              <input id="offcanvas-top"  type="radio" name="radio" 
+              onclick="apply_offcanvas_location('offcanvas-top')">
+              <span class="checkmark"></span>
+            </label>
+          </div> 
+          <div class="radio-item">
+            <label class="radio-container radio-text">Bottom
+              <input id="offcanvas-bottom"  type="radio" name="radio" 
+              onclick="apply_offcanvas_location('offcanvas-bottom')">
+              <span class="checkmark"></span>
+            </label>
+          </div> 
+      </div> 
+
       </div>  
     </div>  
   </div>

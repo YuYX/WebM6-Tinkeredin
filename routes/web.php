@@ -45,10 +45,23 @@ Route::resource('post', App\Http\Controllers\PostController::class);
 Route::get('/search', 
 [App\Http\Controllers\SearchController::class,'search'])->name('search');
 
+Route::get('/search/search_follower',
+[App\Http\Controllers\SearchController::class,'search_follower'])->name('search.search_follower');  
+
+Route::get('/search/request_received',
+[App\Http\Controllers\SearchController::class,'request_received'])->name('search.request_received'); 
+
+Route::get('/search/search_following',
+[App\Http\Controllers\SearchController::class,'search_following'])->name('search.search_following'); 
+
+Route::get('/search/request_sent',
+[App\Http\Controllers\SearchController::class,'request_sent'])->name('search.request_sent'); 
+
+Route::get('/search/{follower_id}/{following_id}/{status}/follow',
+[App\Http\Controllers\RelationController::class, 'follow'])->name('search.follow'); 
+
 Route::get('/relation/{follower_id}/{following_id}/{status}/follow',
 [App\Http\Controllers\RelationController::class, 'follow'])->name('relation.follow'); 
-
-// Route::get('/relation/{follower_id}/{following_id}',
-// [App\Http\Controllers\RelationController::class, 'index']);
+ 
 
  

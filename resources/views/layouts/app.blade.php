@@ -31,16 +31,20 @@
     {{-- !!!Following 3 libraries make Dropdown working again. --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>{{ "Eureka!" }}</title> 
+
+    <link rel="icon" href="{{ url('images/archimedes.webp') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84806e9d1b.js" crossorigin="anonymous"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" 
             integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" 
@@ -49,7 +53,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" 
-            crossorigin="anonymous"></script> 
+            crossorigin="anonymous"></script>  
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -57,12 +61,13 @@
     
     <script type="text/javascript" src="{{ asset('js/profile.js')}}"></script>
     {{-- <script type="text/javascript" src="{{ asset('js/weather.js')}}"></script> --}}
+    
 </head>
 
-<body>
+<body>    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" 
-            style="display:flex; background-color: #d8e7f2;">
+            style="display:flex; background-color: #d8e7f2;"> 
             
             <div class="container"> 
                 <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">

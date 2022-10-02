@@ -31,8 +31,7 @@ class RelationController extends Controller
         if($saved){
             return redirect('/search');
         } 
-    } 
- 
+    }  
 
     public function follow(Request $request)  
     {   

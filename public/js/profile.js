@@ -165,6 +165,7 @@ function update_featuredImage(imageSrc, featuredImageID, imagePreviewID){
 }
 
 function add_image2list(imageSrc, imageClass,imageContainerID,imagePreviewID){  
+  
   const objImg = document.createElement("img"); 
   objImg.classList.add(imageClass);
   objImg.classList.add("modal-image") ;
@@ -191,6 +192,7 @@ function add_image2list(imageSrc, imageClass,imageContainerID,imagePreviewID){
 
   const objContainer = document.querySelector("#"+imageContainerID);
   objContainer.appendChild(objImg); 
+ 
 }  
 
 function postImgOnClick2(e){   

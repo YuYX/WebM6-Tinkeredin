@@ -10,8 +10,7 @@
 
       <div class="col-md-10">    
             <h3 style="color:blueviolet;"><span><strong>{{ $numResult }}</strong></span> results found in searching for "{{ $search_keyword }}":</h3>  
-             
-            
+              
             @foreach ($users as $user)   
             {{-- @if ($user->following_id == null or $user->following_id == $login_user->id)  --}}
             <div class="row mb-2" style="background-color:lightcyan; border-radius:8px;">
@@ -49,7 +48,7 @@
                                 {
                                     case 'pending': 
                                         $btnText = "Withdraw";
-                                        $InfoText = "Request Pending"; 
+                                        $InfoText = "Request Sent"; 
                                         $status2Be = "NotFollowing";
                                         break;
                                     case 'following':

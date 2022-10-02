@@ -64,11 +64,13 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user(); 
-        $profile = Profile::where('user_id', $user->id)->first();  
+        $profile = Profile::where('user_id', $user->id)->first();   
 
         $posts = Post::leftJoin('profiles', 'posts.user_id', '=', 'profiles.user_id')   
                         ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                        ->select('profiles.image as profile_image','posts.*', 'users.name as user_name')
+                        ->select('profiles.image as profile_image', 
+                                 'profiles.back_image as profile_back', 
+                                 'posts.*', 'users.name as user_name')
                         ->whereIn('posts.user_id', function($query) use ($user){
                         $query->select('following_id')
                                 ->from('relations')

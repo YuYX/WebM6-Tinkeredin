@@ -105,7 +105,7 @@ html, body {
   /* 100% Image Width on Smaller Screens */
   @media only screen and (max-width: 700px){
     .modal-content {
-      width: 100%;
+      width: 100%; 
     }
   }  
 
@@ -114,3 +114,13 @@ html, body {
     cursor: pointer;
     border: 2px solid rgb(11, 198, 240);
   }
+
+  .carousel-inner > .carousel-item > img {
+    height: 80vh;
+    width: auto;
+    object-fit: contain;
+}  
+
+.carousel-indicators { 
+  top: -50px;
+}

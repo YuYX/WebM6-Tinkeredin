@@ -63,8 +63,9 @@ function animeJS_effect()
     var pointerY = 0;
     var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousemove';
     var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
-   
-    function setCanvasSize() {
+
+    
+    function setCanvasSize() { 
         canvasEl.width = window.innerWidth;
         canvasEl.height = window.innerHeight/2; 
         canvasEl.style.width = window.innerWidth + 'px';
@@ -184,10 +185,10 @@ function animeJS_effect()
             anime.random(centerY-50, centerY+50)
         );
         anime({duration: 200}).finished.then(autoClick);
-    }
+    } 
 
     autoClick();
     setCanvasSize();
-    window.addEventListener('resize', setCanvasSize, false);  
+    window.addEventListener('resize', setCanvasSize, false);   
 }
  
