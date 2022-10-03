@@ -16,7 +16,7 @@ class SearchController extends Controller
         $user = AUth::user(); 
 
         $relation_all_i_follow = Relation::where('follower_id', $user->id) 
-                    ->where('status', '!=', 'Following')
+                    ->where('status', '=', 'Pending')
                     ->get();
          
         $search_relation_list = array();
@@ -40,7 +40,7 @@ class SearchController extends Controller
         $user = AUth::user(); 
 
         $relation_all_follow_me = Relation::where('following_id', $user->id) 
-                    ->where('status','!=', 'Following')
+                    ->where('status','=', 'Pending')
                     ->get();
          
         $search_relation_list = array();

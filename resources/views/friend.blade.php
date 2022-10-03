@@ -65,7 +65,13 @@
                             >Unfollow</a> 
 
                         @elseif($user_type == "request_sent")
-                            <div class="col-2 text-secondary text-nowrap ">Request sent</div> 
+                            <a class = "btn btn-outline-primary" method = "GET" 
+                                href="{{ route('search.follow',
+                                ['follower_id'=>$login_user->id, 
+                                'following_id'=>$user_search->id, 
+                                'status'=>'NotFollowing']) }}"
+                            >Withdraw</a> 
+                            {{-- <div class="col-2 text-secondary text-nowrap ">Request sent</div>  --}}
                         @endif
                     </div>
                 </div>   

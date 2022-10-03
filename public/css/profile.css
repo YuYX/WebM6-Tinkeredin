@@ -1,0 +1,31 @@
+/* For Profile.blade*/
+.post-preview-image:hover {
+    cursor: pointer;
+    border: 2px solid rgb(11, 198, 240);
+  }
+
+  .carousel-inner > .carousel-item > img {
+    height: 80vh;
+    width: auto;
+    object-fit: contain;
+  }  
+
+  a.follow-status-search:hover {
+    color: blue !important;
+    font-weight: bolder !important;
+  } 
+
+  div.post-content {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; 
+  }
+
+  a.post-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; 
+    text-decoration: none;
+    /* style="font-size:18px; text-decoration: none !important;" */
+  } 
+   
+
+ 

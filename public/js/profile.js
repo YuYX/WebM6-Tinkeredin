@@ -262,10 +262,6 @@ function getCookie(cname) {
 
 function checkCookie(cname) {
   let cookiename = getCookie(cname);
-  if (cookiename != "") {
-    return true;
-  } else {
-      return false;
-  }
+  return (cookiename != "");
 }
  

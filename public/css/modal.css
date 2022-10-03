@@ -109,18 +109,4 @@ html, body {
     }
   }  
 
-  /* For Profile.blade*/
-  .post-preview-image:hover {
-    cursor: pointer;
-    border: 2px solid rgb(11, 198, 240);
-  }
-
-  .carousel-inner > .carousel-item > img {
-    height: 80vh;
-    width: auto;
-    object-fit: contain;
-}  
-
-.carousel-indicators { 
-  top: -50px;
-}
+  

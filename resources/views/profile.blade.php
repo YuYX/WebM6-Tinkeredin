@@ -87,9 +87,9 @@
     </div>   
   </div> 
 
-  <div class="container">  
+  <div class="container-xl">  
     <div class="row justify-content-center">   
-      <div class="col-md-2 left-hand-col" style="background-color:whitesmoke;">
+      <div class="col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
                src="/storage/{{ $profile->image }}"  
@@ -97,53 +97,74 @@
         </div> 
         
         <div class="mt-4 row">
-          <div class="col-md-2">
+          <div class="col-md-2 ps-0">
             {{-- <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:rgb(24, 183, 236)"></ion-icon> --}}
-            <i class="fa-solid fa-user-group mt-2" style="font-size:18px; color:rgb(24, 183, 236)"></i>
+            <i class="fa-solid fa-flip fa-user-group mt-2" 
+              style="--fa-animation-duration: 3s;font-size:18px; color:rgb(24, 183, 236)"></i>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followings</button> --}}
-            <a class = "btn " method = "GET" 
-              href="{{ route('search.search_following') }}">My Followings</a>
+            <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
+              href="{{ route('search.search_following') }}">My Followings
+              <span class="badge rounded-pill bg-info">
+                {{ $users_i_follow->count() }}
+              </span>
+            </a>
           </div>
         </div>
         
         <div class="mt-2 row">
-          <div class="col-md-2">
+          <div class="col-md-2 ps-0">
             <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon>
             {{-- <i class="fa-solid fa-user-plus"></i> --}}
           </div>
-          <div class="col-md-10">
+          <div class="col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Requests Sent</button> --}}
-            <a class = "btn " method = "GET" 
-              href="{{ route('search.request_sent') }}"
-            >Requests Sent</a>
+            <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
+              href="{{ route('search.request_sent') }}">Requests Sent
+              <span class="badge rounded-pill bg-info ">
+                {{ $users_request_sent->count() }}
+              </span>
+            </a>
           </div>
         </div>
 
         <div class="mt-2 row">
-          <div class="col-md-2">
+          <div class="col-md-2 ps-0">
             <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-10  ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followers</button> --}}
-            <a class = "btn " method = "GET" 
-              href="{{ route('search.search_follower') }}"
-            >My Followers</a>
+            <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
+              href="{{ route('search.search_follower') }}">My Followers
+              <span class="badge rounded-pill bg-info">
+                {{ $users_follow_me->count() }}
+              </span>
+            </a>
           </div>
         </div> 
         
         <div class="mt-2 row">
-          <div class="col-md-2">
+          <div class="col-md-2 ps-0">
             <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:blue;"></ion-icon>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-10 ps-0" >
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Friends Requests</button> --}}
-            <a class = "btn " method = "GET" 
-              href="{{ route('search.request_received') }}"
-            >Requests Received</a>
+            <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
+              href="{{ route('search.request_received') }}">Requests Received
+              <span class="badge rounded-pill bg-danger">
+                {{ $users_request_received->count() }}
+              </span>
+            </a>
           </div>
         </div>
+
+        {{-- <div class='mt-5 corp-video'>
+          <video width="160" height="120" controls  autoplay loop muted> 
+            <source src="{{ url('video/ATOMDisplay.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div> --}}
          
       </div>
 
@@ -160,12 +181,24 @@
                       src="/storage/{{ $profile->image }}" alt="">   
                 </div>
                 <div class="card col-md-11">
-                    <div class="card-body"> 
-                        <a class="nav-link" href="{{ route('post.create')}}">Wanna Post Something, 
+                    <div class="card-body "> 
+                        <a class="nav-link animate__animated animate__bounceInRight " 
+                          href="{{ route('post.create')}}">Wanna Post Something, 
                           <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
                     </div> 
                 </div> 
             </div>  
+
+            <div class="mt-0">
+              <audio controls id="back_music" style="display:block; height: 20px;"> 
+                <source src="{{ url('music/avamaxmaybeurdproblem.mp3') }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+              <script>
+                var audio = document.getElementById("back_music");
+                audio.volume = 0.1;
+              </script>
+            </div>
 
             {{-- Only show the first 20 posts. --}}
             {{-- How to implement that it can automatically load the subsequent 10 posts
@@ -181,19 +214,38 @@
                   @else
                   <div class="ind-post-area row mb-3" style="background-color:rgb(200, 255, 255); border-radius:8px;">
                   @endif
-                      <div class="mb-1 row pt-2" > 
+                      <div class="mb-1 row ms-2 mt-2 me-0 pe-0" > 
                           <div class="col-4"> 
                             <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
-                              {{-- src="/storage/{{ $profile->image }}"  --}}
                               src="/storage/{{ $post->profile_image }}"
                             ><span class="text-danger">{{ $post->user_name }}</span>
-                          </div> 
-                          {{-- <div class="col-2 mt-1 text-danger "> {{ $user->name }} </div> --}}
-                          {{-- <div class="col-2 mt-1 text-danger "> {{ $post->user_name }} </div> --}}  
+                          </div>  
 
                           <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
                           {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
-                          <hr class="solid" style="margin-left: 10px; width:100%;">
+                          <div class="col-5"></div>
+                          <div class="col-1 pe-0 me-0"> 
+                            <div class=" ropdown-center">
+                              <button class="btn " type="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                              </button>
+                              <ul class="dropdown-menu">
+                                @if ($post->user_id == $user->id)
+                                  <li><a class="dropdown-item" 
+                                        href="{{ route('post.edit', $post->id) }}">Edit This Post</a></li>
+                                  <li><a class="dropdown-item" 
+                                        href="{{ route('post.destroy', $post->id) }}">Delete This Post</a></li> 
+                                @else
+                                <li><a class="dropdown-item" 
+                                      href="#">Hide This Post</a></li>
+                                <li><a class="dropdown-item" 
+                                      href="#">Report This Post</a></li> 
+                                @endif
+                              </ul>
+                            </div> 
+                          </div>
+
+                          <hr class="solid" style="width:97%;">
                           <div class="row">
                           @if ($post->image)
                             <div class="col-2">
@@ -210,35 +262,40 @@
                             <div  class="col-10"> 
                               {{-- <h5>{{ $post->caption }}</h5> --}}
                               @if(strstr($post->url, "www.youtube.com") && strstr($post->url, "embed"))
-                                <a style="font-size:18px; text-decoration: none !important;">{{ $post->caption }}</a>
+                                <a class="post-title">{{ $post->caption }}</a>
                                 {{-- <video controls autoplay><source src={{$post->url}}></video> --}}
                                   <iframe width="480" height="360" src={{$post->url}}>
                                   </iframe>
                               @else
-                                <a style="font-size:18px; text-decoration: none !important;"href="{{ $post->url }}">{{ $post->caption }}</a>
+                                <a class="post-title" 
+                                   href="{{ $post->url }}">{{ $post->caption }}</a>
                               @endif
-                              <h6>{{ $post->content }}</h6>
+                              {{-- <h6>{{ $post->content }}</h6> --}}
+                              <div class="post-content">{{ $post->content }}</div>
                             </div>  
                           @else
-                            <div   class="col-12">  
-                              <a style="text-decoration: none !important;" href="{{ $post->url }}">{{ $post->caption }}</a> 
-                              <h6>{{ $post->content }}</h6>
+                            <div class="col-12">  
+                              <a style="text-decoration: none !important;" 
+                                href="{{ $post->url }}">{{ $post->caption }}</a> 
+                              <div class="post-content">{{ $post->content }}</div>
                             </div>  
                           @endif
                         </div>
                         
                         {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
                         @if ($post->user_id == $user->id)
-                          <div class="pt-3"> 
+                          {{-- Replaced by 3-dot menu  }}
+                          {{-- <div class="pt-3"> 
                               <a class="p-2" href="{{ route('post.edit', $post->id) }}">   
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 <span class="glyphicon glyphicon-user" style="margin-right: 10px">Edit</a>
                               <a href="{{ route('post.destroy', $post->id) }}">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                                 <span class="glyphicon glyphicon-user" style="margin-right: 10px">Delete</a> 
-                          </div> 
-                          <hr class="solid" style="margin-left: 10px; width:100%;">
+                          </div>  --}}
+                          {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
                         @endif
+                          <hr class="solid" style="width:97%;">
                           <div class="container-fluid row" id="showing-images">
                             @if ($post->images != null)
                               @foreach (json_decode($post->images) as $image)   
@@ -260,13 +317,46 @@
                       <div class="container pb-2 pt-2" style="background-color: rgb(180, 249, 249); border-radius:8px;">
                         <div class="row text-center align-items-center">
                           
-                          <div class="col" style="color:gray; font-size:16px;">
-                            <i class="fa fa-thumbs-o-up fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
-                            <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like
-                          </div>   
+                          <div class="col dropup-center dropup  " style="color:gray; font-size:16px;">
+                            <i class="fa fa-thumbs-o-up fa-beat fa-xl" aria-hidden="true" 
+                              style="color:darkcyan; --fa-animation-duration: 1s;"></i>
+                            {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like --}}
+                              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Like
+                              </button>
+                              <div class="dropdown-menu dropdown-menu--{{ $post->id }}"> 
+                                <div class="dropdown-item dropdown-item-like-{{ $post->id }}"> 
+                                  <a class="dropdown-item-like-heart-{{ $post->id }} mx-2"
+                                    href="#">
+                                    <i class="fa-solid fa-heart fa-beat" 
+                                      style="color:red; font-size:24px; --fa-animation-duration: 0.5s;"></i>
+                                  </a>
+                                  <a class="dropdown-item-like-thumb-{{ $post->id }} mx-2"
+                                    href="#">
+                                    <i class="fa-solid fa-thumbs-up fa-beat" 
+                                      style="color:green;font-size:24px; --fa-animation-duration: 1s;"></i>
+                                  </a>
+                                  <a class="dropdown-item-like-surprice-{{ $post->id }} mx-2"
+                                    href="#">
+                                    <i class="fa-solid fa-face-surprise fa-beat" 
+                                      style="color:purple;font-size:24px; --fa-animation-duration: 1.5s;"></i>
+                                  </a> 
+                                  <a class="dropdown-item-like-sad-{{ $post->id }} mx-2"
+                                    href="#">
+                                    <i class="fa-solid fa-face-sad-cry fa-beat" 
+                                      style="color:blue;font-size:24px; --fa-animation-duration: 2s;"></i>
+                                  </a>
+                                  <a class="dropdown-item-like-angry-{{ $post->id }} mx-2"
+                                    href="#">
+                                    <i class="fa-solid fa-face-angry fa-beat" 
+                                      style="color:black;font-size:24px; --fa-animation-duration: 2.5s;"></i>
+                                  </a> 
+                                </div>
+                              </div>
+                            </div>    
 
                           <div class="col" style="color:gray; font-size:16px;">
-                            <i class="fa fa-commenting-o fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
+                            <i class="fa fa-commenting-o fa-beat-fade fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment --}}
                               <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
                                 onclick="commentCollapse('collapseComment-'+{{ $post->id }})"
@@ -278,10 +368,12 @@
                               </button>  
                           </div>  
                           
-                          <div class="col dropdown" style="color:gray; font-size:16px;">
-                            <i class="fa fa-share fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
+                          <div class="col dropdown" 
+                            style="color:gray; font-size:16px; --fa-animation-duration: 3s;">
+                            <i class="fa fa-share fa-flip fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
                             {{-- <span class="glyphicon glyphicon-user " style="margin-right: 10px">Share --}}
-                              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                              <button class="btn dropdown-toggle" type="button"  
+                                data-bs-toggle="dropdown" aria-expanded="false"
                                 style="color:gray; font-size:16px;">
                                 Share
                               </button>
@@ -290,10 +382,11 @@
                                   <i class="fa fa-xl fa-facebook-official" style="color:blue;" aria-hidden="true"></i>
                                   Share on Facebook
                                 </a></li>
-                                <li><a class="dropdown-item" href="https://twitter.com/intent/tweet">
+                                <li><a class="dropdown-item" href="http://twitter.com/share?text={{ $post->caption }}&url={{ $post->url }}"> 
                                   <i class="fa fa-xl fa-twitter-square" style="color:cornflowerblue" aria-hidden="true"></i>
                                   Tweet it!
                                 </a></li>
+                                
                                 {{-- <li><a class="dropdown-item" href="https://telegram.me/share"> --}}
                                 <li><a class="dropdown-item" href="https://telegram.me/share/url?url={{ $post->url }}&text={{ $post->caption }}">
                                   {{-- https://telegram.me/share/url?url=<URL>&text=<TEXT> --}}
@@ -304,7 +397,7 @@
                                   <i class="fa fa-xl fa-linkedin-square" aria-hidden="true"></i>
                                   Share to LinkedIn
                                 </a></li>
-                                <li><a class="dropdown-item" href="whatsapp://send?text={{ $post->url }}">
+                                <li><a class="dropdown-item" href="whatsapp://send?text={{$post->caption}} {{ $post->url }}">
                                   <i class="fa fa-xl fa-whatsapp" style="color:lightgreen" aria-hidden="true"></i>
                                   Share to WhatsUp
                                 </a></li>
@@ -467,10 +560,10 @@
           }
       </script>
         
-      <div class="col-md-2 right-hand-col" style="background-color:whitesmoke;">
+      <div class="col-md-2 right-hand-col" style="background-color:white;">
 
-        <div>
-          <audio controls autoplay muted id="back_music" style="width: 180px;"> 
+        {{-- <div class="mt-5">
+          <audio controls autoplay loop id="back_music" style="width: 180px;"> 
             <source src="{{ url('music/avamaxmaybeurdproblem.mp3') }}" type="audio/mpeg">
             Your browser does not support the audio element.
           </audio>
@@ -478,12 +571,12 @@
             var audio = document.getElementById("back_music");
             audio.volume = 0.1;
           </script>
-        </div>
+        </div> --}}
           
         <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
               <form>
-                <input class="city-input" type="text" placeholder="City Name" size="15"  autofocus>
+                <input class="city-input" type="text" placeholder="Find a city" size="15"  autofocus>
                 <button type="submit">Go</button>
                 <span class="msg"></span>
               </form>

@@ -20,10 +20,10 @@
     />
   
     <!-- css file -->
-    <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
+    {{-- <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
-    <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}">  --}}
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -43,6 +43,15 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84806e9d1b.js" crossorigin="anonymous"></script>
 
+    <!-- Google Fonts -->
+    {{-- font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif; --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans:wght@500;600&family=Poppins&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   
@@ -54,6 +63,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" 
             crossorigin="anonymous"></script>  
+
+    
+    <!-- css file -->
+    <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
+    <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/profile.css' }}"> 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -89,7 +106,7 @@
                     @csrf
                     <input class="user-search" name="user-search" type="text" autofocus
                         style="background-color: rgba(19, 243, 243, 0.849); border-radius:4px;"
-                        placeholder="Search for an user" aria-label="Search">
+                        placeholder="Find a friend" aria-label="Search">
                     <button class="btn btn-outline-success mx-auto" 
                         type="submit">Search
                     </button> 
