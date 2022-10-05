@@ -62,6 +62,9 @@ Route::get('/search/{follower_id}/{following_id}/{status}/follow',
 
 Route::get('/relation/{follower_id}/{following_id}/{status}/follow',
 [App\Http\Controllers\RelationController::class, 'follow'])->name('relation.follow'); 
+
+Route::get('/like/{like_post_id}/{like_user_id}/{like}/update', 
+[App\Http\Controllers\LikeController::class, 'update'])->name('like.update');
  
 
  

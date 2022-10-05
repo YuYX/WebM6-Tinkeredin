@@ -77,11 +77,11 @@
                     <div class="form-group row">
                         <label class="mt-1" for="caption"><strong>Caption</strong></label>
                         <input class="form-control" type="text" name="caption" id="caption" 
-                        value="{{ $post->caption }}">
+                        value="{{ $post->caption }}" required>
                     </div>
 
                     <div class="form-group row">
-                        <label class="mt-1" for="caption"><strong>URL</strong></label>
+                        <label class="mt-1" for="caption"><strong>URL or Shared Embed Code</strong></label>
                         <input class="form-control" type="text" name="url" id="url" 
                         value="{{ $post->url }}">
                     </div>
@@ -91,7 +91,7 @@
                         {{-- <input class="form-control" type="text" name="content" id="content" 
                         value="{{ $post->content }}"> --}}
                         <textarea class="form-control" type="text" 
-                            name="content" id="content" rows="6">"{{ $post->content }}"</textarea>
+                            name="content" id="content" rows="6" required>{{ $post->content }}</textarea>
                     </div>
 
                     <div class="form-group row mt-1">

@@ -8,6 +8,9 @@ use App\Models\Profile;
 use App\Models\Post; 
 use App\Models\Relation;
 use App\Models\User;
+use App\Models\Like;
+use App\Models\Comment;
+
 use Illuminate\Console\View\Components\Alert;
 
 class ProfileController extends Controller
@@ -80,10 +83,7 @@ class ProfileController extends Controller
                         })
                         ->orWhere('posts.user_id', $user->id)  
                         ->orderBy('posts.created_at', 'desc')
-                        ->get();
-
-        // $numFollowings = Relation::where('following_id', $user->id)->count();
-        // $numFollowers  = Relation::where('follower_id', $user->id)->count();
+                        ->get(); 
 
         $relations_4_following = Relation::where('relations.follower_id', $user->id)
                                     ->where('relations.status', '=', 'Following')
@@ -105,18 +105,23 @@ class ProfileController extends Controller
                                     ->select('relations.follower_id')->get();
         $users_request_received = User:: whereIn('users.id', $relations_4_request_received)->get();
         
+        $post_id_list = array();
+        foreach($posts as $post ){
+            $post_id_list[] = $post->id;
+        } 
+        $likes_4_posts = Like::whereIn('like_post_id', $post_id_list)->get(); 
+
         $numPosts = Post::where('user_id',$user->id)->count();
         return view('profile', [
             'user' => Auth::user(),
             'profile' => $profile,
             'posts' => $posts,
-            'numPosts' => $numPosts,
-            // 'numFollowings' => $numFollowings,
-            // 'numFollowers' => $numFollowers,
+            'numPosts' => $numPosts, 
             'users_i_follow' => $users_i_follow,
             'users_follow_me' => $users_follow_me,
             'users_request_sent' => $users_request_sent,
             'users_request_received' => $users_request_received,
+            'likes_on_post' =>$likes_4_posts,
         ]);
     }
     //--------------------------------------------------------------------------

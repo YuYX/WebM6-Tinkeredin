@@ -1,13 +1,7 @@
-html, body {
+/* html, body {
     height: 100%;
-    width: 100%;
-    /* background-image: url('/images/avire-logo.png'); */
-  }
-  
-  /* .container-fluid img {
-    width: 100px;
-    height: auto;
-  } */
+    width: 100%; 
+  }  */
   
   .col-sm-6 {
     background-color:lightblue;

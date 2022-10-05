@@ -1,5 +1,6 @@
 // const { set } = require("lodash");
 
+
 $(function(){   
     // const form = document.querySelector(".top-banner form");
     // const input = document.querySelector(".top-banner input");
@@ -7,6 +8,9 @@ $(function(){
     //const list = document.querySelector(".ajax-section .cities");
     /*SUBSCRIBE HERE FOR API KEY: https://home.openweathermap.org/users/sign_up*/
     const apiKey = "4d8fb5b93d4af21d66a2948710284366"; 
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
     effects_On_Component(".profile-image", "animate__flipInY animate__slower animate__infinite");  
        
@@ -24,7 +28,7 @@ $(function(){
     // form_user_search.addEventListener("submit", e => {
     //   e.preventDefault();
     //   let inputKeyword = input_user_search.value;  
-    // });
+    // });  
 
     const form_weather = document.querySelector(".weather-form form");
     const input_weather=document.querySelector(".weather-form input");
@@ -77,7 +81,7 @@ $(function(){
       
         msg.textContent = "";
         form.reset();
-        input.focus();
+        input.focus();  
     });
 });  
 
@@ -263,5 +267,41 @@ function getCookie(cname) {
 function checkCookie(cname) {
   let cookiename = getCookie(cname);
   return (cookiename != "");
+} 
+
+// For Post-Input-Prompt Component
+function sayHi(){
+  $(".post-input-prompt").removeClass("animate__bounceInRight");
+  $(".post-input-prompt").addClass("animate__shakeX animate__repeat"); 
+  $(".profile-image").removeClass("animate__flipInY"); 
+  $(".profile-image").addClass("animate__heartBeat");  
 }
+
+function sayBye(){
+  $(".post-input-prompt").removeClass("animate__shakeX animate__repeat");
+  $(".post-input-prompt").addClass("animate__bounceInRight"); 
+  $(".profile-image").removeClass("animate__heartBeat"); 
+  $(".profile-image").addClass("animate__flipInY");
+}
+
+function onMouseOverLike(id){ 
+    $(".post-like-icon-"+id).addClass("fa-beat"); 
+};
+function onMouseOutLike(id){ 
+    $(".post-like-icon-"+id).removeClass("fa-beat"); 
+};
+function onMouseOverComment(id){ 
+    $(".post-comment-icon-"+id).addClass("fa-beat-fade"); 
+};
+function onMouseOutComment(id){ 
+    $(".post-comment-icon-"+id).removeClass("fa-beat-fade"); 
+};
+function onMouseOverShare(id){ 
+    $(".post-share-icon-"+id).addClass("fa-flip"); 
+};
+function onMouseOutShare(id){ 
+    $(".post-share-icon-"+id).removeClass("fa-flip"); 
+};
+
+
  

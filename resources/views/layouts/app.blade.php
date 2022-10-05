@@ -33,6 +33,9 @@
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 
+    {{-- Popover for Bootstrap --}}
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>{{ "Eureka!" }}</title> 
 

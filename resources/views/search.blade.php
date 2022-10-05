@@ -88,8 +88,8 @@
                         <a class = "btn btn-outline-primary" method = "GET" 
                           href="{{ route('relation.follow',
                                   ['follower_id'=>$user->id, 
-                                  'following_id'=>$login_user->id, 
-                                  'status'=>$status2Be_followed]) }}">{{$btnText_followed}}</a>  
+                                   'following_id'=>$login_user->id, 
+                                   'status'=>$status2Be_followed]) }}">{{$btnText_followed}}</a>  
                         @elseif($InfoText_followed) 
                         <span style="color:#d538f1;">{{$InfoText_followed}}</span>
                         @endif
@@ -101,8 +101,8 @@
                         <a class = "btn btn-outline-primary" method = "GET" 
                             href="{{ route('relation.follow',
                                     ['follower_id'=>$login_user->id, 
-                                    'following_id'=>$user->id, 
-                                    'status'=>$status2Be]) }}">{{$btnText}}</a> 
+                                     'following_id'=>$user->id, 
+                                     'status'=>$status2Be]) }}">{{$btnText}}</a> 
                       @endif
                     </div>
                     {{-- <div class="col-1 form-check" > 

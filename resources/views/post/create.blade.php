@@ -68,7 +68,8 @@
 
                     <div class="form-group row">
                         <label class="mt-1" for="caption"><span style="color:blue;">Caption</span></label>
-                        <input class="form-control" type="text" name="caption" id="caption">
+                        <input class="form-control" type="text" name="caption" id="caption"
+                            required>
                     </div>
 
                     <div class="form-group row">
@@ -80,7 +81,7 @@
                         <label class="mt-1" for="content"><span style="color:blue;">Content</span></label>
                         {{-- <input class="form-control" type="text" name="content" id="content"> --}}
                         <textarea class="form-control" 
-                            type="text" name="content" id="content" rows="6"></textarea>
+                            type="text" name="content" id="content" rows="6" required></textarea>
                     </div>
 
                     <div class="form-group row mt-1">

@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->text('comment');
             $table->timestamps();
-            $table->string('image');
+            
+            $table->foreignId('comment_post_id')->references('id')->on('posts');
+            $table->foreignId('comment_user_id')->references('user_id')->on('posts');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('comments');
     }
 };

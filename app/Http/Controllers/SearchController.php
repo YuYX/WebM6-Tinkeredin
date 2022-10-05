@@ -145,7 +145,8 @@ class SearchController extends Controller
     public function follow(Request $request)  
     {   
         $relation_search = Relation::where('relations.follower_id', '=', $request->follower_id)
-                                ->where('relations.following_id', '=', $request->following_id )->first(); 
+                                ->where('relations.following_id', '=', $request->following_id )
+                                ->first(); 
                                      
         if($relation_search != null)     
         { 

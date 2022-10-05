@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')  
-  <?php 
+  @php 
     $no_post_loaded = 0;
     $no_post = 0; 
 
@@ -23,7 +23,54 @@
           return($time_duration);
     }
 
-  ?> 
+    function likedByPostOwner($likes, $post_id, $post_user_id) {
+      foreach($likes as $like){
+        if($like->like == "like"){
+          if($like->like_post_id == $post_id &&
+             $like->like_user_id == $post_user_id ){
+            return true; 
+      }}}
+      return false;
+    }
+ 
+    function breakdownLikeReview($likes, $post_id){ 
+      $like_count = 0;
+      $love_count = 0;
+      $wow_count = 0;
+      $sad_count = 0;
+      $angry_count = 0;
+      foreach($likes as $like){
+        if($like->like_post_id == $post_id){
+          switch($like->like){
+            case "like":
+                  $like_count++;
+                  break;
+            case "love":
+                  $love_count++;
+                  break;
+            case "wow":
+                  $wow_count++;
+                  break;
+            case "sad":
+                  $sad_count++;
+                  break;
+            case "angry": 
+                  $angry_count++;
+                  break;
+          } 
+        }
+      }
+      
+      return [
+        'like' => $like_count,
+        'love' => $love_count,
+        'wow' => $wow_count,
+        'sad' => $sad_count,
+        'angry' => $angry_count,
+        'total' =>($like_count+$love_count+$wow_count+$sad_count+$angry_count),
+      ];
+    }
+  @endphp
 
   <div class="offcanvas offcanvas-start" 
       data-bs-scroll="true" 
@@ -96,11 +143,13 @@
           ><span class="text-danger">{{  $user->name }}</span>
         </div> 
         
+        <hr class="solid my-1" style="width:100%;">
+
         <div class="mt-4 row">
           <div class="col-md-2 ps-0">
             {{-- <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:rgb(24, 183, 236)"></ion-icon> --}}
-            <i class="fa-solid fa-flip fa-user-group mt-2" 
-              style="--fa-animation-duration: 3s;font-size:18px; color:rgb(24, 183, 236)"></i>
+            <i class="fa-solid fa-user-group mt-2" 
+              style="font-size:18px; color:rgb(24, 183, 236)"></i>
           </div>
           <div class="col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followings</button> --}}
@@ -127,8 +176,8 @@
               </span>
             </a>
           </div>
-        </div>
-
+        </div>  
+        
         <div class="mt-2 row">
           <div class="col-md-2 ps-0">
             <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
@@ -157,14 +206,7 @@
               </span>
             </a>
           </div>
-        </div>
-
-        {{-- <div class='mt-5 corp-video'>
-          <video width="160" height="120" controls  autoplay loop muted> 
-            <source src="{{ url('video/ATOMDisplay.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div> --}}
+        </div> 
          
       </div>
 
@@ -172,7 +214,7 @@
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1" 
                     style="background-image:url('/storage/{{ $profile->back_image }}'); 
-                           border-style:none;
+                           border-style:none; border-radius: 10px;
                            background-size:cover;">
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
                         style="height:40px; width:auto; max-width:40px; 
@@ -180,25 +222,53 @@
                         data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
                       src="/storage/{{ $profile->image }}" alt="">   
                 </div>
-                <div class="card col-md-11">
-                    <div class="card-body "> 
-                        <a class="nav-link animate__animated animate__bounceInRight " 
+                <div class="card col-md-11"  
+                    style="background-color: rgb(250, 250, 246); border-radius:10px;">
+                    <div class="card-body"> 
+                        <a class="post-input-prompt nav-link animate__animated animate__bounceInRight " 
+                          onmouseover="sayHi()"
+                          onmouseout="sayBye()"
                           href="{{ route('post.create')}}">Wanna Post Something, 
                           <span style="font-weight: bold;">{{ $user->name }}</span>?</a>
                     </div> 
                 </div> 
-            </div>  
+            </div>   
 
             <div class="mt-0">
-              <audio controls id="back_music" style="display:block; height: 20px;"> 
+              <audio controls id="back_music" style="display:inline-block; height: 16px;"> 
                 <source src="{{ url('music/avamaxmaybeurdproblem.mp3') }}" type="audio/mpeg">
                 Your browser does not support the audio element.
               </audio>
+
+              <a >Corporate Video</a>
+              <i class="play-stop-icon fa-solid fa-circle-play fa-lg" 
+                onclick="onClickCorpVideo()"
+                style="color:cornflowerblue;"></i>
+              <video class="corporate-video-clip pt-0 mt-0" width="640" height="480" controls  autoplay loop muted 
+                style="display:none;"
+              > 
+                <source src="{{ url('video/ATOMDisplay.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+
               <script>
                 var audio = document.getElementById("back_music");
                 audio.volume = 0.1;
+
+                function onClickCorpVideo(){ 
+                  if($('.play-stop-icon').hasClass('fa-circle-play')){
+                    $('.corporate-video-clip').css('display','block'); 
+                    $('.play-stop-icon').removeClass('fa-circle-play');
+                    $('.play-stop-icon').addClass('fa-pause');
+                  }else{
+                    $('.corporate-video-clip').css('display','none'); 
+                    $('.play-stop-icon').removeClass('fa-pause');
+                    $('.play-stop-icon').addClass('fa-circle-play');
+                  } 
+                };
+
               </script>
-            </div>
+            </div> 
 
             {{-- Only show the first 20 posts. --}}
             {{-- How to implement that it can automatically load the subsequent 10 posts
@@ -210,9 +280,9 @@
                 @if($no_post<=20)
                   <?php $no_post_loaded = $no_post_loaded + 1; ?>
                   @if($post->user_id == $user->id)
-                  <div class="ind-post-area row mb-3" style="background-color:lightcyan; border-radius:8px;">
+                  <div class="ind-post-area row mb-3" style="background-color:rgb(240, 255, 255); border-radius:8px;">
                   @else
-                  <div class="ind-post-area row mb-3" style="background-color:rgb(200, 255, 255); border-radius:8px;">
+                  <div class="ind-post-area row mb-3" style="background-color:rgb(224, 255, 255); border-radius:8px;">
                   @endif
                       <div class="mb-1 row ms-2 mt-2 me-0 pe-0" > 
                           <div class="col-4"> 
@@ -225,11 +295,11 @@
                           {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
                           <div class="col-5"></div>
                           <div class="col-1 pe-0 me-0"> 
-                            <div class=" ropdown-center">
+                            <div class="dropdown-center">
                               <button class="btn " type="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                               </button>
-                              <ul class="dropdown-menu">
+                              <ul class="dropdown-menu ">
                                 @if ($post->user_id == $user->id)
                                   <li><a class="dropdown-item" 
                                         href="{{ route('post.edit', $post->id) }}">Edit This Post</a></li>
@@ -259,19 +329,20 @@
                                   src="/storage/{{$post->image}}" >
                               @endif
                             </div> 
-                            <div  class="col-10"> 
-                              {{-- <h5>{{ $post->caption }}</h5> --}}
-                              @if(strstr($post->url, "www.youtube.com") && strstr($post->url, "embed"))
-                                <a class="post-title">{{ $post->caption }}</a>
-                                {{-- <video controls autoplay><source src={{$post->url}}></video> --}}
-                                  <iframe width="480" height="360" src={{$post->url}}>
+                            <div  class="col-10">  
+                              @if(strstr($post->url,'<iframe') && strstr($post->url,'</iframe>'))
+                              <a class="post-title">{{ $post->caption }}</a>
+                              {!! $post->url !!}
+                              @elseif(strstr($post->url, "www.youtube.com") && strstr($post->url, "embed"))
+                                <a class="post-title">{{ $post->caption }}</a> 
+                                  <iframe width="640" height="360" src={{$post->url}}>
                                   </iframe>
                               @else
                                 <a class="post-title" 
                                    href="{{ $post->url }}">{{ $post->caption }}</a>
-                              @endif
-                              {{-- <h6>{{ $post->content }}</h6> --}}
-                              <div class="post-content">{{ $post->content }}</div>
+                              @endif 
+                              <div class="post-content">{{ $post->content }} 
+                              </div>
                             </div>  
                           @else
                             <div class="col-12">  
@@ -303,9 +374,8 @@
                                   style="width:20%; height:auto; object-fit: contain;" 
                                   src="storage/{{$image}}"  
                                   alt="{{$post->id}}"
-                                  @if ($post->image)
-                                    {{-- onclick="postImgOnClick(event)" --}}
-                                    onclick="postImageOnClock_Carousel({{$post->images}}, {{$loop->index}})"
+                                  @if ($post->image) 
+                                    onclick="postImageOnClick_Carousel({{$post->images}}, {{$loop->index}})"
                                   @else
                                     onclick="postImgOnClick2(event)"
                                   @endif
@@ -314,66 +384,155 @@
                             @endif
                           </div> 
                       </div>  
-                      <div class="container pb-2 pt-2" style="background-color: rgb(180, 249, 249); border-radius:8px;">
-                        <div class="row text-center align-items-center">
-                          
+
+                      <div class="container post-review-data ms-2">
+                        <?php 
+                          $like_array = breakdownLikeReview($likes_on_post, $post->id);
+                        ?>
+                        @if($like_array['total']>0)
+                          @if($like_array['like']>0)
+                          {{-- <i class="fa-regular fa-thumbs-up"></i> --}}
+                            <i class="fa-solid fa-lg fa-thumbs-up" style="color:green;"></i>
+                            <a>{{ $like_array['like'] }}</a>
+                          @endif
+                          @if($like_array['love']>0)
+                            <i class="fa-solid fa-lg fa-heart" style="color:red;"></i>
+                            <a>{{ $like_array['love'] }}</a>
+                          @endif
+                          @if($like_array['wow']>0)
+                            <i class="fa-solid fa-lg fa-face-surprise" style="color:purple;"></i>
+                            <a>{{ $like_array['wow'] }}</a>
+                          @endif
+                          @if($like_array['sad']>0)
+                            <i class="fa-solid fa-lg fa-face-sad-cry" style="color:blue;"></i>
+                            <a>{{ $like_array['sad'] }}</a>
+                          @endif
+                          @if($like_array['angry']>0)
+                            <i class="fa-solid fa-lg fa-face-angry" style="color:black;"></i>
+                            <a>{{ $like_array['angry'] }}</a>
+                          @endif
+                        @endif
+                      </div> 
+
+                      <div class="container post-review-panel pb-1 pt-1" 
+                           style="background-color: white; border-radius:8px;">
+                        <div class="row text-center align-items-center"> 
                           <div class="col dropup-center dropup  " style="color:gray; font-size:16px;">
-                            <i class="fa fa-thumbs-o-up fa-beat fa-xl" aria-hidden="true" 
-                              style="color:darkcyan; --fa-animation-duration: 1s;"></i>
-                            {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Like --}}
-                              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
+                              style="color:grey; --fa-animation-duration: 1s;"></i> 
+                              <button class="btn" type="button" 
+                                {{-- onmouseover="onMouseOverLike({{ $post->id }})"
+                                onmouseout="onMouseOutLike({{ $post->id }})" --}}
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false">
                                 Like
                               </button>
+                              @if(likedByPostOwner($likes_on_post, $post->id, $post->user_id)) 
+                              <script> 
+                                $('.post-like-icon-'+{{$post->id}}).addClass('fa-beat'); 
+                                $('.post-like-icon-'+{{$post->id}}).css("color","green");
+                              </script> 
+                              @endif
+                               
                               <div class="dropdown-menu dropdown-menu--{{ $post->id }}"> 
-                                <div class="dropdown-item dropdown-item-like-{{ $post->id }}"> 
-                                  <a class="dropdown-item-like-heart-{{ $post->id }} mx-2"
-                                    href="#">
-                                    <i class="fa-solid fa-heart fa-beat" 
-                                      style="color:red; font-size:24px; --fa-animation-duration: 0.5s;"></i>
-                                  </a>
+                                <div class="dropdown-item dropdown-item-like-{{ $post->id }}">  
                                   <a class="dropdown-item-like-thumb-{{ $post->id }} mx-2"
-                                    href="#">
+                                    style="text-decoration: none;"  method = "GET" 
+                                    href="{{ route('like.update', [
+                                      'like_post_id' => $post->id,
+                                      'like_user_id' => $user->id,
+                                      'like'  => 'like',
+                                      ]) }}">
                                     <i class="fa-solid fa-thumbs-up fa-beat" 
+                                      data-bs-placement="left"  
+                                      data-bs-toggle="tooltip"  
+                                      data-bs-custom-class="custom-tooltip"
+                                      data-bs-title="Like It!"
                                       style="color:green;font-size:24px; --fa-animation-duration: 1s;"></i>
                                   </a>
+                                  <a class="dropdown-item-like-heart-{{ $post->id }} mx-2" 
+                                    style="text-decoration: none;"
+                                    href="{{ route('like.update', [
+                                      'like_post_id' => $post->id,
+                                      'like_user_id' => $user->id,
+                                      'like'  => 'love',
+                                      ]) }}">
+                                    <i class="fa-solid fa-heart fa-beat"  
+                                      data-bs-placement="left"  
+                                      data-bs-toggle="tooltip"  
+                                      data-bs-custom-class="custom-tooltip" 
+                                      data-bs-title="Love It!"  
+                                      style="color:red; font-size:24px; --fa-animation-duration: 0.5s;"></i>
+                                  </a>
                                   <a class="dropdown-item-like-surprice-{{ $post->id }} mx-2"
-                                    href="#">
-                                    <i class="fa-solid fa-face-surprise fa-beat" 
+                                    style="text-decoration: none;"
+                                    href="{{ route('like.update', [
+                                      'like_post_id' => $post->id,
+                                      'like_user_id' => $user->id,
+                                      'like'  => 'wow',
+                                      ]) }}">
+                                    <i class="fa-solid fa-face-surprise fa-beat"  
+                                      data-bs-placement="left"  
+                                      data-bs-toggle="tooltip"  
+                                      data-bs-custom-class="custom-tooltip"
+                                      data-bs-title="WOW!"
                                       style="color:purple;font-size:24px; --fa-animation-duration: 1.5s;"></i>
                                   </a> 
                                   <a class="dropdown-item-like-sad-{{ $post->id }} mx-2"
-                                    href="#">
+                                    style="text-decoration: none;"
+                                    href="{{ route('like.update', [
+                                      'like_post_id' => $post->id,
+                                      'like_user_id' => $user->id,
+                                      'like'  => 'sad',
+                                      ]) }}">
                                     <i class="fa-solid fa-face-sad-cry fa-beat" 
+                                      data-bs-placement="left"  
+                                      data-bs-toggle="tooltip"  
+                                      data-bs-custom-class="custom-tooltip"
+                                      data-bs-title="Sad"
                                       style="color:blue;font-size:24px; --fa-animation-duration: 2s;"></i>
                                   </a>
                                   <a class="dropdown-item-like-angry-{{ $post->id }} mx-2"
-                                    href="#">
+                                    style="text-decoration: none;"
+                                    href="{{ route('like.update', [
+                                      'like_post_id' => $post->id,
+                                      'like_user_id' => $user->id,
+                                      'like'  => 'angry',
+                                      ]) }}">
                                     <i class="fa-solid fa-face-angry fa-beat" 
+                                      data-bs-placement="left"  
+                                      data-bs-toggle="tooltip"  
+                                      data-bs-custom-class="custom-tooltip"
+                                      data-bs-title="Angry"
                                       style="color:black;font-size:24px; --fa-animation-duration: 2.5s;"></i>
-                                  </a> 
+                                  </a>   
                                 </div>
                               </div>
                             </div>    
 
                           <div class="col" style="color:gray; font-size:16px;">
-                            <i class="fa fa-commenting-o fa-beat-fade fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
-                            {{-- <span class="glyphicon glyphicon-user" style="margin-right: 10px">Comment --}}
+                            <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
+                               aria-hidden="true" style="color:gray;"></i> 
                               <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
-                                onclick="commentCollapse('collapseComment-'+{{ $post->id }})"
-                                data-bs-toggle="collapse" 
+                                onclick="commentCollapse('collapseComment-'+{{ $post->id }})" 
+                                {{-- onmouseover="onMouseOverComment({{ $post->id }})"
+                                onmouseout="onMouseOutComment({{ $post->id }})" --}}
+                                data-bs-toggle="collapse"  
                                 data-bs-target="#collapseComment-{{ $post->id }}" 
-                                aria-expanded="false" 
+                                aria-expanded="false"  
                                 aria-controls="collapseComment-{{ $post->id }}">
                                 Comment
-                              </button>  
+                              </button>   
                           </div>  
                           
                           <div class="col dropdown" 
                             style="color:gray; font-size:16px; --fa-animation-duration: 3s;">
-                            <i class="fa fa-share fa-flip fa-xl" aria-hidden="true" style="color:darkcyan;"></i>
-                            {{-- <span class="glyphicon glyphicon-user " style="margin-right: 10px">Share --}}
+                            <i class="post-share-icon-{{ $post->id }} fa fa-share fa-xl" 
+                               aria-hidden="true" style="color:gray;"></i> 
                               <button class="btn dropdown-toggle" type="button"  
-                                data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-toggle="dropdown" aria-expanded="false" 
+                                {{-- onmouseover="onMouseOverShare({{ $post->id }})"
+                                onmouseout="onMouseOutShare({{ $post->id }})" --}}
                                 style="color:gray; font-size:16px;">
                                 Share
                               </button>
@@ -429,8 +588,7 @@
                                 name="post-comment" id="post-comment" rows="1"></textarea>
                             </form>
                           </div>  
-                        </div>   
-
+                        </div>    
                       </div> 
                   </div>
                 @endif
@@ -442,10 +600,9 @@
       <div id="myModal" class="modal"> 
         <span class="close">&times;</span>
   
-        <div id="carouselExampleIndicators" 
+        <div id="carouselImageView" 
              class="carousel slide"  
-             data-bs-ride="true" data-wrap="false">
-         
+             data-bs-ride="true" data-wrap="false"> 
         </div>        
 
         {{-- <img class="modal-content" id="img01"> --}}
@@ -465,8 +622,8 @@
             postImgOnClick2(e); 
           }
 
-          function postImageOnClock_Carousel(imgArray,idx){    
-            const outerContainer = document.querySelector('#carouselExampleIndicators'); 
+          function postImageOnClick_Carousel(imgArray,idx){    
+            const outerContainer = document.querySelector('#carouselImageView'); 
 
             var divIContainer = document.querySelector('.carousel-indicators');
             if(divIContainer != null) divIContainer.remove();
@@ -482,7 +639,7 @@
             for(let i=0; i<imgArray.length; i++){
               var tmpBtn = document.createElement('button');
               tmpBtn.setAttribute('type', 'button');
-              tmpBtn.setAttribute('data-bs-target', '#carouselExampleIndicators');
+              tmpBtn.setAttribute('data-bs-target', '#carouselImageView');
               tmpBtn.setAttribute('data-bs-slide-to', i);  
               if(i==idx) {
                 tmpBtn.setAttribute('class', 'active'); 
@@ -508,7 +665,7 @@
               btnPrev = document.createElement('button'); 
               btnPrev.setAttribute('class','carousel-control-prev'); 
               btnPrev.setAttribute('type','button');
-              btnPrev.setAttribute('data-bs-target','#carouselExampleIndicators');
+              btnPrev.setAttribute('data-bs-target','#carouselImageView');
               btnPrev.setAttribute('data-bs-slide','prev');
               btnSpan = document.createElement('span');
               btnSpan.setAttribute('class', 'carousel-control-prev-icon');
@@ -520,7 +677,7 @@
               btnNext = document.createElement('button'); 
               btnNext.setAttribute('class','carousel-control-next');
               btnNext.setAttribute('type','button');
-              btnNext.setAttribute('data-bs-target','#carouselExampleIndicators');
+              btnNext.setAttribute('data-bs-target','#carouselImageView');
               btnNext.setAttribute('data-bs-slide','next');
               btnSpan = document.createElement('span');
               btnSpan.setAttribute('class', 'carousel-control-next-icon');
@@ -534,22 +691,7 @@
 
             }   
             modal.style.display = "block";   
-          }
-
-            // var curModalImg = document.getElementById("img01"); 
-          // function postImgOnClick2(e){   
-          //   var curModalImg = document.querySelector('.modal-content');
-          //   if(curModalImg == null){
-          //     curModalImg = document.createElement('img'); 
-          //     curModalImg.setAttribute('class','modal-content');
-          //   }
-          //   curModalImg.src = e.target.src; 
-            
-          //   var CurCaptionText = document.getElementById("caption");
-          //   modal.style.display = "block";   
-            
-          //   modal.appendChild(curModalImg);
-          // }
+          } 
 
           // Get the <span> element that closes the modal
           var span = document.getElementsByClassName("close")[0];
@@ -560,18 +702,7 @@
           }
       </script>
         
-      <div class="col-md-2 right-hand-col" style="background-color:white;">
-
-        {{-- <div class="mt-5">
-          <audio controls autoplay loop id="back_music" style="width: 180px;"> 
-            <source src="{{ url('music/avamaxmaybeurdproblem.mp3') }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>
-          <script>
-            var audio = document.getElementById("back_music");
-            audio.volume = 0.1;
-          </script>
-        </div> --}}
+      <div class="col-md-2 right-hand-col" style="background-color:white;"> 
           
         <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
