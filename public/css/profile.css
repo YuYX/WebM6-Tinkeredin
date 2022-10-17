@@ -3,11 +3,12 @@
     height: 100%;
     width: 100%;
     background-color: whitesmoke !important;
+    /* background: url(https://images.pexels.com/photos/414102/pexels-photo-414102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); */
     /* background-image: url('/images/avire-logo.png'); */
-  }
+  }   
 
   .left-hand-col, .right-hand-col {
-    background-color: whitesmoke !important;
+    background-color: whitesmoke !important; 
   }
 
   .post-preview-image:hover {
@@ -43,12 +44,16 @@
     /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
     color: #fff;
   }   
-        
-  /* Post: 3-dot Dropdown   */
-  /* Post: 'Like' Dropdown  */
-  /* Post: 'Share' Dropdown */
-  /* .dropdown-center:hover .dropdown-menu, 
-  .dropup-center:hover .dropdown-menu,   
-  .dropdown:hover .dropdown-menu {       
-    display:inline-block; 
- } */
+         
+  /* .dropdown-4-share:hover .dropdown-menu, */
+  .dropdown-4-like:hover .dropdown-menu {       
+    display:inline-block;  
+ } 
+
+  .like-count-in-type:hover .dropdown-menu {
+    display: inline-block;
+  }
+
+  .dropdown-item-like-selection:hover { 
+    background-color: white !important; 
+  }

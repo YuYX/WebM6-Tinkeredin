@@ -1,29 +1,34 @@
 @extends('layouts.app')
 
-@section('content')  
+@section('content')   
+
   @php 
     $no_post_loaded = 0;
     $no_post = 0; 
 
-    function calcDateTimeDiff_2_Day_Hour_Min($timestamp)
-    {
-          $time_diff = floor( (time()-strtotime($timestamp))/60 );
-          $time_diff_in_min = $time_diff;
-          if($time_diff<60){
-                $time_duration = $time_diff."m";
+    function calcDateTimeDiff_2_Day_Hour_Min($timestamp){
+      $time_duration = 0;
+      $time_diff = floor( time()-strtotime($timestamp) );
+      if($time_diff<60){
+        $time_duration = $time_diff."s";
+      }else{
+        $time_diff = floor( $time_diff/60 );
+        if($time_diff<60){
+              $time_duration = $time_diff."m";
+        }else{
+              $time_diff = floor( $time_diff/60 );
+          if($time_diff<24){
+              $time_duration = $time_diff."h";
           }else{
-                $time_diff = floor( $time_diff_in_min/(60) );
-            if($time_diff<24){
-                $time_duration = $time_diff."h";
-            }else{
-              $time_diff = floor( $time_diff_in_min/(60*24) );
-              $time_duration = $time_diff."d";
-            }
-          }   
-          return($time_duration);
+            $time_diff = floor( $time_diff/24 );
+            $time_duration = $time_diff."d";
+          }
+        }   
+      }
+      return($time_duration);
     }
 
-    function likedByPostOwner($likes, $post_id, $post_user_id) {
+    function likedByLoginUser($likes, $post_id, $post_user_id) {
       foreach($likes as $like){
         if($like->like == "like"){
           if($like->like_post_id == $post_id &&
@@ -34,19 +39,24 @@
     }
  
     function breakdownLikeReview($likes, $post_id){ 
-      $like_count = 0;
-      $love_count = 0;
-      $wow_count = 0;
-      $sad_count = 0;
-      $angry_count = 0;
+      $like_count   = 0;
+      $love_count   = 0;
+      $laugh_count  = 0;
+      $wow_count    = 0;
+      $sad_count    = 0;
+      $angry_count  = 0; 
+      
       foreach($likes as $like){
-        if($like->like_post_id == $post_id){
+        if($like->like_post_id == $post_id){ 
           switch($like->like){
             case "like":
                   $like_count++;
                   break;
             case "love":
                   $love_count++;
+                  break;
+            case "laugh":
+                  $laugh_count++;
                   break;
             case "wow":
                   $wow_count++;
@@ -62,15 +72,101 @@
       }
       
       return [
-        'like' => $like_count,
-        'love' => $love_count,
-        'wow' => $wow_count,
-        'sad' => $sad_count,
+        'like'  => $like_count,
+        'love'  => $love_count,
+        'laugh' => $laugh_count,
+        'wow'   => $wow_count,
+        'sad'   => $sad_count,
         'angry' => $angry_count,
-        'total' =>($like_count+$love_count+$wow_count+$sad_count+$angry_count),
+        'total' =>( $like_count +
+                    $love_count +
+                    $laugh_count +
+                    $wow_count +
+                    $sad_count +
+                    $angry_count),
       ];
     }
-  @endphp
+
+    function makeLikeIconCount($like_array, $likes_on_post, $postId, $like_type,$iconClass, $color){
+      $html_inner = "";
+      if($like_array[$like_type]>0){
+          $html_inner = 
+            "<span class='dropdown like-count-in-type' display='flex'>" .
+            "<i class='fa-solid fa-lg $iconClass' style='color:$color'></i>" .
+            "<a type='button' style='text-decoration:none;' data-bs-toggle='dropdown'>".
+            "&nbsp;".$like_array[$like_type]."&nbsp;&nbsp;</a>" .
+            "<ul class='dropdown-menu dropdown-menu-dark dropdown-like-$like_type'>";
+
+          foreach($likes_on_post as $like_on_post){
+            if( ($like_on_post->like_post_id == $postId) &&
+                ($like_on_post->like == $like_type) ) {
+              $html_inner = $html_inner .
+                "<li><a class='dropdown-item' href='#'>".
+                $like_on_post->like_user_name . 
+                "</a></li>";
+            }
+          } 
+          $html_inner = $html_inner . "</ul></span>";
+      } 
+      return $html_inner;
+    }
+
+    function makeLikeIconsCount($likes_on_post, $post_id){ 
+
+        $like_array = breakdownLikeReview($likes_on_post, $post_id); 
+        
+        $html_inner = "";
+        // '<div class="container post-review-data ms-2">';
+          if($like_array['total']>0){
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"like","fa-thumbs-up","green") ;
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"love","fa-heart","red");
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"laugh","fa-face-grin-beam","deeppink");                        
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"wow","fa-face-surprise","purple");                          
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"sad","fa-face-sad-cry","blue");                         
+            $html_inner = $html_inner . makeLikeIconCount($like_array,$likes_on_post,$post_id,"angry","fa-face-angry","black");
+          }
+          // $html_inner = $html_inner . '</div>';
+
+      return $html_inner;
+    }
+
+    function makeLikeIcon2($likeType, $likeText, $postId, $userId, $iconClass, $color){
+      $html_content = 
+      "<a class='dropdown-item-like-thumb-$postId mx-2'
+        style='text-decoration: none;'
+        onclick=\"likeIcon_onClick('dropdown-item-like-thumb-$postId', '$postId', '$userId', '$likeType')\">
+        <i class='fa-solid $iconClass fa-beat' 
+          data-bs-placement='left'  
+          data-bs-toggle='tooltip'  
+          data-bs-custom-class='custom-tooltip'
+          data-bs-title='$likeText'
+          style='color:$color; font-size:24px; --fa-animation-duration: 1s;'></i>
+      </a>"; 
+      return $html_content;
+    }
+
+    function makeLikeIcon($likeType, $likeText, $postId, $userId, $iconClass, $color){
+      $html_content = 
+      "<a class='dropdown-item-like-thumb-$postId mx-2'
+        style='text-decoration: none;'  method = 'GET' 
+        href="
+        .
+        route('like.update',['like_post_id'  => $postId,
+                             'like_user_id' => $userId,
+                             'like'  => $likeType ] )
+        .
+        ">
+        <i class='fa-solid $iconClass fa-beat' 
+          data-bs-placement='left'  
+          data-bs-toggle='tooltip'  
+          data-bs-custom-class='custom-tooltip'
+          data-bs-title='$likeText'
+          style='color:$color; font-size:24px; --fa-animation-duration: 1s;'></i>
+      </a>";
+      return $html_content;
+    }  
+
+  @endphp 
 
   <div class="offcanvas offcanvas-start" 
       data-bs-scroll="true" 
@@ -87,7 +183,7 @@
         <div class="card cardeffect sticky-top " 
             style="background-color:beige;" > 
               
-                <img class="rounded card-img-top mb-5" 
+                <img class="rounded card-img-top mb-1" 
                 src="/storage/{{ $profile->back_image }}" alt=""> 
                 <div class="mx-auto">
                     <img class="rounded-circle card-img-overlay mx-auto" 
@@ -104,9 +200,7 @@
                 </div>
                 <span>You have <strong>{{$numPosts}}</strong> posts</span> 
                 <hr style="width:100%;">
-                <div class="row justify-content-md-center">
-                  {{-- <div class='col col-sm-4'><span >Following: <strong>{{$numFollowers}}</strong></span></div> --}}
-                  {{-- <div class='col col-sm-4'><span>Followers: <strong>{{$numFollowings}}</strong></span></div> --}} 
+                <div class="row justify-content-md-center"> 
                   <div class='col col-sm-4 dropdown-center dropup'> 
                       <span >Following: </span>
                       <button class="btn dropdown-no-of-following" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -210,7 +304,7 @@
          
       </div>
 
-      <div class="col-md-8"  style="background-color:whitesmoke">   
+      <div class="col-md-8 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1" 
                     style="background-image:url('/storage/{{ $profile->back_image }}'); 
@@ -244,7 +338,7 @@
               <i class="play-stop-icon fa-solid fa-circle-play fa-lg" 
                 onclick="onClickCorpVideo()"
                 style="color:cornflowerblue;"></i>
-              <video class="corporate-video-clip pt-0 mt-0" width="640" height="480" controls  autoplay loop muted 
+              <video class="corporate-video-clip pt-0 mt-0" width="100%" height="auto" controls  autoplay loop muted 
                 style="display:none;"
               > 
                 <source src="{{ url('video/ATOMDisplay.mp4') }}" type="video/mp4">
@@ -285,11 +379,41 @@
                   <div class="ind-post-area row mb-3" style="background-color:rgb(224, 255, 255); border-radius:8px;">
                   @endif
                       <div class="mb-1 row ms-2 mt-2 me-0 pe-0" > 
-                          <div class="col-4"> 
-                            <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
+                          <div class="col-4 dropdown dropdown-post-owner"> 
+                            <img class="rounded-circle profile-image-4-post-{{$post->id}}" 
+                              type="button" 
+                              class="btn btn-primary dropdown-toggle" 
+                              data-bs-toggle="dropdown" 
+                              aria-expanded="false" 
+                              data-bs-auto-close="outside"
+                              style=" height:30px; 
+                                      width:auto; 
+                                      max-width:30px; 
+                                      margin-right:8px;  
+                                      display:inline-block;"  
                               src="/storage/{{ $post->profile_image }}"
-                            ><span class="text-danger">{{ $post->user_name }}</span>
-                          </div>  
+                              onmouseover="onMouseOverProfileImagePost({{ $post->id }})"
+                              onmouseout="onMouseOutProfileImagePost({{ $post->id }})" 
+                            ><span class="text-danger">{{ $post->user_name }}</span> 
+
+                            <div class="dropdown-menu p-4">  
+                              <div class="card cardeffect sticky-top " 
+                                  style="background-color:honeydew;" >  
+                                      <img class="rounded card-img-top mb-0" 
+                                      src="/storage/{{ $post->profile_back }}" alt=""> 
+                                      <div class="mx-auto">
+                                          <img class="rounded-circle card-img-overlay mx-auto" 
+                                              width="120" height="auto"
+                                              src="/storage/{{ $post->profile_image }}" alt="">  
+                                      </div> 
+                                      
+                                    <div class="card-body" style="text-align: center">
+                                        <strong>{{$post->user_name}}</strong><br> 
+                                        <div class="pt-1">{{ $post->profile_desc }}</div> 
+                                    </div>  
+                              </div>   
+                            </div> 
+                          </div>   
 
                           <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
                           {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
@@ -317,8 +441,8 @@
 
                           <hr class="solid" style="width:97%;">
                           <div class="row">
-                          @if ($post->image)
-                            <div class="col-2">
+                          {{-- @if ($post->image) --}}
+                            {{-- <div class="col-2">
                               @if ($post->user_id == $user->id)
                               <a href="/post/{{$post->id}}"> 
                                 <img class="img-thumbnail img-thumbnail-{{$post->id}} mx-auto mt-2" 
@@ -328,29 +452,37 @@
                                 <img class="img-thumbnail img-thumbnail-{{$post->id}} mx-auto mt-2" 
                                   src="/storage/{{$post->image}}" >
                               @endif
-                            </div> 
-                            <div  class="col-10">  
-                              @if(strstr($post->url,'<iframe') && strstr($post->url,'</iframe>'))
-                              <a class="post-title">{{ $post->caption }}</a>
-                              {!! $post->url !!}
+                            </div>  --}}
+                            {{-- <div  class="col-10">  --}} 
+                            <div  class="col-12">   
+                              @if(strstr($post->url,'<iframe') && strstr($post->url,'</iframe>')) 
+                                <a class="post-title">{{ $post->caption }}</a>
+                                {!! $post->url !!}
                               @elseif(strstr($post->url, "www.youtube.com") && strstr($post->url, "embed"))
                                 <a class="post-title">{{ $post->caption }}</a> 
                                   <iframe width="640" height="360" src={{$post->url}}>
                                   </iframe>
                               @else
-                                <a class="post-title" 
+                                <a class="post-title" target="_blank" rel="noreferrer noopener"
                                    href="{{ $post->url }}">{{ $post->caption }}</a>
                               @endif 
-                              <div class="post-content">{{ $post->content }} 
+                              <div class="post-content clearfix">
+                                @if ($post->image)
+                                <img class="col-md-6 float-md-start mb-1 me-md-2"
+                                  src="/storage/{{$post->image}}" >
+                                @endif
+                                {{ $post->content }} 
                               </div>
                             </div>  
-                          @else
-                            <div class="col-12">  
-                              <a style="text-decoration: none !important;" 
+                          {{-- @else --}}
+                            {{-- <div class="col-2"></div>
+                            <div class="col-10">   --}}
+                            {{-- <div class="col-12">
+                              <a class="post-title" style="text-decoration: none !important;" target="_blank" rel="noreferrer noopener"
                                 href="{{ $post->url }}">{{ $post->caption }}</a> 
                               <div class="post-content">{{ $post->content }}</div>
-                            </div>  
-                          @endif
+                            </div>   --}}
+                          {{-- @endif --}}
                         </div>
                         
                         {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
@@ -371,7 +503,7 @@
                             @if ($post->images != null)
                               @foreach (json_decode($post->images) as $image)   
                                 <img class="post-preview-image image-fluid col-sm-4 col-md-3 mt-2 mb-1"
-                                  style="width:20%; height:auto; object-fit: contain;" 
+                                  style="width:20%; height:auto; object-fit: contain; border-style:double; border-color:lightblue;" 
                                   src="storage/{{$image}}"  
                                   alt="{{$post->id}}"
                                   @if ($post->image) 
@@ -383,213 +515,144 @@
                               @endforeach 
                             @endif
                           </div> 
-                      </div>  
-
+                      </div>   
+                      
                       <div class="container post-review-data ms-2">
-                        <?php 
-                          $like_array = breakdownLikeReview($likes_on_post, $post->id);
-                        ?>
-                        @if($like_array['total']>0)
-                          @if($like_array['like']>0)
-                          {{-- <i class="fa-regular fa-thumbs-up"></i> --}}
-                            <i class="fa-solid fa-lg fa-thumbs-up" style="color:green;"></i>
-                            <a>{{ $like_array['like'] }}</a>
-                          @endif
-                          @if($like_array['love']>0)
-                            <i class="fa-solid fa-lg fa-heart" style="color:red;"></i>
-                            <a>{{ $like_array['love'] }}</a>
-                          @endif
-                          @if($like_array['wow']>0)
-                            <i class="fa-solid fa-lg fa-face-surprise" style="color:purple;"></i>
-                            <a>{{ $like_array['wow'] }}</a>
-                          @endif
-                          @if($like_array['sad']>0)
-                            <i class="fa-solid fa-lg fa-face-sad-cry" style="color:blue;"></i>
-                            <a>{{ $like_array['sad'] }}</a>
-                          @endif
-                          @if($like_array['angry']>0)
-                            <i class="fa-solid fa-lg fa-face-angry" style="color:black;"></i>
-                            <a>{{ $like_array['angry'] }}</a>
-                          @endif
+                        {!! makeLikeIconsCount($likes_on_post,$post->id) !!}
+                      </div>
+                      
+                      {{-- @php 
+                        $like_array = breakdownLikeReview($likes_on_post, $post->id);
+                      @endphp  
+                      <div class="container post-review-data ms-2">
+                        @if($like_array['total']>0)   
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"like","fa-thumbs-up","green") !!}
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"love","fa-heart","red") !!}
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"laugh","fa-face-grin-beam","deeppink") !!}                          
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"wow","fa-face-surprise","purple") !!}                          
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"sad","fa-face-sad-cry","blue") !!}                          
+                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"angry","fa-face-angry","black") !!} 
                         @endif
-                      </div> 
+                    </div>     --}}
 
-                      <div class="container post-review-panel pb-1 pt-1" 
-                           style="background-color: white; border-radius:8px;">
-                        <div class="row text-center align-items-center"> 
-                          <div class="col dropup-center dropup  " style="color:gray; font-size:16px;">
-                              <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
-                              style="color:grey; --fa-animation-duration: 1s;"></i> 
-                              <button class="btn" type="button" 
-                                {{-- onmouseover="onMouseOverLike({{ $post->id }})"
-                                onmouseout="onMouseOutLike({{ $post->id }})" --}}
-                                data-bs-toggle="dropdown" 
-                                aria-expanded="false">
-                                Like
-                              </button>
-                              @if(likedByPostOwner($likes_on_post, $post->id, $post->user_id)) 
+                    <div class="container post-review-panel pb-1 pt-1" style="background-color: white; border-radius:8px;">
+                      <div class="row text-center align-items-center"> 
+                        <div class="col dropdown-4-like dropup-center dropup  " 
+                            style="color:gray; font-size:16px;">
+                            <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
+                            style="color:grey; --fa-animation-duration: 1s;"></i> 
+                            <button class="btn" type="button"  
+                              data-bs-toggle="dropdown" 
+                              aria-expanded="false">
+                              Like
+                            </button> 
+
+                            @if(likedByLoginUser($likes_on_post, $post->id, $user->id)) 
                               <script> 
                                 $('.post-like-icon-'+{{$post->id}}).addClass('fa-beat'); 
                                 $('.post-like-icon-'+{{$post->id}}).css("color","green");
                               </script> 
-                              @endif
+                            @endif
                                
-                              <div class="dropdown-menu dropdown-menu--{{ $post->id }}"> 
-                                <div class="dropdown-item dropdown-item-like-{{ $post->id }}">  
-                                  <a class="dropdown-item-like-thumb-{{ $post->id }} mx-2"
-                                    style="text-decoration: none;"  method = "GET" 
-                                    href="{{ route('like.update', [
-                                      'like_post_id' => $post->id,
-                                      'like_user_id' => $user->id,
-                                      'like'  => 'like',
-                                      ]) }}">
-                                    <i class="fa-solid fa-thumbs-up fa-beat" 
-                                      data-bs-placement="left"  
-                                      data-bs-toggle="tooltip"  
-                                      data-bs-custom-class="custom-tooltip"
-                                      data-bs-title="Like It!"
-                                      style="color:green;font-size:24px; --fa-animation-duration: 1s;"></i>
-                                  </a>
-                                  <a class="dropdown-item-like-heart-{{ $post->id }} mx-2" 
-                                    style="text-decoration: none;"
-                                    href="{{ route('like.update', [
-                                      'like_post_id' => $post->id,
-                                      'like_user_id' => $user->id,
-                                      'like'  => 'love',
-                                      ]) }}">
-                                    <i class="fa-solid fa-heart fa-beat"  
-                                      data-bs-placement="left"  
-                                      data-bs-toggle="tooltip"  
-                                      data-bs-custom-class="custom-tooltip" 
-                                      data-bs-title="Love It!"  
-                                      style="color:red; font-size:24px; --fa-animation-duration: 0.5s;"></i>
-                                  </a>
-                                  <a class="dropdown-item-like-surprice-{{ $post->id }} mx-2"
-                                    style="text-decoration: none;"
-                                    href="{{ route('like.update', [
-                                      'like_post_id' => $post->id,
-                                      'like_user_id' => $user->id,
-                                      'like'  => 'wow',
-                                      ]) }}">
-                                    <i class="fa-solid fa-face-surprise fa-beat"  
-                                      data-bs-placement="left"  
-                                      data-bs-toggle="tooltip"  
-                                      data-bs-custom-class="custom-tooltip"
-                                      data-bs-title="WOW!"
-                                      style="color:purple;font-size:24px; --fa-animation-duration: 1.5s;"></i>
-                                  </a> 
-                                  <a class="dropdown-item-like-sad-{{ $post->id }} mx-2"
-                                    style="text-decoration: none;"
-                                    href="{{ route('like.update', [
-                                      'like_post_id' => $post->id,
-                                      'like_user_id' => $user->id,
-                                      'like'  => 'sad',
-                                      ]) }}">
-                                    <i class="fa-solid fa-face-sad-cry fa-beat" 
-                                      data-bs-placement="left"  
-                                      data-bs-toggle="tooltip"  
-                                      data-bs-custom-class="custom-tooltip"
-                                      data-bs-title="Sad"
-                                      style="color:blue;font-size:24px; --fa-animation-duration: 2s;"></i>
-                                  </a>
-                                  <a class="dropdown-item-like-angry-{{ $post->id }} mx-2"
-                                    style="text-decoration: none;"
-                                    href="{{ route('like.update', [
-                                      'like_post_id' => $post->id,
-                                      'like_user_id' => $user->id,
-                                      'like'  => 'angry',
-                                      ]) }}">
-                                    <i class="fa-solid fa-face-angry fa-beat" 
-                                      data-bs-placement="left"  
-                                      data-bs-toggle="tooltip"  
-                                      data-bs-custom-class="custom-tooltip"
-                                      data-bs-title="Angry"
-                                      style="color:black;font-size:24px; --fa-animation-duration: 2.5s;"></i>
-                                  </a>   
-                                </div>
+                            <div class="dropdown-menu dropdown-menu--{{ $post->id }}"> 
+                              <div class="dropdown-item dropdown-item-like-selection dropdown-item-like-{{ $post->id }}">    
+
+                                {!! makeLikeIcon2('like','Like It!',$post->id,$user->id, "fa-thumbs-up","green") !!} 
+                                {!! makeLikeIcon2('love','Lovely!',$post->id,$user->id, "fa-heart","red") !!} 
+                                {!! makeLikeIcon2('laugh','Laugh',$post->id,$user->id, "fa-face-grin-beam","deeppink") !!} 
+                                {!! makeLikeIcon2('wow','WOW!',$post->id,$user->id, "fa-face-surprise","purple") !!} 
+                                {!! makeLikeIcon2('sad','So Sad!',$post->id,$user->id, "fa-face-sad-cry","blue") !!} 
+                                {!! makeLikeIcon2('angry','Angry',$post->id,$user->id, "fa-face-angry", "black") !!}  
+
+                                {{-- <a class='dropdown-item-like-thumb-{{ $post->id }} mx-2'
+                                  style='text-decoration: none;'
+                                  onclick="likeIcon_onClick('dropdown-item-like-thumb-{{ $post->id }}', '{{ $post->id }}', '{{ $user->id }}', 'like')">
+                                  <i class='fa-solid fa-thumbs-up fa-beat' 
+                                    data-bs-placement='left'  
+                                    data-bs-toggle='tooltip'  
+                                    data-bs-custom-class='custom-tooltip'
+                                    data-bs-title='Like It.'
+                                    style='color:green; font-size:24px; --fa-animation-duration: 1s;'></i>
+                                </a> --}}
+
                               </div>
-                            </div>    
+                            </div> 
+                          </div>    
 
-                          <div class="col" style="color:gray; font-size:16px;">
-                            <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
-                               aria-hidden="true" style="color:gray;"></i> 
-                              <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
-                                onclick="commentCollapse('collapseComment-'+{{ $post->id }})" 
-                                {{-- onmouseover="onMouseOverComment({{ $post->id }})"
-                                onmouseout="onMouseOutComment({{ $post->id }})" --}}
-                                data-bs-toggle="collapse"  
-                                data-bs-target="#collapseComment-{{ $post->id }}" 
-                                aria-expanded="false"  
-                                aria-controls="collapseComment-{{ $post->id }}">
-                                Comment
-                              </button>   
-                          </div>  
-                          
-                          <div class="col dropdown" 
-                            style="color:gray; font-size:16px; --fa-animation-duration: 3s;">
-                            <i class="post-share-icon-{{ $post->id }} fa fa-share fa-xl" 
-                               aria-hidden="true" style="color:gray;"></i> 
-                              <button class="btn dropdown-toggle" type="button"  
-                                data-bs-toggle="dropdown" aria-expanded="false" 
-                                {{-- onmouseover="onMouseOverShare({{ $post->id }})"
-                                onmouseout="onMouseOutShare({{ $post->id }})" --}}
-                                style="color:gray; font-size:16px;">
-                                Share
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ $post->url }}">
-                                  <i class="fa fa-xl fa-facebook-official" style="color:blue;" aria-hidden="true"></i>
-                                  Share on Facebook
-                                </a></li>
-                                <li><a class="dropdown-item" href="http://twitter.com/share?text={{ $post->caption }}&url={{ $post->url }}"> 
-                                  <i class="fa fa-xl fa-twitter-square" style="color:cornflowerblue" aria-hidden="true"></i>
-                                  Tweet it!
-                                </a></li>
-                                
-                                {{-- <li><a class="dropdown-item" href="https://telegram.me/share"> --}}
-                                <li><a class="dropdown-item" href="https://telegram.me/share/url?url={{ $post->url }}&text={{ $post->caption }}">
-                                  {{-- https://telegram.me/share/url?url=<URL>&text=<TEXT> --}}
-                                  <i class="fa fa-xl fa-telegram" style="color:cornflowerblue" aria-hidden="true"></i>
-                                  Share to Telegram
-                                </a></li>
-                                <li><a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ $post->url }}">
-                                  <i class="fa fa-xl fa-linkedin-square" aria-hidden="true"></i>
-                                  Share to LinkedIn
-                                </a></li>
-                                <li><a class="dropdown-item" href="whatsapp://send?text={{$post->caption}} {{ $post->url }}">
-                                  <i class="fa fa-xl fa-whatsapp" style="color:lightgreen" aria-hidden="true"></i>
-                                  Share to WhatsUp
-                                </a></li>
-                                <li><a class="dropdown-item" href="weixin://dl/moments">
-                                  <i class="fa fa-xl fa-weixin" style="color:lightgreen" aria-hidden="true"></i>
-                                  Share to WeChat <span style="color:blue">微信</span>
-                                </a></li> 
-                              </ul>
-                          </div> 
+                        <div class="col dropdown-4-comment" style="color:gray; font-size:16px;">
+                          <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
+                             aria-hidden="true" style="color:gray;"></i> 
+                            <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
+                              onclick="commentCollapse('collapseComment-'+{{ $post->id }})"  
+                              data-bs-toggle="collapse"  
+                              data-bs-target="#collapseComment-{{ $post->id }}" 
+                              aria-expanded="false"  
+                              aria-controls="collapseComment-{{ $post->id }}">
+                              Comment
+                            </button>   
+                        </div>  
+                        
+                        <div class="col dropdown dropdown-4-share" 
+                          style="color:gray; font-size:16px; --fa-animation-duration: 3s;">
+                          <i class="post-share-icon-{{ $post->id }} fa fa-share fa-xl" 
+                             aria-hidden="true" style="color:gray;"></i> 
+                            <button class="btn dropdown-toggle" type="button"  
+                              data-bs-toggle="dropdown" aria-expanded="false"  
+                              style="color:gray; font-size:16px;">
+                              Share
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ $post->url }}">
+                                <i class="fa fa-xl fa-facebook-official" style="color:blue;" aria-hidden="true"></i>
+                                Share on Facebook
+                              </a></li>
+                              <li><a class="dropdown-item" href="http://twitter.com/share?text={{ $post->caption }}&url={{ $post->url }}"> 
+                                <i class="fa fa-xl fa-twitter-square" style="color:cornflowerblue" aria-hidden="true"></i>
+                                Tweet it!
+                              </a></li>
+                               
+                              <li><a class="dropdown-item" href="https://telegram.me/share/url?url={{ $post->url }}&text={{ $post->caption }}"> 
+                                <i class="fa fa-xl fa-telegram" style="color:cornflowerblue" aria-hidden="true"></i>
+                                Share to Telegram
+                              </a></li>
+                              <li><a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ $post->url }}">
+                                <i class="fa fa-xl fa-linkedin-square" aria-hidden="true"></i>
+                                Share to LinkedIn
+                              </a></li>
+                              <li><a class="dropdown-item" href="whatsapp://send?text={{$post->caption}} {{ $post->url }}">
+                                <i class="fa fa-xl fa-whatsapp" style="color:lightgreen" aria-hidden="true"></i>
+                                Share to WhatsUp
+                              </a></li>
+                              <li><a class="dropdown-item" href="weixin://dl/moments">
+                                <i class="fa fa-xl fa-weixin" style="color:lightgreen" aria-hidden="true"></i>
+                                Share to WeChat <span style="color:blue">微信</span>
+                              </a></li> 
+                            </ul>
                         </div> 
+                      </div>  
 
-                        {{-- Collapse Content for Comment Button --}}
-                        <div class="collapse row " id="collapseComment-{{ $post->id }}"> 
-                          <div class="col-md-1 card" 
-                            style="display:flex; border-style:none;
-                                   justify-content:right; 
-                                   background-image:url('/storage/{{ $profile->back_image }}'); 
-                                   background-size:cover;">  
-                            <img class="rounded-circle mt-1" style="height:30px; width:auto; max-width:30px; "  
-                              src="/storage/{{ $profile->image }}"
-                            >
+                      {{-- Collapse Content for Comment Button --}}
+                      <div class="collapse row " id="collapseComment-{{ $post->id }}"> 
+                        <div class="col-md-1 card" 
+                          style="display:flex; border-style:none;
+                                 justify-content:right; 
+                                 background-image:url('/storage/{{ $profile->back_image }}'); 
+                                 background-size:cover;">  
+                          <img class="rounded-circle mt-1" style="height:30px; width:auto; max-width:30px; "  
+                            src="/storage/{{ $profile->image }}"
+                          >
                           </div>
-                          <div class="col-md-11 card-body" > 
-                            <form enctype="multipart/form-data" method="POST">
-                              @csrf
-                              <textarea class="form-control" type="text" 
-                                style="resize: none;"
-                                placeholder="Write your comment here..."
-                                name="post-comment" id="post-comment" rows="1"></textarea>
-                            </form>
-                          </div>  
-                        </div>    
-                      </div> 
+                        <div class="col-md-11 card-body" > 
+                          <form enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <textarea class="form-control" type="text" 
+                              style="resize: none;"
+                              placeholder="Write your comment here..."
+                              name="post-comment" id="post-comment" rows="1"></textarea>
+                          </form>
+                        </div>  
+                      </div>    
+                    </div>   
                   </div>
                 @endif
               @endforeach 
@@ -756,5 +819,154 @@
 
       </div>  
     </div>  
-  </div>
-@endsection
+  </div>  
+
+  
+  <script>  
+  
+    function likeIcon_onClick(likeIcon_className, post_id, user_id, like_type){  
+
+      var url = "{{ route('like.refresh', 
+                    ['like_post_id' => ':post_id',
+                     'like_user_id' => ':user_id',
+                     'like' => ':like']) }}";
+      url = url.replace(":post_id", post_id);
+      url = url.replace(":user_id", user_id);
+      url = url.replace(":like", like_type); 
+     
+      $.ajax({
+        type: "GET",
+        url: url,  
+        success: function (data) {
+          // var html_inner = {{ makeLikeIconsCount($likes_on_post,$post->id) }};
+          // $('.post-review-data').html_inner = html_inner;
+          var user_id = data.user_id; 
+          var post_id = data.post_id;
+          var likes_on_post = data.likes_on_post;
+          var total=0; 
+
+          var likes_array_obj = {
+              'lile': {
+                        "type": 'like',
+                        "count": 0,
+                        "iconclass": 'fa-thumbs-up', 
+                        "color": 'green',
+                      },
+              'love': {
+                        "type": 'love',
+                        "count": 0,
+                        "iconclass": 'fa-heart', 
+                        "color": 'red',
+                      },
+              'wow': {
+                        "type": 'wow',
+                        "count": 0,
+                        "iconclass": 'fa-face-surprise', 
+                        "color": 'purple',
+                     },
+              'sad': {
+                        "type": 'sad',
+                        "count": 0,
+                        "iconclass": 'fa-face-sad-cry', 
+                        "color": 'blue',
+                     },
+              'laugh':{
+                        "type": 'laugh',
+                        "count": 0,
+                        "iconclass": 'fa-face-grin-beam', 
+                        "color": 'deeppink',
+                      },
+              'angry':{
+                        "type": 'angry',
+                        "count": 0,
+                        "iconclass": 'fa-face-angry', 
+                        "color": 'black',
+                      },
+            };
+
+          var likes_array = {like:0, love:0, wow:0, sad:0, laugh:0, angry:0};
+          var likes_type = {like:'like', love:'love', wow:'wow', sad:'sad', laugh:'laugh', angry:'angry'};
+          var likes_iconclass = { like:'fa-thumbs-up', 
+                                  love:'fa-heart', 
+                                  wow:'fa-face-surprise', 
+                                  sad:'fa-face-sad-cry', 
+                                  laugh:'fa-face-grin-beam', 
+                                  angry:'fa-face-angry'};
+          var likes_color = {like:'green', love:'red', wow:'purple', sad:'blue', laugh:'deeppink', angry:'black'}; 
+          var liked_by_login_user = false;
+
+          for(var i=0; i<likes_on_post.length; i++){ 
+            if(likes_on_post[i].like == 'like'){
+              likes_array.like++; total++;
+            }
+            else if(likes_on_post[i].like == 'love'){
+              likes_array.love++; total++;
+            } 
+            else if(likes_on_post[i].like == 'wow'){
+              likes_array.wow++; total++;
+            }
+            else if(likes_on_post[i].like == 'sad'){
+              likes_array.sad++; total++;
+            }
+            else if(likes_on_post[i].like == 'laugh'){
+              likes_array.laugh++; total++;
+            }
+            else if(likes_on_post[i].like == 'angry'){
+              likes_array.angry++; total++;
+            }
+          }   
+
+          var html_inner = ""; 
+          for (const property in likes_array) {
+            if(likes_array[property]>0){
+              // console.log(property + ":"+ likes_array[property]);
+                html_inner = html_inner +
+                "<span class='dropdown like-count-in-type' display='flex'>" +
+                "<i class='fa-solid fa-lg " + likes_iconclass[property] + 
+                "' style='color:" + likes_color[property] + 
+                "'></i>" +
+                "<a type='button' style='text-decoration:none;' data-bs-toggle='dropdown'>"+
+                "&nbsp;" + likes_array[property] + "&nbsp;&nbsp;</a>" +
+                "<ul class='dropdown-menu dropdown-menu-dark dropdown-like-$like_type'>";
+
+                for(var i=0; i<likes_on_post.length; i++){ 
+                  if( (likes_on_post[i].like_post_id == post_id) &&
+                      (likes_on_post[i].like == likes_type[property]) ) {
+
+                    if(likes_on_post[i].like == 'like' &&
+                       likes_on_post[i].like_user_id == user_id){ 
+                        liked_by_login_user = true;
+                    }
+
+                    html_inner = html_inner +
+                      "<li><a class='dropdown-item' href='#'>" +
+                      likes_on_post[i].like_user_name + 
+                      "</a></li>";
+                  }
+                }
+
+                html_inner = html_inner + "</ul></span>";
+            } 
+          }
+          $('.post-review-data').html(html_inner);
+
+          if(liked_by_login_user){
+            $('.post-like-icon-'+post_id).addClass('fa-beat'); 
+            $('.post-like-icon-'+post_id).css("color","green");
+          }else{
+            $('.post-like-icon-'+post_id).removeClass('fa-beat'); 
+            $('.post-like-icon-'+post_id).css("color","gray");
+          }
+          // console.log(html_inner);  
+        },
+        error: function(data){
+          console.log(data);
+        }
+      });
+
+      }
+
+  </script>
+
+@endsection 
+ 

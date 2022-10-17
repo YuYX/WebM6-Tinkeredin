@@ -85,8 +85,16 @@ $(function(){
     });
 });  
 
+// window.onscroll = function() {
+//   if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+//    alert("At the bottom!")
+//   }
+//  }
+
 $(window).on("scroll", function() { 
-  // if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){}
+  // if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){
+  //   alert("At the bottom!");
+  // }
 
   localStorage.setItem("scrollTop", window.scrollY.toFixed());
   document.getElementById("x-location").innerHTML = window.scrollY.toFixed(); 
@@ -95,8 +103,8 @@ $(window).on("scroll", function() {
 
 $(window).on("load", function(){ 
   if (localStorage.scrollTop != 'undefined') {  
-    //document.getElementById("r-location").innerHTML = localStorage.scrollTop;  
-    
+    $(window).scrollTop(localStorage.scrollTop);
+    document.getElementById("x-location").innerHTML = localStorage.scrollTop;   
   }; 
 }); 
 
@@ -267,7 +275,7 @@ function getCookie(cname) {
 function checkCookie(cname) {
   let cookiename = getCookie(cname);
   return (cookiename != "");
-} 
+}  
 
 // For Post-Input-Prompt Component
 function sayHi(){
@@ -282,6 +290,13 @@ function sayBye(){
   $(".post-input-prompt").addClass("animate__bounceInRight"); 
   $(".profile-image").removeClass("animate__heartBeat"); 
   $(".profile-image").addClass("animate__flipInY");
+}
+
+function onMouseOverProfileImagePost(postId){
+  $(".profile-image-4-post-"+postId).addClass("animate__animated animate__heartBeat");
+}
+function onMouseOutProfileImagePost(postId){
+  $(".profile-image-4-post-"+postId).removeClass("animate__animated animate__heartBeat");
 }
 
 function onMouseOverLike(id){ 

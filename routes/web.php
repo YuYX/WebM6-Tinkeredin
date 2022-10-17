@@ -65,6 +65,18 @@ Route::get('/relation/{follower_id}/{following_id}/{status}/follow',
 
 Route::get('/like/{like_post_id}/{like_user_id}/{like}/update', 
 [App\Http\Controllers\LikeController::class, 'update'])->name('like.update');
+
+Route::get('/like/{like_post_id}/{like_user_id}/{like}/refresh', 
+[App\Http\Controllers\LikeController::class, 'refresh'])->name('like.refresh');
+
+Route::post('/comment/store', 
+[App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+
+Route::get('/comment/{comment_post_id}/show', 
+[App\Http\Controllers\CommentController::class, 'show'])->name('comment.show');
+
+Route::get('/comment/{comment_id}/destroy', 
+[App\Http\Controllers\CommentController::class, 'destroy'])->name('comment.destroy');
  
 
  

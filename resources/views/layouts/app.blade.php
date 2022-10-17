@@ -85,12 +85,28 @@
 </head>
 
 <body>    
+    <script>
+        function scrollToTop(){
+            $(window).scrollTop(0);
+        }
+        
+        window.onscroll = function() {scrollFunction()};
+ 
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
+                document.getElementById("navbar").style.background = "lightskyblue"; 
+            } else { 
+                document.getElementById("navbar").style.background = "lightcyan";
+            }
+        }
+    </script> 
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" 
-            style="display:flex; background-color: #d8e7f2;"> 
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top" id="navbar"
+            style="display:block; background:lightcyan; opacity:0.8; position:sticky; transition: 1s; background-color: #d8e7f2;"> 
             
             <div class="container"> 
-                <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
+                <img onclick="scrollToTop()"
+                    src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
                 <a style="color:rgb(231, 72, 228); font-size: 30px;" 
                     class="navbar-brand animate__animated animate__rotateInDownLeft animate__slower animate__repeat-3"   
                     href="{{ url('/') }}">
@@ -99,7 +115,7 @@
                 </a> 
 
                 <label class="one-line-text"
-                    style="color:rgb(40, 7, 161); font-size: 18px;">
+                    style="color:rgb(40, 7, 161); font-size: 18px; ">
                     A place to share anything interesting.
                 </label> 
                  
@@ -207,9 +223,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 ">
             @yield('content')
         </main>
-    </div> 
+    </div>  
+
 </body>
 </html>

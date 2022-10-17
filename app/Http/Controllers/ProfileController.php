@@ -10,7 +10,7 @@ use App\Models\Relation;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Comment;
-
+use Exception;
 use Illuminate\Console\View\Components\Alert;
 
 class ProfileController extends Controller
@@ -65,17 +65,24 @@ class ProfileController extends Controller
     }
     //--------------------------------------------------------------------------
     public function index()
-    {
+    { 
         $user = Auth::user(); 
+
+        try{
         $profile = Profile::where('user_id', $user->id)->first();   
+        }catch(Exception $e){
+            // return 'Message:' . $e->getMessage();
+            return redirect('/login');
+        }
 
         $posts = Post::leftJoin('profiles', 'posts.user_id', '=', 'profiles.user_id')   
                         ->leftJoin('users', 'posts.user_id', '=', 'users.id')
                         ->select('profiles.image as profile_image', 
                                  'profiles.back_image as profile_back', 
+                                 'profiles.description as profile_desc',
                                  'posts.*', 'users.name as user_name')
                         ->whereIn('posts.user_id', function($query) use ($user){
-                        $query->select('following_id')
+                            $query->select('following_id')
                                 ->from('relations')
                                 ->where([ ['follower_id', $user->id],
                                           ['status', '=', 'Following']
@@ -109,7 +116,10 @@ class ProfileController extends Controller
         foreach($posts as $post ){
             $post_id_list[] = $post->id;
         } 
-        $likes_4_posts = Like::whereIn('like_post_id', $post_id_list)->get(); 
+        $likes_4_posts = Like::whereIn('like_post_id', $post_id_list)
+                            ->leftJoin('users','likes.like_user_id', '=', 'users.id')
+                            ->select('likes.*', 'users.name as like_user_name')
+                            ->get(); 
 
         $numPosts = Post::where('user_id',$user->id)->count();
         return view('profile', [
