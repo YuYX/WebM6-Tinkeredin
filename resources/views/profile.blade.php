@@ -517,7 +517,7 @@
                           </div> 
                       </div>   
                       
-                      <div class="container post-review-data ms-2">
+                      <div class="container post-review-data-{{ $post->id }} ms-2">
                         {!! makeLikeIconsCount($likes_on_post,$post->id) !!}
                       </div>
                       
@@ -846,7 +846,7 @@
           var total=0; 
 
           var likes_array_obj = {
-              'lile': {
+              'like': {
                         "type": 'like',
                         "count": 0,
                         "iconclass": 'fa-thumbs-up', 
@@ -898,40 +898,47 @@
           for(var i=0; i<likes_on_post.length; i++){ 
             if(likes_on_post[i].like == 'like'){
               likes_array.like++; total++;
+              likes_array_obj.like.count++;
             }
             else if(likes_on_post[i].like == 'love'){
               likes_array.love++; total++;
+              likes_array_obj.love.count++;
             } 
             else if(likes_on_post[i].like == 'wow'){
               likes_array.wow++; total++;
+              likes_array_obj.wow.count++;
             }
             else if(likes_on_post[i].like == 'sad'){
               likes_array.sad++; total++;
+              likes_array_obj.sad.count++;
             }
             else if(likes_on_post[i].like == 'laugh'){
               likes_array.laugh++; total++;
+              likes_array_obj.laugh.count++;
             }
             else if(likes_on_post[i].like == 'angry'){
               likes_array.angry++; total++;
+              likes_array_obj.angry.count++;
             }
           }   
 
           var html_inner = ""; 
-          for (const property in likes_array) {
-            if(likes_array[property]>0){
-              // console.log(property + ":"+ likes_array[property]);
+          // for (const property in likes_array) {
+            // if(likes_array[property]>0){ 
+          for (const property in likes_array_obj) {
+            if(likes_array_obj[property].count>0){ 
                 html_inner = html_inner +
                 "<span class='dropdown like-count-in-type' display='flex'>" +
-                "<i class='fa-solid fa-lg " + likes_iconclass[property] + 
-                "' style='color:" + likes_color[property] + 
+                "<i class='fa-solid fa-lg " + likes_array_obj[property].iconclass + 
+                "' style='color:" + likes_array_obj[property].color + 
                 "'></i>" +
                 "<a type='button' style='text-decoration:none;' data-bs-toggle='dropdown'>"+
-                "&nbsp;" + likes_array[property] + "&nbsp;&nbsp;</a>" +
+                "&nbsp;" + likes_array_obj[property].count + "&nbsp;&nbsp;</a>" +
                 "<ul class='dropdown-menu dropdown-menu-dark dropdown-like-$like_type'>";
 
                 for(var i=0; i<likes_on_post.length; i++){ 
                   if( (likes_on_post[i].like_post_id == post_id) &&
-                      (likes_on_post[i].like == likes_type[property]) ) {
+                      (likes_on_post[i].like == likes_array_obj[property].type) ) {
 
                     if(likes_on_post[i].like == 'like' &&
                        likes_on_post[i].like_user_id == user_id){ 
@@ -948,7 +955,7 @@
                 html_inner = html_inner + "</ul></span>";
             } 
           }
-          $('.post-review-data').html(html_inner);
+          $('.post-review-data-' + post_id).html(html_inner);
 
           if(liked_by_login_user){
             $('.post-like-icon-'+post_id).addClass('fa-beat'); 
