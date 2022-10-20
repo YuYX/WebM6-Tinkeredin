@@ -69,8 +69,11 @@ Route::get('/like/{like_post_id}/{like_user_id}/{like}/update',
 Route::get('/like/{like_post_id}/{like_user_id}/{like}/refresh', 
 [App\Http\Controllers\LikeController::class, 'refresh'])->name('like.refresh');
 
-Route::post('/comment/store', 
-[App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+Route::get('/comment/store', 
+[App\Http\Controllers\CommentController::class, 'store'])->name('comment.store'); 
+
+// Route::get('/comment/{comment_post_id}/{comment_user_id}/{comment}/store', 
+// [App\Http\Controllers\CommentController::class, 'store'])->name('comment.store'); 
 
 Route::get('/comment/{comment_post_id}/show', 
 [App\Http\Controllers\CommentController::class, 'show'])->name('comment.show');

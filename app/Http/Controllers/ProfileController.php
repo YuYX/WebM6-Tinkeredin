@@ -10,8 +10,7 @@ use App\Models\Relation;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Comment;
-use Exception;
-use Illuminate\Console\View\Components\Alert;
+use Exception; 
 
 class ProfileController extends Controller
 {
@@ -121,17 +120,24 @@ class ProfileController extends Controller
                             ->select('likes.*', 'users.name as like_user_name')
                             ->get(); 
 
+        $comments_4_posts = Comment::whereIn('comment_post_id', $post_id_list)
+                            ->leftJoin('users', 'comments.comment_user_id', '=', 'users.id')
+                            ->leftJoin('profiles', 'comments.comment_user_id', '=', 'profiles.user_id')
+                            ->select('comments.*', 'users.name as comment_user_name', 'profiles.image as profile_image')
+                            ->get();
+
         $numPosts = Post::where('user_id',$user->id)->count();
         return view('profile', [
-            'user' => Auth::user(),
-            'profile' => $profile,
-            'posts' => $posts,
-            'numPosts' => $numPosts, 
-            'users_i_follow' => $users_i_follow,
-            'users_follow_me' => $users_follow_me,
-            'users_request_sent' => $users_request_sent,
-            'users_request_received' => $users_request_received,
-            'likes_on_post' =>$likes_4_posts,
+            'user'      => Auth::user(),
+            'profile'   => $profile,
+            'posts'     => $posts,
+            'numPosts'  => $numPosts, 
+            'users_i_follow'            => $users_i_follow,
+            'users_follow_me'           => $users_follow_me,
+            'users_request_sent'        => $users_request_sent,
+            'users_request_received'    => $users_request_received,
+            'likes_on_post'             =>  $likes_4_posts,
+            'comments_on_post'          => $comments_4_posts,
         ]);
     }
     //--------------------------------------------------------------------------

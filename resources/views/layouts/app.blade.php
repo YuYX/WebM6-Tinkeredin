@@ -69,7 +69,7 @@
 
     
     <!-- css file -->
-    <link rel="stylesheet" type="text/css" href="{{'resources/css/app.css'}}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/app.css' }}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
