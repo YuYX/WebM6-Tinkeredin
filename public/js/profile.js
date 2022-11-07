@@ -83,23 +83,19 @@ $(function(){
         form.reset();
         input.focus();  
     });
-});  
+});   
 
-// window.onscroll = function() {
-//   if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-//    alert("At the bottom!")
+// $(window).on("scroll", function() { 
+
+//   var remainedpPosts =  '';
+
+//   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){ 
+//     $('.middle-col').append(remainedpPosts);
 //   }
-//  }
 
-$(window).on("scroll", function() { 
-  // if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){
-  //   alert("At the bottom!");
-  // }
-
-  localStorage.setItem("scrollTop", window.scrollY.toFixed());
-  document.getElementById("x-location").innerHTML = window.scrollY.toFixed(); 
-
-});
+//   localStorage.setItem("scrollTop", window.scrollY.toFixed());
+//   document.getElementById("x-location").innerHTML = window.scrollY.toFixed();  
+// });
 
 $(window).on("load", function(){ 
   if (localStorage.scrollTop != 'undefined') {  

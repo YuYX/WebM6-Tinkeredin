@@ -4,7 +4,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
             crossorigin="anonymous"></script>
-    
+
+    {{-- TWEmoji --}} 
+    {{-- <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script> 
+    <script type="text/javascript" src="{{ asset('js/DisMojiPicker.js')}}"></script>
+     --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -70,6 +74,7 @@
     
     <!-- css file -->
     <link rel="stylesheet" type="text/css" href="{{ 'css/app.css' }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ 'css/emojis.css' }}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
     <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 

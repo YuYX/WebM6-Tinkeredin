@@ -5,6 +5,8 @@
   @php 
     $no_post_loaded = 0;
     $no_post = 0; 
+    $no_page = 0;
+    $next_page = 1;
 
     function calcDateTimeDiff_2_Day_Hour_Min($timestamp){
       $time_duration = 0;
@@ -187,7 +189,7 @@
           style='color:$color; font-size:24px; --fa-animation-duration: 1s;'></i>
       </a>";
       return $html_content;
-    }  
+    }   
 
   @endphp 
 
@@ -393,16 +395,25 @@
             {{-- Only show the first 30 posts. --}}
             {{-- How to implement that it can automatically load the subsequent 10 posts
                once user scrolled to the bottom?  --}}
+
+            {{-- <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+            <script src="js/DisMojiPicker.js"></script> --}}
             
-            @if($no_post_loaded<1)
+            {{-- Start of Include --}}
+
+            {{-- @if($no_post_loaded<1)
               @foreach ($posts as $post) 
-                <?php $no_post = $no_post+1; ?>
+                <?php 
+                  //$no_post = $no_post+1; 
+                ?>
                 @if($no_post<=30)
-                  <?php $no_post_loaded = $no_post_loaded + 1; ?>
+                  <?php 
+                    //$no_post_loaded = $no_post_loaded + 1; 
+                  ?>
                   @if($post->user_id == $user->id)
-                  <div class="ind-post-area row mb-3" style="background-color:rgb(240, 255, 255); border-radius:8px;">
+                    <div class="ind-post-area row mb-3" style="background-color:rgb(240, 255, 255); border-radius:8px;">
                   @else
-                  <div class="ind-post-area row mb-3" style="background-color:rgb(224, 255, 255); border-radius:8px;">
+                    <div class="ind-post-area row mb-3" style="background-color:rgb(224, 255, 255); border-radius:8px;">
                   @endif
                       <div class="mb-1 row ms-2 mt-2 me-0 pe-0" > 
                           <div class="col-4 dropdown dropdown-post-owner"> 
@@ -441,8 +452,7 @@
                             </div> 
                           </div>   
 
-                          <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
-                          {{-- <div class="col-2 mt-1 " >Updated: {{ calcDateTimeDiff_2_Day_Hour_Min($post->updated_at) }} </div>  --}}
+                          <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div> 
                           <div class="col-5"></div>
                           <div class="col-1 pe-0 me-0"> 
                             <div class="dropdown-center">
@@ -466,20 +476,7 @@
                           </div>
 
                           <hr class="solid" style="width:97%;">
-                          <div class="row">
-                          {{-- @if ($post->image) --}}
-                            {{-- <div class="col-2">
-                              @if ($post->user_id == $user->id)
-                              <a href="/post/{{$post->id}}"> 
-                                <img class="img-thumbnail img-thumbnail-{{$post->id}} mx-auto mt-2" 
-                                  src="/storage/{{$post->image}}" >
-                              </a>  
-                              @else
-                                <img class="img-thumbnail img-thumbnail-{{$post->id}} mx-auto mt-2" 
-                                  src="/storage/{{$post->image}}" >
-                              @endif
-                            </div>  --}}
-                            {{-- <div  class="col-10">  --}} 
+                          <div class="row"> 
                             <div  class="col-12">   
                               @if(strstr($post->url,'<iframe') && strstr($post->url,'</iframe>')) 
                                 <a class="post-title">{{ $post->caption }}</a>
@@ -499,30 +496,10 @@
                                 @endif
                                 {{ $post->content }} 
                               </div>
-                            </div>  
-                          {{-- @else --}}
-                            {{-- <div class="col-2"></div>
-                            <div class="col-10">   --}}
-                            {{-- <div class="col-12">
-                              <a class="post-title" style="text-decoration: none !important;" target="_blank" rel="noreferrer noopener"
-                                href="{{ $post->url }}">{{ $post->caption }}</a> 
-                              <div class="post-content">{{ $post->content }}</div>
-                            </div>   --}}
-                          {{-- @endif --}}
-                        </div>
-                        
-                        {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
-                        @if ($post->user_id == $user->id)
-                          {{-- Replaced by 3-dot menu  }}
-                          {{-- <div class="pt-3"> 
-                              <a class="p-2" href="{{ route('post.edit', $post->id) }}">   
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                <span class="glyphicon glyphicon-user" style="margin-right: 10px">Edit</a>
-                              <a href="{{ route('post.destroy', $post->id) }}">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                                <span class="glyphicon glyphicon-user" style="margin-right: 10px">Delete</a> 
-                          </div>  --}}
-                          {{-- <hr class="solid" style="margin-left: 10px; width:100%;"> --}}
+                            </div>   
+                          </div>
+                         
+                        @if ($post->user_id == $user->id) 
                         @endif
                           <hr class="solid" style="width:97%;">
                           <div class="container-fluid row" id="showing-images">
@@ -555,103 +532,84 @@
                             aria-controls="post-comment-list-{{ $post->id }}">
                           {!! commentsCount4APost($comments_on_post,$post->id) !!}
                         </a>
-                      </div>
-                      
-                      {{-- @php 
-                        $like_array = breakdownLikeReview($likes_on_post, $post->id);
-                      @endphp  
-                      <div class="container post-review-data ms-2">
-                        @if($like_array['total']>0)   
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"like","fa-thumbs-up","green") !!}
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"love","fa-heart","red") !!}
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"laugh","fa-face-grin-beam","deeppink") !!}                          
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"wow","fa-face-surprise","purple") !!}                          
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"sad","fa-face-sad-cry","blue") !!}                          
-                          {!! makeLikeIconCount($like_array,$likes_on_post,$post->id,"angry","fa-face-angry","black") !!} 
-                        @endif
-                    </div>     --}}
+                      </div> 
 
-                    <div class="collapse post-comment-list-{{ $post->id }} ms-1 mb-1 mt-1" style="display:none;">
-                      <div class="past-comment-list-{{ $post->id }}  ms-1 mb-1 mt-1">
-                      @if($comments_on_post != null)
-                        @foreach($comments_on_post as $comment)
-                          @if($comment->comment_post_id == $post->id)
-                          <div class=" row ms-1 mt-1 me-0 pe-0" style="display:flex;"> 
-                              <div class="card col-md-3 " 
-                                  style="display:inline-block; background-color:rgb(240, 255, 255);">    
-                                  <img class="img-fluid rounded-circle mt-1" 
-                                       style="display:inline-block; height:24px; width:auto; max-width:30px; "  
-                                       src="/storage/{{ $comment->profile_image }}">
-                                  <span class="text-danger" >
-                                    {{ $comment->comment_user_name }}</span><span style='font-size:20px;'>&#129315;</span>  
-                              </div>
-                              <div class="card col-md-9" 
-                                    style="display:inline-block;  
-                                            border-radius:8px; 
-                                            border-style: groove;
-                                            background-color:white;"> 
-                                  {{$comment->comment}} 
-                              </div>
-                          </div> 
+                      <div class="collapse post-comment-list-{{ $post->id }} ms-1 mb-1 mt-1" style="display:none;">
+                        <div class="past-comment-list-{{ $post->id }}  ms-1 mb-1 mt-1">
+                          @if($comments_on_post != null)
+                            @foreach($comments_on_post as $comment)
+                              @if($comment->comment_post_id == $post->id)
+                              <div class=" row ms-1 mt-1 me-0 pe-0" style="display:flex;"> 
+                                  <div class="card col-md-3 " 
+                                      style="display:inline-block; background-color:rgb(240, 255, 255);">    
+                                      <img class="img-fluid rounded-circle mt-1" 
+                                          style="display:inline-block; height:24px; width:auto; max-width:30px; "  
+                                          src="/storage/{{ $comment->profile_image }}">
+                                      <span class="text-danger" >
+                                        {{ $comment->comment_user_name }}</span>
+                                        <i class="fa fa-commenting-o" style="color:cornflowerblue;" aria-hidden="true"></i>
+                                  </div>
+                                  <div class="card col-md-9" 
+                                        style="display:inline-block;  
+                                                border-radius:8px; 
+                                                border-style: groove;
+                                                background-color:white;"> 
+                                      {{$comment->comment}} 
+                                  </div>
+                              </div> 
+                              @endif
+                            @endforeach
                           @endif
-                        @endforeach
-                      @endif
-                    </div>
-
-                      {{-- start --}}
-                      {{-- <div class="collapse row ms-2 collapseComment-{{ $post->id }}" style="display:none;">  --}}
-                        <div class=" row ms-2 mt-1 collapseComment-{{ $post->id }}" >  
-                        <div class="col-md-1 card" 
-                            style="display:flex; border-style:none;
-                                  justify-content:right; 
-                                  background-image:url('/storage/{{ $profile->back_image }}'); 
-                                  background-size:cover;">   
-                            <img class="img-fluid rounded-circle mx-auto mt-1" 
-                                style="height:30px; width:auto; max-width:30px; "  
-                              src="/storage/{{ $profile->image }}">
                         </div>
-                        <div class="col-md-11 card-body" 
-                          style="display:inline-block;"> 
-                          <form class="form-floating form-post-comment-{{ $post->id }}"
-                                {{-- action="{{ route('comment.store') }}" --}} 
-                                {{-- onsubmit="comment_onSubmit(
-                                        'form-post-comment-{{ $post->id }}', 
-                                        'post-comment-list-{{ $post->id }}',
-                                        'no-of-comment-4-{{ $post->id }}' )" --}}
-                                enctype="multipart/form-data"   
-                                method="GET"> 
-                              @csrf    
-                              <input name="input-comment-post-id" class="input-comment-post-id" type="hidden" value={{ $post->id }}>
-                              <input name="input-comment-user-id" class="input-comment-user-id" type="hidden" value={{ $user->id }}>
-                              <input class="form-control" type="text" style="width:90%; display: inline-flex;" 
-                                id="post-comment-input-{{ $post->id }}"
-                                placeholder="Write your comment here" 
-                                name="input-comment" class="input-comment">
-                                <script>
-                                  var inputField4Comment = document.getElementById('post-comment-input-'+{{ $post->id }});
-                                  inputField4Comment.addEventListener("keypress", function(event) { 
-                                    if (event.key === "Enter") { 
-                                      event.preventDefault();
-                                      document.getElementById('btn-submit-comment-'+{{ $post->id }}).click();
-                                    }
-                                  });
-                                </script>
-                              <label for="post-comment-input-{{ $post->id }}">Write your comment here</label>
-                              <button class="btn btn-outline-secondary " 
-                                      id="btn-submit-comment-{{ $post->id }}"
-                                      style="display: inline-flex;"  
-                                      onclick="comment_onSubmit(
-                                        'form-post-comment-{{ $post->id }}', 
-                                        'past-comment-list-{{ $post->id }}',
-                                        'no-of-comment-4-{{ $post->id }}',
-                                        'post-comment-input-{{ $post->id }}' )"
-                                      type="button">Send</button> 
-                          </form>
-                        </div>   
-                    </div> 
-                      {{-- end --}}
+ 
+                        <div class=" row ms-2 mt-1 collapseComment-{{ $post->id }}" >  
+                          <div class="col-md-1 card" 
+                              style="display:flex; border-style:none;
+                                    justify-content:right; 
+                                    background-image:url('/storage/{{ $profile->back_image }}'); 
+                                    background-size:cover;">   
+                              <img class="img-fluid rounded-circle mx-auto mt-1" 
+                                  style="height:30px; width:auto; max-width:30px; "  
+                                src="/storage/{{ $profile->image }}">
+                          </div>
+                          <div class="col-md-11 card-body" 
+                            style="display:inline-block;"> 
+                            <form class="form-floating form-post-comment-{{ $post->id }}" 
+                                  enctype="multipart/form-data"   
+                                  method="GET"> 
+                                @csrf    
+                                <input name="input-comment-post-id" class="input-comment-post-id" type="hidden" value={{ $post->id }}>
+                                <input name="input-comment-user-id" class="input-comment-user-id" type="hidden" value={{ $user->id }}>
+                                <input class="form-control" type="text" style="width:90%;display: inline-flex;" 
+                                  id="post-comment-input-{{ $post->id }}"
+                                  placeholder="Write your comment here" 
+                                  name="input-comment" class="input-comment"> 
 
-                    </div>
+                                  <script>     
+
+                                    var inputField4Comment = document.getElementById('post-comment-input-'+{{ $post->id }});
+                                    inputField4Comment.addEventListener("keypress", function(event) { 
+                                      if (event.key === "Enter") { 
+                                        event.preventDefault();
+                                        document.getElementById('btn-submit-comment-'+{{ $post->id }}).click();
+                                      }
+                                    });
+                                  </script>
+                                <label for="post-comment-input-{{ $post->id }}">Write your comment here</label>
+                                <button class="btn btn-outline-secondary " 
+                                        id="btn-submit-comment-{{ $post->id }}"
+                                        style="display: inline-flex;"  
+                                        onclick="comment_onSubmit(
+                                          'form-post-comment-{{ $post->id }}', 
+                                          'past-comment-list-{{ $post->id }}',
+                                          'no-of-comment-4-{{ $post->id }}',
+                                          'post-comment-input-{{ $post->id }}' )"
+                                        type="button">Send</button> 
+                            </form>
+                          </div>   
+                        </div>  
+
+                      </div>
 
                     <div class="container post-review-panel pb-1 pt-1" style="background-color: white; border-radius:8px;">
                       <div class="row text-center align-items-center"> 
@@ -663,14 +621,7 @@
                               data-bs-toggle="dropdown" 
                               aria-expanded="false">
                               Like
-                            </button> 
-
-                            {{-- @if(likedByLoginUser($likes_on_post, $post->id, $user->id)) 
-                              <script> 
-                                $('.post-like-icon-'+{{$post->id}}).addClass('fa-beat'); 
-                                $('.post-like-icon-'+{{$post->id}}).css("color","green");
-                              </script> 
-                            @endif --}}
+                            </button>  
 
                             @if( ($login_user_like = likedByLoginUser2($likes_on_post, $post->id, $user->id)) != 'none' )
                               <script>   
@@ -714,18 +665,6 @@
                                 {!! makeLikeIcon2('wow','WOW!',$post->id,$user->id, "fa-face-surprise","purple") !!} 
                                 {!! makeLikeIcon2('sad','So Sad!',$post->id,$user->id, "fa-face-sad-cry","blue") !!} 
                                 {!! makeLikeIcon2('angry','Angry',$post->id,$user->id, "fa-face-angry", "black") !!}  
-
-                                {{-- <a class='dropdown-item-like-thumb-{{ $post->id }} mx-2'
-                                  style='text-decoration: none;'
-                                  onclick="likeIcon_onClick('dropdown-item-like-thumb-{{ $post->id }}', '{{ $post->id }}', '{{ $user->id }}', 'like')">
-                                  <i class='fa-solid fa-thumbs-up fa-beat' 
-                                    data-bs-placement='left'  
-                                    data-bs-toggle='tooltip'  
-                                    data-bs-custom-class='custom-tooltip'
-                                    data-bs-title='Like It.'
-                                    style='color:green; font-size:24px; --fa-animation-duration: 1s;'></i>
-                                </a> --}}
-
                               </div>
                             </div> 
                         </div>    
@@ -735,8 +674,7 @@
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
                               onclick="commentCollapse('post-comment-list-'+{{ $post->id }})"  
-                              data-bs-toggle="collapse"  
-                              {{-- data-bs-target="#collapseComment-{{ $post->id }}"  --}}
+                              data-bs-toggle="collapse"   
                               data-bs-target=".post-comment-list-{{ $post->id }}" 
                               aria-expanded="false"  
                               aria-controls="post-comment-list-{{ $post->id }}">
@@ -781,154 +719,26 @@
                               </a></li> 
                             </ul>
                         </div> 
-                      </div>   
- 
-                      {{-- Collapse Content for Comment Button --}} 
-                      {{-- <div class="collapse row ms-2 collapseComment-{{ $post->id }}" style="display:none;">  
-                          <div class="col-md-1 card" 
-                              style="display:flex; border-style:none;
-                                    justify-content:right; 
-                                    background-image:url('/storage/{{ $profile->back_image }}'); 
-                                    background-size:cover;">   
-                              <img class="img-fluid rounded-circle mx-auto mt-1" 
-                                  style="height:30px; width:auto; max-width:30px; "  
-                                src="/storage/{{ $profile->image }}">
-                          </div>
-                          <div class="col-md-11 card-body" 
-                            style="display:inline-block;"> 
-                            <form class="form-floating "
-                                  action="{{ route('comment.store', 
-                                                  ['comment_post_id'=>$post->id, 
-                                                  'comment_user_id'=>$user->id]) }}" 
-                                  enctype="multipart/form-data"   
-                                  method="POST">
-                                @csrf 
-                                <input class="form-control" type="text" style="width:90%; display: inline-flex;" 
-                                  id="post-comment-input-{{ $post->id }}"
-                                  placeholder="Write your comment here..."
-                                  name="post-comment" class="post-comment">
-                                <label for="post-comment-input-{{ $post->id }}">Write your comment here</label>
-                                <button class="btn btn-outline-secondary" style="display: inline-flex;" type="submit">Send</button> 
-                            </form>
-                          </div>   
-                      </div>     --}}
+
+                      </div>    
                     </div>    
                   </div>
                 @endif
               @endforeach 
-            @endif
-      </div>   
+            @endif  --}}
+            @Include('layouts.post')    
+      </div>    
+ 
+      <div class="posts-next-page-no" value={{ $next_page }} style="display: none;">{{ $next_page }}</div>
 
-      <!-- The Modal -->
       <div id="myModal" class="modal"> 
         <span class="close">&times;</span>
   
         <div id="carouselImageView" 
              class="carousel slide"  
              data-bs-ride="true" data-wrap="false"> 
-        </div>        
-
-        {{-- <img class="modal-content" id="img01"> --}}
-        {{-- <div id="caption"></div> --}}
-      </div>   
-
-      <script> 
-          function commentCollapse(commentAreaId){  
-            // $("#"+commentAreaId).collapse("toggle");   
-            if($("."+commentAreaId).css('display') != 'none'){
-              $("."+commentAreaId).css('display', 'none');
-            }else{
-              $("."+commentAreaId).css('display', 'block');
-            }
-          }
-
-          const modal = document.getElementById("myModal");
-
-          function postImgOnClick(e){ 
-            var img_class=".img-thumbnail-"+e.target.alt;
-            $(img_class).attr("src", e.target.src);
-            postImgOnClick2(e); 
-          }
-
-          function postImageOnClick_Carousel(imgArray,idx){   
-            
-              const outerContainer = document.querySelector('#carouselImageView'); 
-
-              var divIContainer = document.querySelector('.carousel-indicators');
-              if(divIContainer != null) divIContainer.remove();
-              divIContainer = document.createElement('div');//('carousel-indicators');
-              divIContainer.setAttribute('class', 'carousel-indicators');
-              // divIContainer.setAttribute('class', 'carousel-preview'); 
-
-              var divContainer = document.querySelector('.carousel-inner');
-              if(divContainer != null) divContainer.remove();
-              divContainer = document.createElement('div'); //('carousel-inner');   
-              divContainer.setAttribute('class', 'carousel-inner');    
-  
-              for(let i=0; i<imgArray.length; i++){
-                var tmpBtn = document.createElement('button');
-                tmpBtn.setAttribute('type', 'button');
-                tmpBtn.setAttribute('data-bs-target', '#carouselImageView');
-                tmpBtn.setAttribute('data-bs-slide-to', i);  
-                if(i==idx) {
-                  tmpBtn.setAttribute('class', 'active'); 
-                  tmpBtn.setAttribute('aria-current', 'true');  
-                }
-                divIContainer.appendChild(tmpBtn);   
-
-                var divItem = document.createElement('div');
-                divItem.setAttribute('class', 'carousel-item');  
-                if(i==idx) divItem.classList.add('active');
-                var tmpImg = document.createElement('img');
-                // tmpImg.classList.add('modal-content');
-                tmpImg.classList.add('d-block');
-                tmpImg.classList.add('w-100');   
-                tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
-                tmpImg.setAttribute('max-height', '90vh'); 
-                divItem.appendChild(tmpImg); 
-                divContainer.appendChild(divItem);      
-                
-                var btnSpan;
-                var btnPrev = document.querySelector('.carousel-control-prev');
-                if(btnPrev != null) btnPrev.remove();
-                btnPrev = document.createElement('button'); 
-                btnPrev.setAttribute('class','carousel-control-prev'); 
-                btnPrev.setAttribute('type','button');
-                btnPrev.setAttribute('data-bs-target','#carouselImageView');
-                btnPrev.setAttribute('data-bs-slide','prev');
-                btnSpan = document.createElement('span');
-                btnSpan.setAttribute('class', 'carousel-control-prev-icon');
-                btnSpan.setAttribute('aria-hidden', 'true');
-                btnPrev.appendChild(btnSpan);
-
-                var btnNext = document.querySelector('.carousel-control-next');
-                if(btnNext != null) btnNext.remove();
-                btnNext = document.createElement('button'); 
-                btnNext.setAttribute('class','carousel-control-next');
-                btnNext.setAttribute('type','button');
-                btnNext.setAttribute('data-bs-target','#carouselImageView');
-                btnNext.setAttribute('data-bs-slide','next');
-                btnSpan = document.createElement('span');
-                btnSpan.setAttribute('class', 'carousel-control-next-icon');
-                btnSpan.setAttribute('aria-hidden', 'true'); 
-                btnNext.appendChild(btnSpan); 
-
-                outerContainer.appendChild(divIContainer);
-                outerContainer.appendChild(divContainer); 
-                outerContainer.appendChild(btnPrev);
-                outerContainer.appendChild(btnNext);   
-              }   
-              modal.style.display = "block";    
-          } 
-
-          // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
-
-          //When the user clicks on <span> (x), close the modal
-          span.onclick = function() {  
-            modal.style.display = "none"; 
-          }
-      </script>
+        </div>   
+      </div>    
         
       <div class="col-md-2 right-hand-col" style="background-color:white;"> 
           
@@ -980,14 +790,157 @@
               <span class="checkmark"></span>
             </label>
           </div> 
-      </div> 
+        </div> 
 
       </div>  
     </div>  
   </div>  
 
   
+  <script> 
+    function commentCollapse(commentAreaId){  
+      // $("#"+commentAreaId).collapse("toggle");   
+      if($("."+commentAreaId).css('display') != 'none'){
+        $("."+commentAreaId).css('display', 'none');
+      }else{
+        $("."+commentAreaId).css('display', 'block');
+      }
+    }
+
+    const modal = document.getElementById("myModal");
+
+    function postImgOnClick(e){ 
+      var img_class=".img-thumbnail-"+e.target.alt;
+      $(img_class).attr("src", e.target.src);
+      postImgOnClick2(e); 
+    }
+ 
+    function postImageOnClick_Carousel(imgArray,idx){    
+
+        const outerContainer = document.querySelector('#carouselImageView'); 
+
+        var divIContainer = document.querySelector('.carousel-indicators');
+        if(divIContainer != null) divIContainer.remove();
+        divIContainer = document.createElement('div');//('carousel-indicators');
+        divIContainer.setAttribute('class', 'carousel-indicators');
+        // divIContainer.setAttribute('class', 'carousel-preview'); 
+
+        var divContainer = document.querySelector('.carousel-inner');
+        if(divContainer != null) divContainer.remove();
+        divContainer = document.createElement('div'); //('carousel-inner');   
+        divContainer.setAttribute('class', 'carousel-inner');    
+
+        for(let i=0; i<imgArray.length; i++){
+          var tmpBtn = document.createElement('button');
+          tmpBtn.setAttribute('type', 'button');
+          tmpBtn.setAttribute('data-bs-target', '#carouselImageView');
+          tmpBtn.setAttribute('data-bs-slide-to', i);  
+          if(i==idx) {
+            tmpBtn.setAttribute('class', 'active'); 
+            tmpBtn.setAttribute('aria-current', 'true');  
+          }
+          divIContainer.appendChild(tmpBtn);   
+
+          var divItem = document.createElement('div');
+          divItem.setAttribute('class', 'carousel-item');  
+          if(i==idx) divItem.classList.add('active');
+          var tmpImg = document.createElement('img');
+          // tmpImg.classList.add('modal-content');
+          tmpImg.classList.add('d-block');
+          tmpImg.classList.add('w-100');   
+          tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
+          tmpImg.setAttribute('max-height', '90vh'); 
+          divItem.appendChild(tmpImg); 
+          divContainer.appendChild(divItem);      
+          
+          var btnSpan;
+          var btnPrev = document.querySelector('.carousel-control-prev');
+          if(btnPrev != null) btnPrev.remove();
+          btnPrev = document.createElement('button'); 
+          btnPrev.setAttribute('class','carousel-control-prev'); 
+          btnPrev.setAttribute('type','button');
+          btnPrev.setAttribute('data-bs-target','#carouselImageView');
+          btnPrev.setAttribute('data-bs-slide','prev');
+          btnSpan = document.createElement('span');
+          btnSpan.setAttribute('class', 'carousel-control-prev-icon');
+          btnSpan.setAttribute('aria-hidden', 'true');
+          btnPrev.appendChild(btnSpan);
+
+          var btnNext = document.querySelector('.carousel-control-next');
+          if(btnNext != null) btnNext.remove();
+          btnNext = document.createElement('button'); 
+          btnNext.setAttribute('class','carousel-control-next');
+          btnNext.setAttribute('type','button');
+          btnNext.setAttribute('data-bs-target','#carouselImageView');
+          btnNext.setAttribute('data-bs-slide','next');
+          btnSpan = document.createElement('span');
+          btnSpan.setAttribute('class', 'carousel-control-next-icon');
+          btnSpan.setAttribute('aria-hidden', 'true'); 
+          btnNext.appendChild(btnSpan); 
+
+          outerContainer.appendChild(divIContainer);
+          outerContainer.appendChild(divContainer); 
+          outerContainer.appendChild(btnPrev);
+          outerContainer.appendChild(btnNext);   
+        }   
+        modal.style.display = "block";    
+    } 
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    //When the user clicks on <span> (x), close the modal
+    span.onclick = function() {  
+      modal.style.display = "none"; 
+    }
+  </script>
+  
   <script>   
+    let toggle = true;
+    window.onscroll = function() {  
+        toggle = !toggle;   
+
+        var spinner_color = toggle ? 'text-primary' : 'text-danger';
+        var remainedpPosts = 
+          `<div class="d-flex ` + spinner_color + ` justify-content-center post-loading-spinner">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>`;
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){   
+            if($('.post-loading-spinner').length<1) {
+              $('.middle-col').append(remainedpPosts);  
+            }  
+             
+            var next_page = parseInt($('.posts-next-page-no').text());
+            console.log("gonne load next-page:" + next_page);
+             
+            if($('.ind-post-area-page-'+next_page).length>0 ){ 
+              console.log("found:" + 'ind-post-area-page-'+next_page);
+              $('.ind-post-area-page-'+next_page).each(function(){ 
+                $(this).show();
+              })
+              next_page = next_page + 1; 
+              $('.posts-next-page-no').text(String(next_page)); 
+            }else{
+              if($('.post-loading-spinner').length>0){
+                $('.post-loading-spinner').remove();
+              }
+            }
+        } else if((window.innerHeight + window.scrollY) < document.body.scrollHeight - 100) {
+          if($('.post-loading-spinner').length>0){
+            $('.post-loading-spinner').remove();
+          }
+        }
+
+        localStorage.setItem("scrollTop", window.scrollY.toFixed());
+        document.getElementById("x-location").innerHTML = window.scrollY.toFixed();  
+    }
+
+    function showTWEmojiPalette(emojisID){ 
+      $('#' + emojisID).text('');
+      $('#' + emojisID).disMojiPicker();   
+    }
 
     function comment_onSubmit(commentForm_className, container_className, commentCount_className, commentInput_id){
       var url = "{{ route('comment.store') }}";  
