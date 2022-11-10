@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,14 +54,21 @@ class PostController extends Controller
         // dd(phpinfo());
 
         if($request->hasfile('postpic')){
-            $imagePath = request('postpic')->store('uploads', 'public');  
-            $post->image = $imagePath;
+            // $imagePath = request('postpic')->store('uploads', 'public'); 
+            // $post->image = $imagePath; 
+
+            $imagePath = request('postpic');
+            $pathToFile = Storage::disk('public')->put('uploads/', $imagePath);
         }
          
         if($request->hasfile('postpics')){
             foreach($request->file('postpics') as $postpics_image){ 
-                $postpics_name = $postpics_image->store('uploads', 'public');  
-                $postpics_data[] = $postpics_name;
+                // $postpics_name = $postpics_image->store('uploads', 'public');  
+                // $postpics_data[] = $postpics_name;
+
+                $postpics_name = $postpics_image;
+                $pathToFiles = Storage::disk('public')->put('uploads/', $postpics_name);
+                $postpics_data[] = $pathToFiles;
             }
             
             $post->images = json_encode($postpics_data);  
