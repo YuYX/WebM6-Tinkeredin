@@ -108,7 +108,7 @@
                               <div class="post-content clearfix">
                                 @if ($post->image)
                                 <img class="col-md-6 float-md-start mb-1 me-md-2"
-                                  src="/{{$post->image}}" >
+                                src="{{ url('/{{ $post->image }}') }}" >
                                   {{-- src="/storage/{{$post->image}}" > --}}
                                 @endif
                                 {{ $post->content }} 
@@ -125,7 +125,7 @@
                               @foreach (json_decode($post->images) as $image)   
                                 <img class="post-preview-image image-fluid col-sm-4 col-md-3 mt-2 mb-1"
                                   style="width:20%; height:auto; object-fit: contain; border-style:double; border-color:lightblue;" 
-                                  src="/{{$image}}"
+                                  src="{{ url('/{{$image}}') }}"
                                   {{-- src="storage/{{$image}}"   --}}
                                   alt="{{$post->id}}"
                                   @if ($post->image) 
