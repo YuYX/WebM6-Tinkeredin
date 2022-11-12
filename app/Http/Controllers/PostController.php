@@ -54,15 +54,13 @@ class PostController extends Controller
         // dd(phpinfo());
 
         if($request->hasfile('postpic')){
-            $imagePath = request('postpic')->store('uploads', 'public'); 
-            // $imagePath = request('postpic')->store('images', 'public'); 
+            $imagePath = request('postpic')->store('uploads', 'public');  
             $post->image = $imagePath;  
         }
          
         if($request->hasfile('postpics')){
             foreach($request->file('postpics') as $postpics_image){ 
-                $postpics_name = $postpics_image->store('uploads', 'public');  
-                // $postpics_name = $postpics_image->store('images', 'public'); 
+                $postpics_name = $postpics_image->store('uploads', 'public');   
                 $postpics_data[] = $postpics_name; 
             }
             
@@ -137,15 +135,13 @@ class PostController extends Controller
             $post->content = request('content');
 
             if($request->hasfile('postpic')){
-                $imagePath = request('postpic')->store('uploads', 'public');  
-                // $imagePath = request('postpic')->store('images', 'public');  
+                $imagePath = request('postpic')->store('uploads', 'public');   
                 $post->image = $imagePath; 
             }
             
             if($request->hasfile('postpics')){
                 foreach($request->file('postpics') as $postpics_image){ 
-                    $postpics_name = $postpics_image->store('uploads', 'public');  
-                    // $postpics_name = $postpics_image->store('images', 'public');  
+                    $postpics_name = $postpics_image->store('uploads', 'public');   
                     $postpics_data[] = $postpics_name;
                 }
                 
