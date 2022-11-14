@@ -50,6 +50,7 @@ class RelationController extends Controller
             $relation->follower_id = $request->follower_id;
             $relation->following_id = $request->following_id; 
             $relation->status = $request->status; 
+            $relation->block = false;
             $saved = $relation->save();
         }     
 
