@@ -34,7 +34,8 @@
         }
     }, 
 
-    "post-install-cmd": [ "ln -sr storage/app/public public/images" ], //[ "ln -sr storage/app/public public/storage" ],
+    "post-install-cmd": [ "ln -sr storage/app/public public/images" ], 
+
 
     "scripts": {
         "post-autoload-dump": [
