@@ -19,7 +19,8 @@
                       <img class="search-profile-image rounded-circle mx-auto" 
                         {{-- width="40" height="40"  --}}
                         style="height:40px; width:auto; max-width:40px; display:inline-block;"
-                        src="/storage/{{ $user->image }}"> 
+                        {{-- src="/storage/{{ $user->image }}">  --}}
+                        src="/{{ $user->image }}"> 
                       <span class="text-danger">{{ $user->name }}</span>
                     </div> 
 
