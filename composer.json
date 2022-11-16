@@ -33,6 +33,9 @@
             "Tests\\": "tests/"
         }
     }, 
+
+    "post-install-cmd": [ "ln -sr storage/app/public public/storage" ],
+
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
