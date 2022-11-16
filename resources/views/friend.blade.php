@@ -38,7 +38,8 @@
                     <div class="col-4" style="display:block;">
                       <img class="search-profile-image rounded-circle mx-auto"  
                         style="height:40px; width:auto; max-width:40px; display:inline-block;"
-                        src="/storage/{{ $user_search->image }}"> 
+                        src="/{{ $user_search->image }}"> 
+                        {{-- src="/storage/{{ $user_search->image }}">  --}}
                       <span class="text-danger">{{ $user_search->name }}</span>
                     </div> 
  

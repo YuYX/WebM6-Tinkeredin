@@ -41,7 +41,8 @@
                             </script>
                         </div>
                         <div class="mb-2 mt-2"> 
-                            <img id="profile_image" src="/storage/{{$profile->image}}" 
+                            {{-- <img id="profile_image" src="/storage/{{$profile->image}}"  --}}
+                            <img id="profile_image" src="/{{$profile->image}}" 
                                 style="width: 25%;">
                         </div>
                     </div>
@@ -71,7 +72,8 @@
                             </script>
                         </div>
                         <div class="mb-2 mt-2">
-                            <img id="profile_backimage" src="/storage/{{$profile->back_image}}"
+                            {{-- <img id="profile_backimage" src="/storage/{{$profile->back_image}}" --}}
+                            <img id="profile_backimage" src="/{{$profile->back_image}}"
                                 style="width: 40%;">
                         </div>
                     </div>

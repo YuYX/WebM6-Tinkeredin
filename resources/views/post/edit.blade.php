@@ -5,7 +5,8 @@
         <div class="row">
             {{-- <div class="col-4"></div> --}}
             <div class="col-4">
-                <img src="/storage/{{ $post->image }}" class="w-100" id="postpicPreview"> 
+                <img src="/{{ $post->image }}" class="w-100" id="postpicPreview"> 
+                {{-- <img src="/storage/{{ $post->image }}" class="w-100" id="postpicPreview">  --}}
             </div>
             <div class="col-6"> 
                 <div>Updating Post ID: <strong>{{$post->id}}</strong></div>
@@ -24,7 +25,8 @@
                                         if(curImgs && curImgs.length<9){ //Limit to 9 pics.
                                             $('#postpicPreview').attr('src', e.target.result);    
                                             update_featuredImage(e.target.result, "featured-image","postpicPreview");
-                                            $('#postpicOld').attr('src', "/storage/{{ $post->image }}");               
+                                            $('#postpicOld').attr('src', "/{{ $post->image }}");     
+                                            // $('#postpicOld').attr('src', "/storage/{{ $post->image }}");                         
                                         }
                                     }
                                     reader.readAsDataURL(input.files[0]); 

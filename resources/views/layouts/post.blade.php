@@ -44,7 +44,8 @@
                                       max-width:30px; 
                                       margin-right:8px;  
                                       display:inline-block;"  
-                              src="/storage/{{ $post->profile_image }}"
+                              src="/{{ $post->profile_image }}"
+                              {{-- src="/storage/{{ $post->profile_image }}" --}}
                               onmouseover="onMouseOverProfileImagePost({{ $post->id }})"
                               onmouseout="onMouseOutProfileImagePost({{ $post->id }})" 
                             ><span class="text-danger">{{ $post->user_name }}</span> 
@@ -53,11 +54,13 @@
                               <div class="card cardeffect sticky-top " 
                                   style="background-color:honeydew;" >  
                                       <img class="rounded card-img-top mb-0" 
-                                      src="/storage/{{ $post->profile_back }}" alt=""> 
+                                      src="/{{ $post->profile_back }}" alt=""> 
+                                      {{-- src="/storage/{{ $post->profile_back }}" alt="">  --}}
                                       <div class="mx-auto">
                                           <img class="rounded-circle card-img-overlay mx-auto" 
                                               width="120" height="auto"
-                                              src="/storage/{{ $post->profile_image }}" alt="">  
+                                              src="/{{ $post->profile_image }}" alt=""> 
+                                              {{-- src="/storage/{{ $post->profile_image }}" alt="">   --}}
                                       </div> 
                                       
                                     <div class="card-body" style="text-align: center">
@@ -165,7 +168,8 @@
                                       style="display:inline-block; background-color:rgb(240, 255, 255);">    
                                       <img class="img-fluid rounded-circle mt-1" 
                                           style="display:inline-block; height:24px; width:auto; max-width:30px; "  
-                                          src="/storage/{{ $comment->profile_image }}">
+                                          src="/{{ $comment->profile_image }}">
+                                          {{-- src="/storage/{{ $comment->profile_image }}"> --}}
                                       <span class="text-danger" >
                                         {{ $comment->comment_user_name }}</span>
                                         <i class="fa fa-commenting-o" style="color:cornflowerblue;" aria-hidden="true"></i>
@@ -187,11 +191,12 @@
                           <div class="col-md-1 card" 
                               style="display:flex; border-style:none;
                                     justify-content:right; 
-                                    background-image:url('/storage/{{ $profile->back_image }}'); 
+                                    background-image:url('/{{ $profile->back_image }}'); 
                                     background-size:cover;">   
                               <img class="img-fluid rounded-circle mx-auto mt-1" 
                                   style="height:30px; width:auto; max-width:30px; "  
-                                src="/storage/{{ $profile->image }}">
+                                src="/{{ $profile->image }}">
+                                {{-- src="/storage/{{ $profile->image }}"> --}}
                           </div>
                           <div class="col-md-11 card-body" 
                             style="display:inline-block;"> 

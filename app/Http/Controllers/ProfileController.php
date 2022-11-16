@@ -47,12 +47,14 @@ class ProfileController extends Controller
 
        // Save the new profile pic... if there is one in the request()!
        if (request()->has('profilepic')) {
-           $imagePath = request('profilepic')->store('uploads', 'public'); 
+        //    $imagePath = request('profilepic')->store('uploads', 'public'); 
+           $imagePath = request('profilepic')->store('images', 'public'); 
            $profile->image = $imagePath;
        }
 
        if (request()->has('backpic')) {
-            $backImagePath = request('backpic')->store('uploads', 'public'); 
+            // $backImagePath = request('backpic')->store('uploads', 'public'); 
+            $backImagePath = request('backpic')->store('images', 'public'); 
             $profile->back_image = $backImagePath;
         }
 
@@ -169,8 +171,10 @@ class ProfileController extends Controller
             'backpic' => ['required', 'image'],
         ]);
 
-        $imagePath = request('profilepic')->store('uploads', 'public');
-        $backImagePath = request('backpic')->store('uploads', 'public'); 
+        // $imagePath = request('profilepic')->store('uploads', 'public');
+        // $backImagePath = request('backpic')->store('uploads', 'public'); 
+        $imagePath = request('profilepic')->store('images', 'public');
+        $backImagePath = request('backpic')->store('images', 'public'); 
 
         $user = Auth::user();
         $profile = new Profile();

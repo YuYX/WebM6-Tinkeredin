@@ -209,11 +209,13 @@
             style="background-color:beige;" > 
               
                 <img class="rounded card-img-top mb-1" 
-                src="/storage/{{ $profile->back_image }}" alt=""> 
+                src="/{{ $profile->back_image }}" alt=""> 
+                {{-- src="/storage/{{ $profile->back_image }}" alt="">  --}}
                 <div class="mx-auto">
                     <img class="rounded-circle card-img-overlay mx-auto" 
                         width="120" height="120"
-                        src="/storage/{{ $profile->image }}" alt="">  
+                        src="/{{ $profile->image }}" alt="">  
+                        {{-- src="/storage/{{ $profile->image }}" alt="">   --}}
                 </div> 
                 
             <div class="card-body" style="text-align: center">
@@ -258,7 +260,8 @@
       <div class="col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
-               src="/storage/{{ $profile->image }}"  
+               src="/{{ $profile->image }}"  
+               {{-- src="/storage/{{ $profile->image }}"   --}}
           ><span class="text-danger">{{  $user->name }}</span>
         </div> 
         
@@ -332,7 +335,8 @@
       <div class="col-md-8 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1" 
-                    style="background-image:url('/storage/{{ $profile->back_image }}'); 
+                    {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}}
+                    style="background-image:url('/{{ $profile->back_image }}'); 
                            border-style:none; border-radius: 10px;
                            background-size:cover;">
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
@@ -342,7 +346,8 @@
                         href="#offcanvasExample" 
                         role="button" 
                         aria-controls="offcanvasExample"
-                      src="/storage/{{ $profile->image }}" alt="">   
+                      src="/{{ $profile->image }}" alt=""> 
+                      {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
                 </div>
                 <div class="card col-md-11"  
                     style="background-color: rgb(250, 250, 246); border-radius:10px;">
@@ -428,7 +433,7 @@
                                       max-width:30px; 
                                       margin-right:8px;  
                                       display:inline-block;"  
-                              src="/storage/{{ $post->profile_image }}"
+                              src="/{{ $post->profile_image }}"
                               onmouseover="onMouseOverProfileImagePost({{ $post->id }})"
                               onmouseout="onMouseOutProfileImagePost({{ $post->id }})" 
                             ><span class="text-danger">{{ $post->user_name }}</span> 
@@ -437,11 +442,11 @@
                               <div class="card cardeffect sticky-top " 
                                   style="background-color:honeydew;" >  
                                       <img class="rounded card-img-top mb-0" 
-                                      src="/storage/{{ $post->profile_back }}" alt=""> 
+                                      src="/{{ $post->profile_back }}" alt=""> 
                                       <div class="mx-auto">
                                           <img class="rounded-circle card-img-overlay mx-auto" 
                                               width="120" height="auto"
-                                              src="/storage/{{ $post->profile_image }}" alt="">  
+                                              src="/{{ $post->profile_image }}" alt="">  
                                       </div> 
                                       
                                     <div class="card-body" style="text-align: center">
@@ -492,7 +497,7 @@
                               <div class="post-content clearfix">
                                 @if ($post->image)
                                 <img class="col-md-6 float-md-start mb-1 me-md-2"
-                                  src="/storage/{{$post->image}}" >
+                                  src="/{{$post->image}}" >
                                 @endif
                                 {{ $post->content }} 
                               </div>
@@ -544,7 +549,7 @@
                                       style="display:inline-block; background-color:rgb(240, 255, 255);">    
                                       <img class="img-fluid rounded-circle mt-1" 
                                           style="display:inline-block; height:24px; width:auto; max-width:30px; "  
-                                          src="/storage/{{ $comment->profile_image }}">
+                                          src="/{{ $comment->profile_image }}">
                                       <span class="text-danger" >
                                         {{ $comment->comment_user_name }}</span>
                                         <i class="fa fa-commenting-o" style="color:cornflowerblue;" aria-hidden="true"></i>
@@ -566,11 +571,11 @@
                           <div class="col-md-1 card" 
                               style="display:flex; border-style:none;
                                     justify-content:right; 
-                                    background-image:url('/storage/{{ $profile->back_image }}'); 
+                                    background-image:url('/{{ $profile->back_image }}'); 
                                     background-size:cover;">   
                               <img class="img-fluid rounded-circle mx-auto mt-1" 
                                   style="height:30px; width:auto; max-width:30px; "  
-                                src="/storage/{{ $profile->image }}">
+                                src="/{{ $profile->image }}">
                           </div>
                           <div class="col-md-11 card-body" 
                             style="display:inline-block;"> 
@@ -976,7 +981,7 @@
                   'style="display:inline-block; background-color:rgb(240, 255, 255);">'+
                   '<img class="img-fluid rounded-circle mt-1" '+
                         'style="display:inline-block; height:24px; width:auto; max-width:30px; "'+  
-                        'src="/storage/'+ comment_user_profile_image + 
+                        'src="/'+ comment_user_profile_image + 
           '"><span class="text-danger">'+  comment_user_name + 
           '</span><span style="font-size:20px;">&#129315;</span>'+  
               '</div>'+
