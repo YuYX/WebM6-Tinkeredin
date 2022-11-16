@@ -109,7 +109,8 @@
                                 @if ($post->image)
                                 <img class="col-md-6 float-md-start mb-1 me-md-2" 
                                 {{-- src="{{ url('/' . $post->image ) }}" > --}}
-                                  src="/storage/{{$post->image}}" >
+                                  {{-- src="/storage/{{$post->image}}" > --}}
+                                  src="/{{$post->image}}" >
                                 @endif
                                 {{ $post->content }} 
                               </div>
@@ -126,7 +127,8 @@
                                 <img class="post-preview-image image-fluid col-sm-4 col-md-3 mt-2 mb-1"
                                   style="width:20%; height:auto; object-fit: contain; border-style:double; border-color:lightblue;" 
                                   {{-- src="{{ url('/' . $image ) }}"  --}}
-                                  src="storage/{{$image}}"  
+                                  {{-- src="storage/{{$image}}"   --}}
+                                  src="/{{$image}}"
                                   alt="{{$post->id}}"
                                   @if ($post->image) 
                                     onclick="postImageOnClick_Carousel({{$post->images}}, {{$loop->index}})"   
