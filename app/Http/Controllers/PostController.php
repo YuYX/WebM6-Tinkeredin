@@ -69,10 +69,10 @@ class PostController extends Controller
                 // $postpics_name = $postpics_image->store('uploads', 'public');  
                 // $postpics_name = $postpics_image->store('images', 'public');  
 
-                $imagefile = $request->file('postpic');
+                $imagefile = $postpics_image;
                 $imageName = time().$imagefile->getClientOriginalName();
                 $postpics_name = 'images/' . $imageName;
-                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+                Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
 
                 $postpics_data[] = $postpics_name; 
             }
@@ -164,10 +164,10 @@ class PostController extends Controller
                     // $postpics_name = $postpics_image->store('uploads', 'public'); 
                     // $postpics_name = $postpics_image->store('images', 'public'); 
                     
-                    $imagefile = $request->file('postpic');
+                    $imagefile = $postpics_image;
                     $imageName = time().$imagefile->getClientOriginalName();
                     $postpics_name = 'images/' . $imageName;
-                    Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+                    Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
                     
                     $postpics_data[] = $postpics_name;
                 }
