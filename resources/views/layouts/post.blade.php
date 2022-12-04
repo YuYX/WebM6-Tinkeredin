@@ -112,8 +112,9 @@
                                 @if ($post->image)
                                 <img class="col-md-6 float-md-start mb-1 me-md-2" 
                                 {{-- src="{{ url('/' . $post->image ) }}" > --}}
-                                  {{-- src="/storage/{{$post->image}}" > --}}
-                                  src="/{{$post->image}}" >
+                                {{-- src="/storage/{{$post->image}}" > --}} 
+                                {{-- src="/{{$post->image}}" >  --}}
+                                src="{{Storage::disk('s3')->url($post->image)}}">
                                 @endif
                                 {{ $post->content }} 
                               </div>
@@ -131,9 +132,10 @@
                                   style="width:20%; height:auto; object-fit: contain; border-style:double; border-color:lightblue;" 
                                   {{-- src="{{ url('/' . $image ) }}"  --}}
                                   {{-- src="storage/{{$image}}"   --}}
-                                  src="/{{$image}}"
+                                  {{-- src="/{{$image}}" --}}
+                                  src="{{Storage::disk('s3')->url($image)}}"
                                   alt="{{$post->id}}"
-                                  @if ($post->image) 
+                                  @if ($post->image)  
                                     onclick="postImageOnClick_Carousel({{$post->images}}, {{$loop->index}})"   
                                   @else
                                     onclick="postImgOnClick2(event)"
