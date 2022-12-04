@@ -56,15 +56,24 @@ class PostController extends Controller
         if($request->hasfile('postpic')){
             // $imagePath = request('postpic')->store('uploads', 'public');  
             // $imagePath = request('postpic')->store('images', 'public'); 
-            $imagePath = request('postpic')->store('images', 's3'); 
+
+            $imagefile = $request->file('postpic');
+            $imageName = time().$imagefile->getClientOriginalName();
+            $imagePath = 'images/' . $imageName;
+            Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
             $post->image = $imagePath;  
         }
          
         if($request->hasfile('postpics')){
             foreach($request->file('postpics') as $postpics_image){ 
                 // $postpics_name = $postpics_image->store('uploads', 'public');  
-                // $postpics_name = $postpics_image->store('images', 'public'); 
-                $postpics_name = $postpics_image->store('images', 's3');   
+                // $postpics_name = $postpics_image->store('images', 'public');  
+
+                $imagefile = $request->file('postpic');
+                $imageName = time().$imagefile->getClientOriginalName();
+                $postpics_name = 'images/' . $imageName;
+                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+
                 $postpics_data[] = $postpics_name; 
             }
             
@@ -141,7 +150,12 @@ class PostController extends Controller
             if($request->hasfile('postpic')){
                 // $imagePath = request('postpic')->store('uploads', 'public'); 
                 // $imagePath = request('postpic')->store('images', 'public');  
-                $imagePath = request('postpic')->store('images', 's3');   
+                
+                $imagefile = $request->file('postpic');
+                $imageName = time().$imagefile->getClientOriginalName();
+                $imagePath = 'images/' . $imageName;
+                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+
                 $post->image = $imagePath; 
             }
             
@@ -149,7 +163,12 @@ class PostController extends Controller
                 foreach($request->file('postpics') as $postpics_image){ 
                     // $postpics_name = $postpics_image->store('uploads', 'public'); 
                     // $postpics_name = $postpics_image->store('images', 'public'); 
-                    $postpics_name = $postpics_image->store('images', 's3');   
+                    
+                    $imagefile = $request->file('postpic');
+                    $imageName = time().$imagefile->getClientOriginalName();
+                    $postpics_name = 'images/' . $imageName;
+                    Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+                    
                     $postpics_data[] = $postpics_name;
                 }
                 
