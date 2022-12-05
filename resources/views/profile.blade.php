@@ -863,9 +863,8 @@
           var tmpImg = document.createElement('img');
           // tmpImg.classList.add('modal-content');
           tmpImg.classList.add('d-block');
-          tmpImg.classList.add('w-100');   
-           
-          tmpImg.setAttribute('src',{{Storage::disk('s3')->url('//')}} + imgArray[i]); 
+          tmpImg.classList.add('w-100');    
+          tmpImg.setAttribute('src',imgArray[i]); 
           // tmpImg.setAttribute('src',"/"+imgArray[i]);  
           // tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
           tmpImg.setAttribute('max-height', '90vh'); 
