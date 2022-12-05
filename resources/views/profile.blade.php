@@ -864,7 +864,7 @@
           // tmpImg.classList.add('modal-content');
           tmpImg.classList.add('d-block');
           tmpImg.classList.add('w-100');    
-          tmpImg.setAttribute('src',imgArray[i]); 
+          tmpImg.setAttribute('src',"https://yuyongxue-s3-bucket.s3.ap-southeast-1.amazonaws.com/"+imgArray[i]); 
           // tmpImg.setAttribute('src',"/"+imgArray[i]);  
           // tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
           tmpImg.setAttribute('max-height', '90vh'); 
