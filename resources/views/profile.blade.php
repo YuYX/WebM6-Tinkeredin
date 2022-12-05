@@ -829,8 +829,8 @@
       var img_class=".img-thumbnail-"+e.target.alt;
       $(img_class).attr("src", e.target.src);
       postImgOnClick2(e); 
-    }
- 
+    } 
+
     function postImageOnClick_Carousel(imgArray,idx){    
 
         const outerContainer = document.querySelector('#carouselImageView'); 
@@ -864,7 +864,9 @@
           // tmpImg.classList.add('modal-content');
           tmpImg.classList.add('d-block');
           tmpImg.classList.add('w-100');   
-          tmpImg.setAttribute('src',"/"+imgArray[i]);  
+           
+          tmpImg.setAttribute('src',{{Storage::disk('s3')->url('/')}} + imgArray[i]); 
+          // tmpImg.setAttribute('src',"/"+imgArray[i]);  
           // tmpImg.setAttribute('src',"/storage/"+imgArray[i]);  
           tmpImg.setAttribute('max-height', '90vh'); 
           divItem.appendChild(tmpImg); 
