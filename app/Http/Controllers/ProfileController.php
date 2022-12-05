@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\Post; 
@@ -48,13 +49,21 @@ class ProfileController extends Controller
        // Save the new profile pic... if there is one in the request()!
        if (request()->has('profilepic')) {
         //    $imagePath = request('profilepic')->store('uploads', 'public'); 
-           $imagePath = request('profilepic')->store('images', 'public'); 
+        //    $imagePath = request('profilepic')->store('images', 'public'); 
+
+            $imagePath = request('profilepic')->store('images', 's3'); 
+            Storage::disk('s3')->setVisibility($imagePath, 'public');
+
            $profile->image = $imagePath;
        }
 
        if (request()->has('backpic')) {
             // $backImagePath = request('backpic')->store('uploads', 'public'); 
-            $backImagePath = request('backpic')->store('images', 'public'); 
+            // $backImagePath = request('backpic')->store('images', 'public'); 
+
+            $backImagePath = request('backpic')->store('images', 's3'); 
+            Storage::disk('s3')->setVisibility($backImagePath, 'public');
+
             $profile->back_image = $backImagePath;
         }
 
@@ -173,8 +182,13 @@ class ProfileController extends Controller
 
         // $imagePath = request('profilepic')->store('uploads', 'public');
         // $backImagePath = request('backpic')->store('uploads', 'public'); 
-        $imagePath = request('profilepic')->store('images', 'public');
-        $backImagePath = request('backpic')->store('images', 'public'); 
+        // $imagePath = request('profilepic')->store('images', 'public');
+        // $backImagePath = request('backpic')->store('images', 'public'); 
+
+        $imagePath = request('profilepic')->store('images', 's3'); 
+        Storage::disk('s3')->setVisibility($imagePath, 'public');
+        $backImagePath = request('backpic')->store('images', 's3'); 
+        Storage::disk('s3')->setVisibility($backImagePath, 'public');
 
         $user = Auth::user();
         $profile = new Profile();

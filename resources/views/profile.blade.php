@@ -209,12 +209,16 @@
             style="background-color:beige;" > 
               
                 <img class="rounded card-img-top mb-1" 
-                src="/{{ $profile->back_image }}" alt=""> 
+                {{-- src="/{{ $profile->back_image }}"  --}}
+                src="{{Storage::disk('s3')->url($profile->back_image)}}" 
+                alt=""> 
                 {{-- src="/storage/{{ $profile->back_image }}" alt="">  --}}
                 <div class="mx-auto">
                     <img class="rounded-circle card-img-overlay mx-auto" 
                         width="120" height="120"
-                        src="/{{ $profile->image }}" alt="">  
+                        src="{{Storage::disk('s3')->url($profile->image)}}" 
+                        {{-- src="/{{ $profile->image }}"  --}}
+                        alt="">  
                         {{-- src="/storage/{{ $profile->image }}" alt="">   --}}
                 </div> 
                 
@@ -260,7 +264,8 @@
       <div class="col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
-               src="/{{ $profile->image }}"  
+               src="{{Storage::disk('s3')->url($profile->image)}}" 
+               {{-- src="/{{ $profile->image }}"   --}}
                {{-- src="/storage/{{ $profile->image }}"   --}}
           ><span class="text-danger">{{  $user->name }}</span>
         </div> 
@@ -336,10 +341,13 @@
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                    {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}}
-                    style="background-image:url('/{{ $profile->back_image }}'); 
+                    {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}} 
+                    style="background-image:url(`{{Storage::disk('s3')->url($profile->back_image)}}`); 
                            border-style:none; border-radius: 10px;
                            background-size:cover;">
+                    {{-- style="background-image:url('/{{ $profile->back_image }}'); 
+                           border-style:none; border-radius: 10px;
+                           background-size:cover;"> --}}
                     <img class="img-fluid rounded-circle mx-auto mt-1 profile-image"  
                         style="height:40px; width:auto; max-width:40px; 
                               --animate-duration: 2s; "  
@@ -347,7 +355,9 @@
                         href="#offcanvasExample" 
                         role="button" 
                         aria-controls="offcanvasExample"
-                      src="/{{ $profile->image }}" alt=""> 
+                        src="{{Storage::disk('s3')->url($profile->image)}}"
+                        {{-- src="/{{ $profile->image }}"  --}}
+                        alt=""> 
                       {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
                 </div>
                 <div class="card col-md-11"  

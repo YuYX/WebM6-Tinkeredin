@@ -44,7 +44,8 @@
                                       max-width:30px; 
                                       margin-right:8px;  
                                       display:inline-block;"  
-                              src="/{{ $post->profile_image }}"
+                              {{-- src="/{{ $post->profile_image }}" --}}
+                              src="{{Storage::disk('s3')->url($post->profile_image)}}"
                               {{-- src="/storage/{{ $post->profile_image }}" --}}
                               onmouseover="onMouseOverProfileImagePost({{ $post->id }})"
                               onmouseout="onMouseOutProfileImagePost({{ $post->id }})" 
@@ -54,12 +55,16 @@
                               <div class="card cardeffect sticky-top " 
                                   style="background-color:honeydew;" >  
                                       <img class="rounded card-img-top mb-0" 
-                                      src="/{{ $post->profile_back }}" alt=""> 
+                                      {{-- src="/{{ $post->profile_back }}"  --}}
+                                      src="{{Storage::disk('s3')->url($post->profile_back)}}"
+                                      alt="">  
                                       {{-- src="/storage/{{ $post->profile_back }}" alt="">  --}}
                                       <div class="mx-auto">
                                           <img class="rounded-circle card-img-overlay mx-auto" 
                                               width="120" height="auto"
-                                              src="/{{ $post->profile_image }}" alt=""> 
+                                              {{-- src="/{{ $post->profile_image }}"  --}}
+                                              src="{{Storage::disk('s3')->url($post->profile_image)}}"
+                                              alt=""> 
                                               {{-- src="/storage/{{ $post->profile_image }}" alt="">   --}}
                                       </div> 
                                       
@@ -197,7 +202,9 @@
                                     background-size:cover;">   
                               <img class="img-fluid rounded-circle mx-auto mt-1" 
                                   style="height:30px; width:auto; max-width:30px; "  
-                                src="/{{ $profile->image }}">
+                                  {{-- src="/{{ $profile->image }}" --}}
+                                  src="{{Storage::disk('s3')->url($profile->image)}}"
+                                  >
                                 {{-- src="/storage/{{ $profile->image }}"> --}}
                           </div>
                           <div class="col-md-11 card-body" 
