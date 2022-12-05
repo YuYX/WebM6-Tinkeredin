@@ -60,7 +60,7 @@ class PostController extends Controller
             $imagefile = $request->file('postpic');
             $imageName = time().$imagefile->getClientOriginalName();
             $imagePath = 'images/' . $imageName;
-            Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+            Storage::disk('s3')->put($imagePath, file_get_contents($imagefile), 'public'); 
             $post->image = $imagePath;  
         }
          
@@ -72,7 +72,7 @@ class PostController extends Controller
                 $imagefile = $postpics_image;
                 $imageName = time().$imagefile->getClientOriginalName();
                 $postpics_name = 'images/' . $imageName;
-                Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+                Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile), 'public'); 
 
                 $postpics_data[] = $postpics_name; 
             }
@@ -154,7 +154,7 @@ class PostController extends Controller
                 $imagefile = $request->file('postpic');
                 $imageName = time().$imagefile->getClientOriginalName();
                 $imagePath = 'images/' . $imageName;
-                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile), 'public'); 
 
                 $post->image = $imagePath; 
             }
@@ -167,7 +167,7 @@ class PostController extends Controller
                     $imagefile = $postpics_image;
                     $imageName = time().$imagefile->getClientOriginalName();
                     $postpics_name = 'images/' . $imageName;
-                    Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+                    Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile), 'public'); 
                     
                     $postpics_data[] = $postpics_name;
                 }
