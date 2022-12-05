@@ -335,6 +335,7 @@
       <div class="col-md-8 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5">
                 <div class="card profile-image-container col-md-1" 
+                    type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                     {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}}
                     style="background-image:url('/{{ $profile->back_image }}'); 
                            border-style:none; border-radius: 10px;
