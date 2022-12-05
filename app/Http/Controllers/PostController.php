@@ -57,10 +57,14 @@ class PostController extends Controller
             // $imagePath = request('postpic')->store('uploads', 'public');  
             // $imagePath = request('postpic')->store('images', 'public'); 
 
-            $imagefile = $request->file('postpic');
-            $imageName = time().$imagefile->getClientOriginalName();
-            $imagePath = 'images/' . $imageName;
-            Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+            // $imagefile = $request->file('postpic');
+            // $imageName = time().$imagefile->getClientOriginalName();
+            // $imagePath = 'images/' . $imageName;
+            // Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+
+            $imagePath = $request->file('postpic')->store('images', 's3'); 
+            Storage::disk('s3')->setVisibility($imagePath, 'public');
+
             $post->image = $imagePath;  
         }
          
@@ -69,10 +73,13 @@ class PostController extends Controller
                 // $postpics_name = $postpics_image->store('uploads', 'public');  
                 // $postpics_name = $postpics_image->store('images', 'public');  
 
-                $imagefile = $postpics_image;
-                $imageName = time().$imagefile->getClientOriginalName();
-                $postpics_name = 'images/' . $imageName;
-                Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+                // $imagefile = $postpics_image;
+                // $imageName = time().$imagefile->getClientOriginalName();
+                // $postpics_name = 'images/' . $imageName;
+                // Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+
+                $postpics_name = $postpics_image->store('images', 's3'); 
+                Storage::disk('s3')->setVisibility($postpics_name, 'public');
 
                 $postpics_data[] = $postpics_name; 
             }
@@ -151,10 +158,13 @@ class PostController extends Controller
                 // $imagePath = request('postpic')->store('uploads', 'public'); 
                 // $imagePath = request('postpic')->store('images', 'public');  
                 
-                $imagefile = $request->file('postpic');
-                $imageName = time().$imagefile->getClientOriginalName();
-                $imagePath = 'images/' . $imageName;
-                Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+                // $imagefile = $request->file('postpic');
+                // $imageName = time().$imagefile->getClientOriginalName();
+                // $imagePath = 'images/' . $imageName;
+                // Storage::disk('s3')->put($imagePath, file_get_contents($imagefile)); 
+
+                $imagePath = $request->file('postpic')->store('images', 's3'); 
+                Storage::disk('s3')->setVisibility($imagePath, 'public');
 
                 $post->image = $imagePath; 
             }
@@ -164,10 +174,13 @@ class PostController extends Controller
                     // $postpics_name = $postpics_image->store('uploads', 'public'); 
                     // $postpics_name = $postpics_image->store('images', 'public'); 
                     
-                    $imagefile = $postpics_image;
-                    $imageName = time().$imagefile->getClientOriginalName();
-                    $postpics_name = 'images/' . $imageName;
-                    Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+                    // $imagefile = $postpics_image;
+                    // $imageName = time().$imagefile->getClientOriginalName();
+                    // $postpics_name = 'images/' . $imageName;
+                    // Storage::disk('s3')->put($postpics_name, file_get_contents($imagefile)); 
+
+                    $postpics_name = $postpics_image->store('images', 's3'); 
+                    Storage::disk('s3')->setVisibility($postpics_name, 'public');
                     
                     $postpics_data[] = $postpics_name;
                 }
