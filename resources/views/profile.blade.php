@@ -349,7 +349,7 @@
 
       <div class="col-sm-8 col-md-8 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5">
-                <div class="card profile-image-container col-sm-1 col-md-1" 
+                <span class="card profile-image-container col-sm-1 col-md-1" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                     {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}} 
                     style="background-image:url(`{{Storage::disk('s3')->url($profile->back_image)}}`); 
@@ -369,7 +369,7 @@
                         {{-- src="/{{ $profile->image }}"  --}}
                         alt=""> 
                       {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
-                </div>
+                </span>
                 <div class="card col-sm-11 col-md-11"  
                     style="background-color: rgb(250, 250, 246); border-radius:10px;">
                     <div class="card-body"> 
