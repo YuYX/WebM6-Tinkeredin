@@ -226,8 +226,9 @@
                 <strong>{{$user->name}}</strong><br>
                 
                 <div class="pt-1">{{ $profile->description }}</div>
-                <div class="pt-1"> 
-                    <a href="/profile/edit">Edit profile</a>
+                <div class="pt-1">  
+                    <a href="{{ route('profile.edit') }}">Edit profile</a>
+                    {{-- <a href="/profile/edit">Edit profile</a> --}}
                 </div>
                 <span>You have <strong>{{$numPosts}}</strong> posts</span> 
                 <hr style="width:100%;">
