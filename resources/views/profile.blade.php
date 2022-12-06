@@ -228,7 +228,7 @@
                 <div class="pt-1">{{ $profile->description }}</div>
                 <div class="pt-1">  
                   <ul><li>
-                    <a class="profile-edit" method="GET" href="{{ route('profile.edit') }}">Edit profile</a>
+                    <a class="active" method="GET" href="{{ route('profile.edit') }}">Edit profile</a>
                   </li></ul>
                 </div>
                 {{-- <a href="/profile/edit">Edit profile</a> --}}
