@@ -227,7 +227,7 @@
                 
                 <div class="pt-1">{{ $profile->description }}</div>
                 <div class="pt-1">  
-                    <a method="GET" href="{{ route('profile.edit') }}">Edit profile</a>
+                    <a class="profile-edit" method="GET" href="{{ route('profile.edit') }}">Edit profile</a>
                 </div>
                 {{-- <a href="/profile/edit">Edit profile</a> --}}
                 <span>You have <strong>{{$numPosts}}</strong> posts</span> 
