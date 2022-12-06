@@ -280,7 +280,7 @@
             <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
           </div> --}}
-          <div class="ps-0">
+          <div class="col-sm-12 col-md-12 ps-0">
             <span>
               <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
@@ -295,12 +295,13 @@
         </div>
         
         <div class="mt-2 row">
-          <div class="col-sm-2 col-md-2 ps-0">
-            <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon>
-            {{-- <i class="fa-solid fa-user-plus"></i> --}}
-          </div>
-          <div class="col-sm-10 col-md-10 ps-0">
-            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Requests Sent</button> --}}
+          {{-- <div class="col-sm-2 col-md-2 ps-0">
+            <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon> 
+          </div> --}}
+          <div class="col-sm-12 col-md-12 ps-0">
+            <span>
+              <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon> 
+            </span>
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.request_sent') }}">Requests Sent
               <span class="badge rounded-pill bg-info ">
@@ -311,11 +312,13 @@
         </div>  
         
         <div class="mt-2 row">
-          <div class="col-sm-2 col-md-2 ps-0">
+          {{-- <div class="col-sm-2 col-md-2 ps-0">
             <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
-          </div>
-          <div class="col-sm-10 col-md-10 ps-0">
-            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followers</button> --}}
+          </div> --}}
+          <div class="col-sm-12 col-md-12 ps-0">
+            <span>
+              <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
+            </span>
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.search_follower') }}">My Followers
               <span class="badge rounded-pill bg-info">
@@ -326,11 +329,13 @@
         </div> 
         
         <div class="mt-2 row">
-          <div class="col-sm-2 col-md-2 ps-0">
+          {{-- <div class="col-sm-2 col-md-2 ps-0">
             <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:blue;"></ion-icon>
-          </div>
-          <div class="col-sm-10 col-md-10 ps-0" >
-            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Friends Requests</button> --}}
+          </div> --}}
+          <div class="col-sm-12 col-md-12 ps-0" >
+            <span>
+              <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:blue;"></ion-icon>
+            </span>
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.request_received') }}">Requests Received
               <span class="badge rounded-pill bg-danger">
