@@ -280,7 +280,7 @@
             <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
           </div> --}}
-          <div class="col-sm-10 col-md-10 ps-0">
+          <div class="ps-0">
             <span>
               <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
