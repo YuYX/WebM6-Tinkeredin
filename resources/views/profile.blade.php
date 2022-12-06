@@ -265,7 +265,7 @@
   <div class="container-sm">
   {{-- <div class="container-xl">   --}}
     <div class="row justify-content-center">   
-      <div class="col-md-2 left-hand-col" style="background-color:white;">
+      <div class="col-sm-2 col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
                src="{{Storage::disk('s3')->url($profile->image)}}" 
@@ -277,12 +277,12 @@
         <hr class="solid my-1" style="width:100%;">
 
         <div class="mt-4 row">
-          <div class="col-md-2 ps-0">
+          <div class="col-sm-2 col-md-2 ps-0">
             {{-- <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:rgb(24, 183, 236)"></ion-icon> --}}
             <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
           </div>
-          <div class="col-md-10 ps-0">
+          <div class="col-sm-10 col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followings</button> --}}
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.search_following') }}">My Followings
@@ -294,11 +294,11 @@
         </div>
         
         <div class="mt-2 row">
-          <div class="col-md-2 ps-0">
+          <div class="col-sm-2 col-md-2 ps-0">
             <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:rgb(24, 183, 236);"></ion-icon>
             {{-- <i class="fa-solid fa-user-plus"></i> --}}
           </div>
-          <div class="col-md-10 ps-0">
+          <div class="col-sm-10 col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Requests Sent</button> --}}
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.request_sent') }}">Requests Sent
@@ -310,10 +310,10 @@
         </div>  
         
         <div class="mt-2 row">
-          <div class="col-md-2 ps-0">
+          <div class="col-sm-2 col-md-2 ps-0">
             <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:blue;"></ion-icon>
           </div>
-          <div class="col-md-10  ps-0">
+          <div class="col-sm-10 col-md-10 ps-0">
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followers</button> --}}
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.search_follower') }}">My Followers
@@ -325,10 +325,10 @@
         </div> 
         
         <div class="mt-2 row">
-          <div class="col-md-2 ps-0">
+          <div class="col-sm-2 col-md-2 ps-0">
             <ion-icon class="mt-1" name="person-add-sharp" style="font-size:24px; color:blue;"></ion-icon>
           </div>
-          <div class="col-md-10 ps-0" >
+          <div class="col-sm-10 col-md-10 ps-0" >
             {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">Friends Requests</button> --}}
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.request_received') }}">Requests Received
@@ -341,9 +341,9 @@
          
       </div>
 
-      <div class="col-md-8 middle-col"  style="background-color:whitesmoke">   
+      <div class="col-sm-8 col-md-8 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5">
-                <div class="card profile-image-container col-md-1" 
+                <div class="card profile-image-container col-sm-1 col-md-1" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                     {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}} 
                     style="background-image:url(`{{Storage::disk('s3')->url($profile->back_image)}}`); 
@@ -364,7 +364,7 @@
                         alt=""> 
                       {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
                 </div>
-                <div class="card col-md-11"  
+                <div class="card col-sm-11 col-md-11"  
                     style="background-color: rgb(250, 250, 246); border-radius:10px;">
                     <div class="card-body"> 
                         <a class="post-input-prompt nav-link animate__animated animate__bounceInRight " 
