@@ -38,7 +38,7 @@ Route::get('/profile/create',
 [App\Http\Controllers\ProfileController::class, 'create']);
 
 Route::get('/profile/edit', 
-[App\Http\Controllers\ProfileController::class, 'edit']); 
+[App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit'); 
 
 Route::resource('post', App\Http\Controllers\PostController::class);  
 
