@@ -261,9 +261,8 @@
         </div>  
     </div>   
   </div> 
-
-  <div class="container-sm">
-  {{-- <div class="container-xl">   --}}
+ 
+  <div class="container-xl">  
     <div class="row justify-content-center">   
       <div class="col-sm-2 col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
@@ -277,13 +276,15 @@
         <hr class="solid my-1" style="width:100%;">
 
         <div class="mt-4 row">
-          <div class="col-sm-2 col-md-2 ps-0">
-            {{-- <ion-icon class="mt-1" name="people-sharp" style="font-size:24px; color:rgb(24, 183, 236)"></ion-icon> --}}
+          {{-- <div class="col-sm-2 col-md-2 ps-0"> 
             <i class="fa-solid fa-user-group mt-2" 
               style="font-size:18px; color:rgb(24, 183, 236)"></i>
-          </div>
+          </div> --}}
           <div class="col-sm-10 col-md-10 ps-0">
-            {{-- <button type="button" class="btn btn-sm " style="color:black; font-size:14px;">My Followings</button> --}}
+            <span>
+              <i class="fa-solid fa-user-group mt-2" 
+              style="font-size:18px; color:rgb(24, 183, 236)"></i>
+            </span>
             <a class = "btn ps-0 text-nowrap follow-status-search" method = "GET" 
               href="{{ route('search.search_following') }}">My Followings
               <span class="badge rounded-pill bg-info">
