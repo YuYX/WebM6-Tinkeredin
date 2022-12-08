@@ -249,7 +249,7 @@
                       <div class="row text-center align-items-center"> 
                         <div class="col dropdown-4-like dropup-center dropup  " 
                             style="color:gray; font-size:16px;">
-                            <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
+                            <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-lg" aria-hidden="true"  
                             style="color:grey; --fa-animation-duration: 1s;"></i> 
                             <button class="btn" type="button"  
                               data-bs-toggle="dropdown" 
@@ -304,7 +304,7 @@
                         </div>    
 
                         <div class="col dropdown-4-comment" style="color:gray; font-size:16px;">
-                          <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
+                          <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-lg" 
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
                               onclick="commentCollapse('post-comment-list-'+{{ $post->id }})"  
@@ -319,7 +319,7 @@
                         
                         <div class="col dropdown dropdown-4-share" 
                           style="color:gray; font-size:16px; --fa-animation-duration: 3s;">
-                          <i class="post-share-icon-{{ $post->id }} fa fa-share fa-xl" 
+                          <i class="post-share-icon-{{ $post->id }} fa fa-share fa-lg" 
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn dropdown-toggle" type="button"  
                               data-bs-toggle="dropdown" aria-expanded="false"  
