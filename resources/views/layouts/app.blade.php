@@ -99,16 +99,16 @@
  
         function scrollFunction() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
-                document.getElementById("navbar").style.background = "lightskyblue"; 
-                document.getElementById("navbar").style.display = "none";
+                document.getElementById("navbar_id").style.background = "lightskyblue"; 
+                document.getElementById("navbar_id").style.display = "none";
             } else { 
-                document.getElementById("navbar").style.background = "lightcyan";
-                document.getElementById("navbar").style.display = "block";
+                document.getElementById("navbar_id").style.background = "lightcyan";
+                document.getElementById("navbar_id").style.display = "block";
             }
         }
     </script> 
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top" id="navbar"
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top" id="navbar_id"
             style="display:block; background:lightcyan; opacity:0.8; position:sticky; transition: 1s; background-color: #d8e7f2;"> 
             
             <div class="container"> 
