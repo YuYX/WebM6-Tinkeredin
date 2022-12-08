@@ -77,8 +77,8 @@
                           </div>   
 
                           <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
-                          <div class="col-5"></div>
-                          <div class="col-1 pe-0 me-0"> 
+                          <div class="col-4"></div>
+                          <div class="col-2 pe-0 me-2"> 
                             <div class="dropdown-center">
                               <button class="btn " type="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
@@ -126,8 +126,8 @@
                             </div>   
                           </div>
                          
-                        @if ($post->user_id == $user->id) 
-                        @endif
+                        {{-- @if ($post->user_id == $user->id) 
+                        @endif --}}
                           <hr class="solid" style="width:97%;">
                           <div class="container-fluid row" id="showing-images">
                             
