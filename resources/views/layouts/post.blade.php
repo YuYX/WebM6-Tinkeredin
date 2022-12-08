@@ -76,7 +76,7 @@
                             </div> 
                           </div>   
 
-                          <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
+                          <div class="col-2 mt-1 ">  {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
                           <div class="col-4"></div>
                           <div class="col-2 pe-0 me-0"> 
                             <div class="dropdown-center">
@@ -248,7 +248,7 @@
                     <div class="container post-review-panel pb-1 pt-1" style="background-color: white; border-radius:8px;">
                       <div class="row text-center align-items-center"> 
                         <div class="col dropdown-4-like dropup-center dropup  " 
-                            style="color:gray; font-size:14px;">
+                            style="color:gray; font-size:12px;">
                             <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
                             style="color:grey; --fa-animation-duration: 1s;"></i> 
                             <button class="btn" type="button"  
@@ -303,7 +303,7 @@
                             </div> 
                         </div>    
 
-                        <div class="col dropdown-4-comment" style="color:gray; font-size:14px;">
+                        <div class="col dropdown-4-comment" style="color:gray; font-size:12px;">
                           <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
@@ -318,7 +318,7 @@
                         </div>  
                         
                         <div class="col dropdown dropdown-4-share" 
-                          style="color:gray; font-size:14px; --fa-animation-duration: 3s;">
+                          style="color:gray; font-size:12px; --fa-animation-duration: 3s;">
                           <i class="post-share-icon-{{ $post->id }} fa fa-share fa-xl" 
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn dropdown-toggle" type="button"  
