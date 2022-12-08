@@ -32,7 +32,7 @@
                     @endif
                   @endif
                       <div class="container mb-1 row ms-2 mt-2 me-0 pe-0" > 
-                          <div class="col-4 dropdown dropdown-post-owner"> 
+                          <div class="col-6 dropdown dropdown-post-owner"> 
                             <img class="rounded-circle profile-image-4-post-{{$post->id}}" 
                               type="button" 
                               class="btn btn-primary dropdown-toggle" 
@@ -77,7 +77,7 @@
                           </div>   
 
                           <div class="col-2 mt-1 ">  {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
-                          <div class="col-4"></div>
+                          <div class="col-2"></div>
                           <div class="col-2 pe-0 me-0"> 
                             <div class="dropdown-center">
                               <button class="btn " type="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
@@ -251,7 +251,7 @@
                             style="color:gray; font-size:12px;">
                             <i class="post-like-icon-{{ $post->id }} fa fa-thumbs-up fa-xl" aria-hidden="true"  
                             style="color:grey; --fa-animation-duration: 1s;"></i> 
-                            <button class="btn" type="button"  
+                            <button class="btn" type="button"  style="font-size:12px;"
                               data-bs-toggle="dropdown" 
                               aria-expanded="false">
                               Like
@@ -306,7 +306,7 @@
                         <div class="col dropdown-4-comment" style="color:gray; font-size:12px;">
                           <i class="post-comment-icon-{{ $post->id }} fa fa-commenting-o fa-xl" 
                              aria-hidden="true" style="color:gray;"></i> 
-                            <button class="btn btn-comment-on-{{ $post->id }}" type="button"  
+                            <button class="btn btn-comment-on-{{ $post->id }}" type="button" style="font-size:12px;"  
                               onclick="commentCollapse('post-comment-list-'+{{ $post->id }})"  
                               data-bs-toggle="collapse"  
                               {{-- data-bs-target="#collapseComment-{{ $post->id }}"  --}}
@@ -323,7 +323,7 @@
                              aria-hidden="true" style="color:gray;"></i> 
                             <button class="btn dropdown-toggle" type="button"  
                               data-bs-toggle="dropdown" aria-expanded="false"  
-                              style="color:gray; font-size:16px;">
+                              style="font-size:12px;">
                               Share
                             </button>
                             <ul class="dropdown-menu">
