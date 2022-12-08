@@ -95,17 +95,17 @@
             $(window).scrollTop(0);
         }
         
-        window.onscroll = function() {scrollFunction()};
+        // window.onscroll = function() {scrollFunction()};
  
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
-                document.getElementById("navbar_id").style.background = "lightskyblue"; 
-                document.getElementById("navbar_id").style.display = "none";
-            } else { 
-                document.getElementById("navbar_id").style.background = "lightcyan";
-                document.getElementById("navbar_id").style.display = "block";
-            }
-        }
+        // function scrollFunction() {
+        //     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
+        //         document.getElementById("navbar_id").style.background = "lightskyblue"; 
+        //         document.getElementById("navbar_id").style.display = "none";
+        //     } else { 
+        //         document.getElementById("navbar_id").style.background = "lightcyan";
+        //         document.getElementById("navbar_id").style.display = "block";
+        //     }
+        // }
     </script> 
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top" id="navbar_id"

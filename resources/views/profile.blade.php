@@ -937,7 +937,7 @@
     window.onscroll = function() {  
         toggle = !toggle;   
 
-        if (document.body.scrollTop > 50) {  
+        if (document.documentElement.scrollTop > 20) {  
                 document.getElementById("navbar_id").style.display = "none";
             } else {  
                 document.getElementById("navbar_id").style.display = "block";
