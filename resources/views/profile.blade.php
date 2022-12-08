@@ -937,7 +937,7 @@
     window.onscroll = function() {  
         toggle = !toggle;   
 
-        if (document.documentElement.scrollTop > 20) {  
+        if (document.documentElement.scrollTop > 20 && $("#navbar_id").css("display")=="block" ) {  
                 document.getElementById("navbar_id").style.display = "none";
             } else {  
                 document.getElementById("navbar_id").style.display = "block";
