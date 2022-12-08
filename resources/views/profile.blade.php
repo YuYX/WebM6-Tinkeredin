@@ -937,6 +937,12 @@
     window.onscroll = function() {  
         toggle = !toggle;   
 
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {  
+                document.getElementById("navbar_id").style.display = "none";
+            } else {  
+                document.getElementById("navbar_id").style.display = "block";
+            }
+
         var spinner_color = toggle ? 'text-primary' : 'text-danger';
         var remainedpPosts = 
           `<div class="d-flex ` + spinner_color + ` justify-content-center post-loading-spinner">
