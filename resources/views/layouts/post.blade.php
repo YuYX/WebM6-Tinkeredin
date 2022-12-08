@@ -98,7 +98,6 @@
                               </ul>
                             </div> 
                           </div>
-                      </div>
 
                           <hr class="solid" style="width:97%;">
                           <div class="row"> 
