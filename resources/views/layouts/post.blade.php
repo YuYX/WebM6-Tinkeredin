@@ -31,7 +31,7 @@
                       <div class="ind-post-area row mb-3" style="background-color:rgb(224, 255, 255); border-radius:8px;">
                     @endif
                   @endif
-                      <div class="mb-1 row ms-2 mt-2 me-0 pe-0" > 
+                      <div class="container mb-1 row ms-2 mt-2 me-0 pe-0" > 
                           <div class="col-4 dropdown dropdown-post-owner"> 
                             <img class="rounded-circle profile-image-4-post-{{$post->id}}" 
                               type="button" 
