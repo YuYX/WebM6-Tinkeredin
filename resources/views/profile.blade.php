@@ -352,7 +352,7 @@
                 <div class="card profile-image-container col-sm-2 col-md-2" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                     {{-- style="background-image:url('/storage/{{ $profile->back_image }}');  --}} 
-                    style="background-image:`{{Storage::disk('s3')->url($profile->back_image)}}`; 
+                    style="background-image:url('{{Storage::disk(`s3`)->url($profile->back_image)}}'); 
                            border-style:none; border-radius: 10px;
                            background-size:cover;">
                     {{-- style="background-image:url('/{{ $profile->back_image }}'); 
