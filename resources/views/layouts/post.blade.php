@@ -78,7 +78,7 @@
 
                           <div class="col-2 mt-1 ">Posted: {{ calcDateTimeDiff_2_Day_Hour_Min($post->created_at) }} </div>
                           <div class="col-4"></div>
-                          <div class="col-2 pe-0 me-2"> 
+                          <div class="col-2 pe-0 me-0"> 
                             <div class="dropdown-center">
                               <button class="btn " type="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
