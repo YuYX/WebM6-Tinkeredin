@@ -100,8 +100,10 @@
         function scrollFunction() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
                 document.getElementById("navbar").style.background = "lightskyblue"; 
+                document.getElementById("navbar").style.display = "none";
             } else { 
                 document.getElementById("navbar").style.background = "lightcyan";
+                document.getElementById("navbar").style.display = "block";
             }
         }
     </script> 
