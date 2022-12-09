@@ -38,7 +38,7 @@
                 <label style="color:rgb(231, 72, 228); font-size: 30px;" > 
                     Eureka!
                 </label><br>
-                <label class="one-line-text animate__animated animate__hinge"
+                <label class="one-line-text animate__animated animate__animated"
                     style="color:rgb(40, 7, 161); font-size: 18px;">
                     A place to share anything interesting.
                 </label>
