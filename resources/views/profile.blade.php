@@ -353,6 +353,9 @@
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" 
                     style="background-image:url({{Storage::disk('s3')->url($profile->back_image)}}); 
                            border-style:none; border-radius: 10px;
+                           -webkit-background-size:cover;
+                           -moz-background-size: color;
+                           -o-background-size:cover;
                            background-size:cover;">
                     {{-- style="background-image:url('/{{ $profile->back_image }}'); 
                            border-style:none; border-radius: 10px;
