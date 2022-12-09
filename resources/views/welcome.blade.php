@@ -75,7 +75,7 @@
                         viewBox="0 0 651 92" 
                         shape-rendering="geometricPrecision" 
                         text-rendering="geometricPrecision">
-                        <text dx="0" dy="0" font-family="&quot;elnxPkeo3yD1:::Lato&quot;" font-size="60" font-weight="700" transform="translate(32 88.927486)" fill="#20809a" stroke-width="0"><tspan y="0" font-weight="700" stroke-width="0"><![CDATA[
+                        <text dx="0" dy="0" font-family="&quot;elnxPkeo3yD1:::Lato&quot;" font-size="60" font-weight="700" transform="translate(32 800)" fill="#20809a" stroke-width="0"><tspan y="0" font-weight="700" stroke-width="0"><![CDATA[
                         Eureka! 
                         ]]></tspan></text>
                         <style><![CDATA[
