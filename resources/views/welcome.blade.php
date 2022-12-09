@@ -37,7 +37,7 @@
                 <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
                 <label style="color:rgb(231, 72, 228); font-size: 30px;" > 
                     Eureka!
-                </label> 
+                </label><br>
                 <label class="one-line-text"
                     style="color:rgb(40, 7, 161); font-size: 18px;">
                     A place to share anything interesting.
