@@ -38,7 +38,7 @@
                 <label style="color:rgb(231, 72, 228); font-size: 30px;" > 
                     Eureka!
                 </label><br>
-                <label class="one-line-text"
+                <label class="one-line-text animate__animated animate__hinge"
                     style="color:rgb(40, 7, 161); font-size: 18px;">
                     A place to share anything interesting.
                 </label>
@@ -72,10 +72,10 @@
                     <svg id="elnxPkeo3yD1" 
                         xmlns="http://www.w3.org/2000/svg" class="title"
                         xmlns:xlink="http://www.w3.org/1999/xlink" 
-                        viewBox="0 0 1200 92" 
+                        viewBox="0 0 651 92" 
                         shape-rendering="geometricPrecision" 
                         text-rendering="geometricPrecision">
-                        <text dx="0" dy="0" font-family="&quot;elnxPkeo3yD1:::Lato&quot;" font-size="60" font-weight="700" transform="translate(32 200)" fill="#20809a" stroke-width="0"><tspan y="0" font-weight="700" stroke-width="0"><![CDATA[
+                        <text dx="0" dy="0" font-family="&quot;elnxPkeo3yD1:::Lato&quot;" font-size="60" font-weight="700" transform="translate(32 88.927486)" fill="#20809a" stroke-width="0"><tspan y="0" font-weight="700" stroke-width="0"><![CDATA[
                         Eureka! 
                         ]]></tspan></text>
                         <style><![CDATA[
