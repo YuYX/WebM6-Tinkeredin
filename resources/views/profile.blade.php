@@ -770,11 +770,11 @@
         
       <div class="col-md-2 right-hand-col" style="background-color:white;"> 
           
-        <div class="weather-container mt-5 me-2"  style="position: fixed;"> 
+        <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
               <form>
                 <input class="city-input" type="text" placeholder="Find a city" size="15"  autofocus>
-                <button type="submit">Go</button>
+                <br><button type="submit">Go</button>
                 <span class="msg"></span>
               </form>
             </div>    
