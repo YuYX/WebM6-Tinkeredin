@@ -1,21 +1,11 @@
 
-$(function(){
-    // $(".title")
-    // .fadeIn( {duration: 2000} )
-    // .css("display", "none")
-    // .slideDown(2000);
-    // alert("Welcome!"); 
-    animeJS_effect();
-
-    // $(".title").addClass("animate__animated animate__fadeInLeft animate__slower animate__infinite");
-    // $(".underline").addClass("animate__animated animate__backInDown animate__slower");
-    // $(".sub-title").addClass("animate__animated animate__heartBeat animate__slower animate__infinite");
+$(function(){ 
+    animeJS_effect(); 
 
     animated_effect_on_component('.title', "animate__fadeInLeft animate__slower animate__infinite")
     animated_effect_on_component(".underline","animate__backInDown animate__slower");
     animated_effect_on_component(".sub-title","animate__heartBeat animate__slower animate__infinite");
-
-    // setTimeout(animated_effect_on_component(".text-gray-400", "animate__backInUp  animate__slower"), 2000); 
+ 
     //footer-icon text-gray-400
     delay_animated_effect().then(after_delay_animated_effect).then(final_animated_effect);
 }); 

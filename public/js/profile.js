@@ -1,11 +1,5 @@
-// const { set } = require("lodash");
-
-
-$(function(){   
-    // const form = document.querySelector(".top-banner form");
-    // const input = document.querySelector(".top-banner input");
-    // const msg = document.querySelector(".top-banner .msg");
-    //const list = document.querySelector(".ajax-section .cities");
+ 
+$(function(){    
     /*SUBSCRIBE HERE FOR API KEY: https://home.openweathermap.org/users/sign_up*/
     const apiKey = "4d8fb5b93d4af21d66a2948710284366"; 
 
@@ -21,14 +15,7 @@ $(function(){
       if(w_city != ""){
         fetch_weather_info(w_city,apiKey);  
       } 
-    }
-
-    // const form_user_search = document.querySelector(".user-search-form");
-    // const input_user_search = document.querySelector(".user-search");
-    // form_user_search.addEventListener("submit", e => {
-    //   e.preventDefault();
-    //   let inputKeyword = input_user_search.value;  
-    // });  
+    } 
 
     const form_weather = document.querySelector(".weather-form form");
     const input_weather=document.querySelector(".weather-form input");
@@ -83,19 +70,7 @@ $(function(){
         form.reset();
         input.focus();  
     });
-});   
-
-// $(window).on("scroll", function() { 
-
-//   var remainedpPosts =  '';
-
-//   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){ 
-//     $('.middle-col').append(remainedpPosts);
-//   }
-
-//   localStorage.setItem("scrollTop", window.scrollY.toFixed());
-//   document.getElementById("x-location").innerHTML = window.scrollY.toFixed();  
-// });
+});    
 
 $(window).on("load", function(){ 
   if (localStorage.scrollTop != 'undefined') {  
