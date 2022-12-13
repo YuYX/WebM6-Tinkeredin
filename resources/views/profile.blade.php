@@ -264,7 +264,7 @@
  
   <div class="container-fluid">  
     <div class="row justify-content-center">   
-      <div class="col-sm-2 col-md-2 left-hand-col" style="background-color:white;">
+      <div class="col-sm-2 col-md-2 left-hand-col mx-2" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
                src="{{Storage::disk('s3')->url($profile->image)}}" 
