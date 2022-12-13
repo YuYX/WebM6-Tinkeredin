@@ -262,7 +262,7 @@
     </div>   
   </div> 
  
-  <div class="container-xl">  
+  <div class="container-fluid">  
     <div class="row justify-content-center">   
       <div class="col-sm-2 col-md-2 left-hand-col" style="background-color:white;">
         <div class="mt-5">
