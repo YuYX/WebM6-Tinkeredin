@@ -347,7 +347,7 @@
          
       </div>
 
-      <div class="col-sm-6 col-md-6 middle-col"  style="background-color:whitesmoke">   
+      <div class="col-sm-7 col-md-7 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5"> 
                 <div class="card profile-image-container col-sm-2 col-md-2" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" 
@@ -768,7 +768,7 @@
         </div>   
       </div>    
         
-      <div class="col-sm-3 col-md-3 right-hand-col" style="background-color:white;"> 
+      <div class="col-sm-2 col-md-2 right-hand-col" style="background-color:white;"> 
           
         <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
