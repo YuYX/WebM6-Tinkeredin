@@ -768,7 +768,7 @@
         </div>   
       </div>    
         
-      <div class="col-md-2 right-hand-col" style="background-color:white;"> 
+      <div class="col-sm-2 col-md-2 right-hand-col" style="background-color:white;"> 
           
         <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
