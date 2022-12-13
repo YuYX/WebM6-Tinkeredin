@@ -264,7 +264,7 @@
  
   <div class="container-fluid">  
     <div class="row justify-content-center">   
-      <div class="col-sm-2 col-md-2 left-hand-col px-4" style="background-color:white;">
+      <div class="col-sm-3 col-md-3 left-hand-col px-4" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
                src="{{Storage::disk('s3')->url($profile->image)}}" 
@@ -347,7 +347,7 @@
          
       </div>
 
-      <div class="col-sm-8 col-md-8 middle-col"  style="background-color:whitesmoke">   
+      <div class="col-sm-6 col-md-6 middle-col"  style="background-color:whitesmoke">   
             <div class="row mb-5"> 
                 <div class="card profile-image-container col-sm-2 col-md-2" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" 
@@ -768,7 +768,7 @@
         </div>   
       </div>    
         
-      <div class="col-sm-2 col-md-2 right-hand-col" style="background-color:white;"> 
+      <div class="col-sm-3 col-md-3 right-hand-col" style="background-color:white;"> 
           
         <div class="weather-container mt-5"  style="position: fixed;"> 
             <div class="weather-form" style="position:sticky;"> 
