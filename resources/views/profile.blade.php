@@ -774,7 +774,7 @@
             <div class="weather-form" style="position:sticky;"> 
               <form>
                 <input class="city-input" type="text" placeholder="Find a city" size="15"  autofocus>
-                <br><button type="submit">Go</button>
+                <button type="submit">Go</button>
                 <span class="msg"></span>
               </form>
             </div>    
