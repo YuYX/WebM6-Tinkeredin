@@ -71,8 +71,8 @@
       .weather-container {
         width: 100%;
         /* max-width: 360px; */
-        margin: 0 auto;
-        padding: 0 1px; 
+        /* margin: 0 auto; */
+        padding: 0 4px; 
       } 
       
       /* SECTION #1
