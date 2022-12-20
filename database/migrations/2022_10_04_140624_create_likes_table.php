@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('like_post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreignId('like_user_id')->references('user_id')->on('posts');
+            $table->foreignId('like_user_id')->references('user_id')->on('posts')->onDelete('cascade');
         });
     }
 

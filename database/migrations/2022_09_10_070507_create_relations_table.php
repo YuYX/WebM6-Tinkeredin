@@ -21,8 +21,8 @@ return new class extends Migration
             $table->boolean('block');
             $table->timestamps();
 
-            $table->foreign('follower_id')->references('id')->on('users');
-            $table->foreign('following_id')->references('id')->on('users');
+            $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('following_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
