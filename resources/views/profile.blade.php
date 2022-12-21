@@ -935,10 +935,11 @@
   </script>
   
   <script>   
+    var navbar_h = 0;
     let toggle = true;
     window.onscroll = function() {  
         toggle = !toggle;   
-        var navbar_h = document.getElementById("navbar_id").innerHeight;
+        navbar_h = document.getElementById("navbar_id").innerHeight;
         console.log("navbar_h:"+navbar_h);
         if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
                 // document.getElementById("navbar_id").style.background = "lightskyblue";  
