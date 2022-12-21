@@ -939,6 +939,7 @@
     window.onscroll = function() {  
         toggle = !toggle;   
         let navbar_h = document.getElementById("navbar_id").innerHeight;
+        console.log("navbar_h:"+navbar_h);
         if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
                 // document.getElementById("navbar_id").style.background = "lightskyblue";  
                 document.getElementById("navbar_id").style.display = "none";
