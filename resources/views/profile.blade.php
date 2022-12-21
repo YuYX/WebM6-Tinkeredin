@@ -938,8 +938,8 @@
     let toggle = true;
     window.onscroll = function() {  
         toggle = !toggle;   
-
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
+        let navbar_h = document.getElementById("navbar_id").innerHeight;
+        if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
                 document.getElementById("navbar_id").style.background = "lightskyblue";  
             } else { 
                 document.getElementById("navbar_id").style.background = "lightcyan"; 
