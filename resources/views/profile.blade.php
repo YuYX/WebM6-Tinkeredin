@@ -940,13 +940,13 @@
     window.onscroll = function() {  
         toggle = !toggle;   
         // navbar_h = document.getElementById("navbar_id").innerHeight;
-        console.log("navbar_h:"+navbar_h);
+        // console.log("navbar_h:"+navbar_h);
         if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
-                // document.getElementById("navbar_id").style.background = "lightskyblue";  
-                document.getElementById("navbar_id").style.display = "none";
+                document.getElementById("navbar_id").style.background = "lightskyblue";  
+                // document.getElementById("navbar_id").style.display = "none";
             } else { 
-                // document.getElementById("navbar_id").style.background = "lightcyan"; 
-                document.getElementById("navbar_id").style.display = "block";
+                document.getElementById("navbar_id").style.background = "lightcyan"; 
+                // document.getElementById("navbar_id").style.display = "block";
             }
 
         var spinner_color = toggle ? 'text-primary' : 'text-danger';
