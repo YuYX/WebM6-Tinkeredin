@@ -934,19 +934,16 @@
     }
   </script>
   
-  <script>   
-    var navbar_h = 200;
+  <script>    
     let toggle = true;
     window.onscroll = function() {  
         toggle = !toggle;   
         // navbar_h = document.getElementById("navbar_id");
         // console.log("navbar_h:"+navbar_h);
-        if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
-                // document.getElementById("navbar_id").style.background = "lightskyblue";  
-                document.getElementById("navbar_id").style.display = "none";
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) { 
+                document.getElementById("navbar_id").style.background = "lightskyblue";  
         } else { 
-                // document.getElementById("navbar_id").style.background = "lightcyan"; 
-                document.getElementById("navbar_id").style.display = "block";
+                document.getElementById("navbar_id").style.background = "lightcyan";  
         }
 
         var spinner_color = toggle ? 'text-primary' : 'text-danger';
