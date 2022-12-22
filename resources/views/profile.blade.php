@@ -941,13 +941,13 @@
         toggle = !toggle;   
         // navbar_h = document.getElementById("navbar_id").innerHeight;
         // console.log("navbar_h:"+navbar_h);
-        if (document.body.scrollTop > navbar_h || document.documentElement.scrollTop > navbar_h) { 
-                document.getElementById("navbar_id").style.background = "lightskyblue";  
-                // document.getElementById("navbar_id").style.display = "none";
-            } else { 
-                document.getElementById("navbar_id").style.background = "lightcyan"; 
-                // document.getElementById("navbar_id").style.display = "block";
-            }
+        if (document.body.scrollTop > navbar_h+100 || document.documentElement.scrollTop > navbar_h+100) { 
+                // document.getElementById("navbar_id").style.background = "lightskyblue";  
+                document.getElementById("navbar_id").style.display = "none";
+        } else if (document.body.scrollTop < 100 || document.documentElement.scrollTop < 100) { 
+                // document.getElementById("navbar_id").style.background = "lightcyan"; 
+                document.getElementById("navbar_id").style.display = "block";
+        }
 
         var spinner_color = toggle ? 'text-primary' : 'text-danger';
         var remainedpPosts = 
