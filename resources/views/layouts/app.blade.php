@@ -89,7 +89,7 @@
         // }
     </script> 
     <div id="app">    
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm " id="navbar_id"
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm sticky-lg-top" id="navbar_id"
             style="display:block; background:lightcyan; opacity:0.8; position:sticky; transition: 1s; background-color: #d8e7f2;"> 
             
             <div class="container"> 
