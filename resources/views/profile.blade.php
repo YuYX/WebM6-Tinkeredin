@@ -784,6 +784,7 @@
             </div>  
 
             <div class="scroll-location" style="position: sticky;">
+              <i class="fa-solid fa-square-up"></i>
               <label>Location:</label>
               <label id="x-location">X</label>  
             </div>
