@@ -372,7 +372,7 @@
                         alt=""> 
                       {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
                 </div>
-                <div class="card sticky-top col-sm-10 col-md-10"  
+                <div class="card col-sm-10 col-md-10"  
                     style="background-color: rgb(250, 250, 246); border-radius:10px;">
                     <div class="card-body"> 
                         <a class="post-input-prompt nav-link animate__animated animate__bounceInRight " 
