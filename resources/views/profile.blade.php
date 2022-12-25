@@ -348,7 +348,7 @@
       </div>
 
       <div class="col-sm-7 col-md-7 middle-col"  style="background-color:whitesmoke">   
-            <div class="row mb-5" style="position:fixed;"> 
+            <div class="row mb-5" > 
                 <div class="card profile-image-container col-sm-2 col-md-2" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" 
                     style="background-image:url({{Storage::disk('s3')->url($profile->back_image)}}); 
