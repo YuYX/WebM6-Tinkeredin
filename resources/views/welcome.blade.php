@@ -29,24 +29,16 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
-        </style> --}}
-        
-        <script type="text/javascript" src="{{ asset('js/welcome.js')}}"></script>  
+        </style> --}} 
         
         <title>YUYONGXUE-Eureka!</title>
-        <link rel="icon" href="{{ url('images/archimedes.webp') }}">
-
-         <!-- css file -->
-         <link rel="stylesheet" type="text/css" href="{{ 'css/app.css' }}"> 
-         <link rel="stylesheet" type="text/css" href="{{ 'css/emojis.css' }}"> 
-         <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
-         <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
-         <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
-         <link rel="stylesheet" type="text/css" href="{{ 'css/profile.css' }}"> 
+        <link rel="icon" href="{{ url('images/archimedes.webp') }}"> 
      
          <!-- Scripts -->
          @vite(['resources/sass/app.scss', 'resources/js/app.js'])
          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+         
+         <script type="text/javascript" src="{{ asset('js/welcome.js')}}"></script>   
     </head> 
 
     {{-- <head>
