@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // Route::view('/', 'welcome');
-Route::get('/', function () {
-    return view('profile');
+Route::get('/', function () { 
+    return view('login');
     // return view('welcome');
 });
 
