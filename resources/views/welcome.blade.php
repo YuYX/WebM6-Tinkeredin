@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
+    {{-- <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
                 crossorigin="anonymous"></script>
@@ -30,7 +30,77 @@
         </style>
         
         <script type="text/javascript" src="{{ asset('js/welcome.js')}}"></script> 
-    </head> 
+    </head>  --}}
+
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+                crossorigin="anonymous"></script>
+    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+    
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+        {{-- !!!Following 3 libraries make Dropdown working again. --}}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
+    
+        {{-- Popover for Bootstrap --}}
+        <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    
+        {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+        <title>{{ "Eureka!" }}</title> 
+    
+        <link rel="icon" href="{{ url('images/archimedes.webp') }}">
+    
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/84806e9d1b.js" crossorigin="anonymous"></script>
+    
+        <!-- Google Fonts -->
+        {{-- font-family: 'Lato', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
+        font-family: 'Roboto', sans-serif; --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans:wght@500;600&family=Poppins&family=Roboto:wght@400;500&display=swap" 
+                rel="stylesheet">
+         
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> 
+    
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" 
+                crossorigin="anonymous"></script>  
+    
+        
+        <!-- css file -->
+        <link rel="stylesheet" type="text/css" href="{{ 'css/app.css' }}"> 
+        <link rel="stylesheet" type="text/css" href="{{ 'css/emojis.css' }}"> 
+        <link rel="stylesheet" type="text/css" href="{{ 'css/weather.css' }}">
+        <link rel="stylesheet" type="text/css" href="{{ 'css/radio.css' }}"> 
+        <link rel="stylesheet" type="text/css" href="{{ 'css/modal.css' }}"> 
+        <link rel="stylesheet" type="text/css" href="{{ 'css/profile.css' }}"> 
+    
+        <!-- Scripts -->
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+        
+        <script type="text/javascript" src="{{ asset('js/profile.js')}}"></script>
+        {{-- <script type="text/javascript" src="{{ asset('js/weather.js')}}"></script> --}}
+        
+    </head>
 
     <body class="antialiased"> 
         <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 ">
