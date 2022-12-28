@@ -115,54 +115,55 @@ function animeJS_effect()
     }
 
     function renderParticule(anim) {
-    for (var i = 0; i < anim.animatables.length; i++) {
-        anim.animatables[i].target.draw();
-    }
+        for (var i = 0; i < anim.animatables.length; i++) {
+            anim.animatables[i].target.draw();
+        }
     }
 
     function animateParticules(x, y) {
-    var circle = createCircle(x, y);
-    var particules = [];
-    for (var i = 0; i < numberOfParticules; i++) {
-        particules.push(createParticule(x, y));
-    }
-    anime.timeline().add({
-        targets: particules,
-        x: function(p) { return p.endPos.x; },
-        y: function(p) { return p.endPos.y; },
-        radius: 0.1,
-        duration: anime.random(1200, 1800),
-        easing: 'easeOutExpo',
-        update: renderParticule
-    })
+        var circle = createCircle(x, y);
+        var particules = [];
+        for (var i = 0; i < numberOfParticules; i++) {
+            particules.push(createParticule(x, y));
+        }
+        anime.timeline()
         .add({
-        targets: circle,
-        radius: anime.random(80, 160),
-        lineWidth: 0,
-        alpha: {
-        value: 0,
-        easing: 'linear',
-        duration: anime.random(600, 800),  
-        },
-        duration: anime.random(1200, 1800),
-        easing: 'easeOutExpo',
-        update: renderParticule,
-        offset: 0
-    });
+            targets: particules,
+            x: function(p) { return p.endPos.x; },
+            y: function(p) { return p.endPos.y; },
+            radius: 0.1,
+            duration: anime.random(1200, 1800),
+            easing: 'easeOutExpo',
+            update: renderParticule
+        })
+        .add({
+            targets: circle,
+            radius: anime.random(80, 160),
+            lineWidth: 0,
+            alpha: {
+                value: 0,
+                easing: 'linear',
+                duration: anime.random(600, 800),  
+            },
+            duration: anime.random(1200, 1800),
+            easing: 'easeOutExpo',
+            update: renderParticule,
+            offset: 0
+        });
     }
 
     var render = anime({
-    duration: Infinity,
-    update: function() {
-        ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-    }
+        duration: Infinity,
+        update: function() {
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+        }
     });
 
     document.addEventListener(tap, function(e) {
-    window.human = true;
-    render.play();
-    updateCoords(e);
-    animateParticules(pointerX, pointerY);
+        window.human = true;
+        render.play();
+        updateCoords(e);
+        animateParticules(pointerX, pointerY);
     }, false);
 
     var centerX = window.innerWidth;
