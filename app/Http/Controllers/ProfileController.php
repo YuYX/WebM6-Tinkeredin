@@ -30,8 +30,10 @@ class ProfileController extends Controller
     {
        $data = request()->validate([
            'description' => 'required',
-           'profilepic' => 'image',
-           'backpic' => 'image',
+           'profilepic' => [File::image()->smallerThan(2*1024)],
+           'backpic' => [File::image()->smallerThan(2*1024)],
+        //    'profilepic' => 'image',
+        //    'backpic' => 'image',
        ]);
        // Load the existing profile
        $user = Auth::user();
@@ -176,8 +178,10 @@ class ProfileController extends Controller
     {
         $data = request()->validate([
             'description' => 'required',
-            'profilepic' => ['required', 'image'],
-            'backpic' => ['required', 'image'],
+            'profilepic' => [File::image()->smallerThan(2*1024)],
+            'backpic' => [File::image()->smallerThan(2*1024)],
+            // 'profilepic' => ['required', 'image'],
+            // 'backpic' => ['required', 'image'],
         ]);
 
         // $imagePath = request('profilepic')->store('uploads', 'public');
@@ -185,10 +189,14 @@ class ProfileController extends Controller
         // $imagePath = request('profilepic')->store('images', 'public');
         // $backImagePath = request('backpic')->store('images', 'public'); 
 
-        $imagePath = request('profilepic')->store('images', 's3'); 
-        Storage::disk('s3')->setVisibility($imagePath, 'public');
-        $backImagePath = request('backpic')->store('images', 's3'); 
-        Storage::disk('s3')->setVisibility($backImagePath, 'public');
+        if(request()->has('profilepic')){ 
+            $imagePath = request('profilepic')->store('images', 's3'); 
+            Storage::disk('s3')->setVisibility($imagePath, 'public');
+        }
+        if(request()->has('backpic')){ 
+            $backImagePath = request('backpic')->store('images', 's3'); 
+            Storage::disk('s3')->setVisibility($backImagePath, 'public');
+        }
 
         $user = Auth::user();
         $profile = new Profile();

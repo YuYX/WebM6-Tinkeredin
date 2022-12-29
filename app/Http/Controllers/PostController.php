@@ -41,8 +41,10 @@ class PostController extends Controller
             'caption' => 'required', 
             'url'     => 'nullable',
             'content' => 'required',
-            'postpic' => 'nullable', ['file', '200'],
-            'postpics'=> 'nullable', ['file','200'],
+            'postpic' => [File::image()->smallerThan(2*1024)],
+            'postpics' => [File::image()->smallerThan(2*1024)],
+            // 'postpic' => 'nullable', ['file', '200'],
+            // 'postpics'=> 'nullable', ['file','200'],
         ]);
 
         $user = AUth::user();
@@ -145,8 +147,10 @@ class PostController extends Controller
             'caption' => 'required',
             'url'     => 'nullable',
             'content' => 'required',
-            'postpic' => 'nullable',  ['file', '200'],
-            'postpics'=> 'nullable',  ['file', '200'],
+            'postpic' => [File::image()->smallerThan(2*1024)],
+            'postpics' => [File::image()->smallerThan(2*1024)],
+            // 'postpic' => 'nullable',  ['file', '200'],
+            // 'postpics'=> 'nullable',  ['file', '200'],
         ]);
 
         $post = Post::find($postId);
