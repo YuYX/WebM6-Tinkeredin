@@ -211,7 +211,7 @@
                 <img class="rounded card-img-top mb-1" 
                 {{-- src="/{{ $profile->back_image }}"  --}}
                 src="{{Storage::disk('s3')->url($profile->back_image)}}" 
-                alt=""> 
+                alt="Profile background image not assigned"> 
                 {{-- src="/storage/{{ $profile->back_image }}" alt="">  --}}
                 <div class="mx-auto">
                     <img class="rounded-circle card-img-overlay mx-auto" 
