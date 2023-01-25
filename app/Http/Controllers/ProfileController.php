@@ -31,8 +31,8 @@ class ProfileController extends Controller
     {
        $data = request()->validate([
            'description' => 'required',
-           'profilepic' => [File::image()->smallerThan(2*1024)],
-           'backpic' => [File::image()->smallerThan(2*1024)],
+           'profilepic' => [File::image()->smallerThan(2*1024*1024)],
+           'backpic' => [File::image()->smallerThan(2*1024*1024)],
         //    'profilepic' => 'image',
         //    'backpic' => 'image',
        ]);
@@ -179,8 +179,8 @@ class ProfileController extends Controller
     {
         $data = request()->validate([
             'description' => 'required',
-            'profilepic' => [File::image()->smallerThan(2*1024)],
-            'backpic' => [File::image()->smallerThan(2*1024)],
+            'profilepic' => [File::image()->smallerThan(2*1024*1024)],
+            'backpic' => [File::image()->smallerThan(2*1024*1024)],
             // 'profilepic' => ['required', 'image'],
             // 'backpic' => ['required', 'image'],
         ]);
