@@ -403,7 +403,7 @@
 
               <script>
                 var audio = document.getElementById("back_music");
-                audio.volume = 0.1;
+                audio.volume = 0.5;
 
                 function onClickCorpVideo(){ 
                   if($('.play-stop-icon').hasClass('fa-circle-play')){
