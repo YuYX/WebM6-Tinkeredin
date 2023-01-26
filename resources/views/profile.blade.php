@@ -210,7 +210,7 @@
               
                 <img class="rounded card-img-top mb-1" 
                 {{-- src="/{{ $profile->back_image }}"  --}}
-                @if ($profile->back_image != null)
+                @if ($profile!=null && $profile->back_image != null)
                   src="{{ Storage::disk('s3')->url($profile->back_image) }}" 
                 @endif
                 alt="Profile background image not assigned"> 
@@ -218,7 +218,7 @@
                 <div class="mx-auto">
                     <img class="rounded-circle card-img-overlay mx-auto" 
                         width="120" height="120"
-                        @if ($profile->back_image != null)
+                        @if ($profile->image != null)
                           src="{{Storage::disk('s3')->url($profile->image)}}" 
                           {{-- src="/{{ $profile->image }}"  --}}
                         @endif
