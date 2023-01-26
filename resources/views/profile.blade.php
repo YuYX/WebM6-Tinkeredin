@@ -964,8 +964,8 @@
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>`;
-          console.log("Pos:"+window.innerHeight+"+"+ window.scrollY+">"+document.body.scrollHeight);
-        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){   
+          // console.log("Pos:"+window.innerHeight+"+"+ window.scrollY+">"+document.body.scrollHeight);
+        if ((window.innerHeight + window.scrollY+1) >= document.body.scrollHeight){   
             if($('.post-loading-spinner').length<1) {
               $('.middle-col').append(remainedpPosts);  
             }  
