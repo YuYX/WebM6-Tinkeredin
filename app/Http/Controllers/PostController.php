@@ -43,8 +43,8 @@ class PostController extends Controller
             'caption' => 'required', 
             'url'     => 'nullable',
             'content' => 'required',
-            // 'postpic' => [File::image()->smallerThan(2*1024*1024)],
-            // 'postpics' => [File::image()->smallerThan(2*1024*1024)],
+            // 'postpic' => [File::image()->smallerThan(2*1024)],
+            // 'postpics' => [File::image()->smallerThan(2*1024)],
             'postpic' => 'nullable', ['file', '200'],
             'postpics'=> 'nullable', ['file','200'],
         ]);
@@ -149,8 +149,8 @@ class PostController extends Controller
             'caption' => 'required',
             'url'     => 'nullable',
             'content' => 'required',
-            // 'postpic' => [File::image()->smallerThan(2*1024*1024)],
-            // 'postpics' => [File::image()->smallerThan(2*1024*1024)],
+            // 'postpic' => [File::image()->smallerThan(2*1024)],
+            // 'postpics' => [File::image()->smallerThan(2*1024)],
             'postpic' => 'nullable',  ['file', '200'],
             'postpics'=> 'nullable',  ['file', '200'],
         ]);
