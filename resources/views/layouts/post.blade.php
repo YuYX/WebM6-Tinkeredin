@@ -45,7 +45,9 @@
                                       margin-right:8px;  
                                       display:inline-block;"  
                               {{-- src="/{{ $post->profile_image }}" --}}
+                              @if($post->profile_image != null)
                               src="{{Storage::disk('s3')->url($post->profile_image)}}"
+                              @endif
                               {{-- src="/storage/{{ $post->profile_image }}" --}}
                               onmouseover="onMouseOverProfileImagePost({{ $post->id }})"
                               onmouseout="onMouseOutProfileImagePost({{ $post->id }})" 
@@ -56,14 +58,18 @@
                                   style="background-color:honeydew;" >  
                                       <img class="rounded card-img-top mb-0" 
                                       {{-- src="/{{ $post->profile_back }}"  --}}
+                                      @if($post->profile_back != null)
                                       src="{{Storage::disk('s3')->url($post->profile_back)}}"
+                                      @endif
                                       alt="">  
                                       {{-- src="/storage/{{ $post->profile_back }}" alt="">  --}}
                                       <div class="mx-auto">
                                           <img class="rounded-circle card-img-overlay mx-auto" 
                                               width="120" height="auto"
                                               {{-- src="/{{ $post->profile_image }}"  --}}
+                                              @if ($post->profile_image != null)
                                               src="{{Storage::disk('s3')->url($post->profile_image)}}"
+                                              @endif
                                               alt=""> 
                                               {{-- src="/storage/{{ $post->profile_image }}" alt="">   --}}
                                       </div> 
@@ -115,11 +121,11 @@
                               @endif 
                               <div class="post-content clearfix">
                                 @if ($post->image)
-                                <img class="col-md-6 float-md-start mb-1 me-md-2" 
-                                {{-- src="{{ url('/' . $post->image ) }}" > --}}
-                                {{-- src="/storage/{{$post->image}}" > --}} 
-                                {{-- src="/{{$post->image}}" >  --}}
-                                src="{{Storage::disk('s3')->url($post->image)}}">
+                                  <img class="col-md-6 float-md-start mb-1 me-md-2" 
+                                  {{-- src="{{ url('/' . $post->image ) }}" > --}}
+                                  {{-- src="/storage/{{$post->image}}" > --}} 
+                                  {{-- src="/{{$post->image}}" >  --}}
+                                  src="{{Storage::disk('s3')->url($post->image)}}">
                                 @endif
                                 {{ $post->content }} 
                               </div>
@@ -203,7 +209,9 @@
                               <img class="img-fluid rounded-circle mx-auto mt-1" 
                                   style="height:30px; width:auto; max-width:30px; "  
                                   {{-- src="/{{ $profile->image }}" --}}
+                                  @if(($profile->image)
                                   src="{{Storage::disk('s3')->url($profile->image)}}"
+                                  @endif
                                   >
                                 {{-- src="/storage/{{ $profile->image }}"> --}}
                           </div>

@@ -271,7 +271,9 @@
       <div class="col-sm-3 col-md-3 left-hand-col px-4" style="background-color:white;">
         <div class="mt-5">
           <img class="rounded-circle" style="height:30px; width:auto; max-width:30px; margin-right:8px; display:inline-block;"  
-               src="{{Storage::disk('s3')->url($profile->image)}}" 
+            @if($profile->image != null)
+              src="{{Storage::disk('s3')->url($profile->image)}}" 
+            @endif
                {{-- src="/{{ $profile->image }}"   --}}
                {{-- src="/storage/{{ $profile->image }}"   --}}
           ><span class="text-danger">{{  $user->name }}</span>
@@ -355,12 +357,15 @@
             <div class="row mb-5" > 
                 <div class="card profile-image-container col-sm-2 col-md-2" 
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" 
+                    @if ($profile->back_image != null)
                     style="background-image:url({{Storage::disk('s3')->url($profile->back_image)}}); 
                            border-style:none; border-radius: 10px;
                            -webkit-background-size:cover;
                            -moz-background-size: color;
                            -o-background-size:cover;
-                           background-size:cover;">
+                           background-size:cover;"
+                    @endif
+                           >
                     {{-- style="background-image:url('/{{ $profile->back_image }}'); 
                            border-style:none; border-radius: 10px;
                            background-size:cover;"> --}}
@@ -371,7 +376,9 @@
                         href="#offcanvasExample" 
                         role="button" 
                         aria-controls="offcanvasExample"
+                        @if ($profile->image != null)
                         src="{{Storage::disk('s3')->url($profile->image)}}"
+                        @endif
                         {{-- src="/{{ $profile->image }}"  --}}
                         alt=""> 
                       {{-- src="/storage/{{ $profile->image }}" alt="">    --}}
