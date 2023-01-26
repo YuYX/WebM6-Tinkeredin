@@ -209,7 +209,7 @@
                               <img class="img-fluid rounded-circle mx-auto mt-1" 
                                   style="height:30px; width:auto; max-width:30px; "  
                                   {{-- src="/{{ $profile->image }}" --}}
-                                  @if(($profile->image)
+                                  @if($profile->image)
                                   src="{{Storage::disk('s3')->url($profile->image)}}"
                                   @endif
                                   >
