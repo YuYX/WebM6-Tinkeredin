@@ -228,8 +228,9 @@
                 
             <div class="card-body" style="text-align: center">
                 <strong>{{$user->name}}</strong><br>
-                
+                @if($profile)
                 <div class="pt-1">{{ $profile->description }}</div>
+                @endif
                 <div class="pt-1">  
                   <ul><li>
                     <a class="active" method="GET" href="{{ route('profile.edit') }}">Edit profile</a>
