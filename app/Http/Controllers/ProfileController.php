@@ -31,10 +31,10 @@ class ProfileController extends Controller
     {
        $data = request()->validate([
             'description' => 'required',
-            'profilepic' => 'nullable', ['file', '200'],
-            'backpic'=> 'nullable', ['file','200'],
-        //    'profilepic' => [File::image()->smallerThan(2*1024)], //2M
-        //    'backpic' => [File::image()->smallerThan(2*1024)],
+            // 'profilepic' => 'nullable', ['file', '200'],
+            // 'backpic'=> 'nullable', ['file','200'],
+           'profilepic' => ['nullable', File::image()->smallerThan(2*1024)], //2M
+           'backpic' => ['nullable', File::image()->smallerThan(2*1024)],
         //    'profilepic' => 'image',
         //    'backpic' => 'image',
        ]);
@@ -181,10 +181,10 @@ class ProfileController extends Controller
     {
         $data = request()->validate([
             'description' => 'required',
-            'profilepic' => 'nullable', ['file', '200'],
-            'backpic'=> 'nullable', ['file','200'],
-            // 'profilepic' => [File::image()->smallerThan(2*1024)], //2M.
-            // 'backpic' => [File::image()->smallerThan(2*1024)],
+            // 'profilepic' => 'nullable', ['file', '200'],
+            // 'backpic'=> 'nullable', ['file','200'],
+            'profilepic' => ['nullable', File::image()->smallerThan(2*1024)], //2M.
+            'backpic' => ['nullable', File::image()->smallerThan(2*1024)],
             // 'profilepic' => ['required', 'image'],
             // 'backpic' => ['required', 'image'],
         ]);
