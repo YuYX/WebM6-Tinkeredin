@@ -25,7 +25,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>{{ "Eureka!" }}</title> 
+    <title>{{ "Eureka Migrating from Heroku to AWS!" }}</title> 
 
     <link rel="icon" href="{{ url('images/archimedes.webp') }}">
 
