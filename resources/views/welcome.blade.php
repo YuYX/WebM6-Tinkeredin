@@ -140,7 +140,7 @@
                     <svg id="elnxPkeo3yD1" 
                         xmlns="http://www.w3.org/2000/svg" class="title"
                         xmlns:xlink="http://www.w3.org/1999/xlink" 
-                        viewBox="0 0 651 92" 
+                        viewBox="0 0 651 102" 
                         shape-rendering="geometricPrecision" 
                         text-rendering="geometricPrecision">
                         <text dx="0" dy="0" font-family="&quot;elnxPkeo3yD1:::Lato&quot;" font-size="32" font-weight="200" transform="translate(32 88.927486)" fill="#20809a" stroke-width="0"><tspan y="0" font-weight="300" stroke-width="0"><![CDATA[
