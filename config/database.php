@@ -97,8 +97,8 @@ return [
                     //'url' => env("CLEARDB_DATABASE_URL"),             //env('DATABASE_URL')
                     'host' => 'db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com',  //env('DB_HOST', '127.0.0.1')
                     'port' => env('DB_PORT', '3306'),
-                    'database' => 'db-mysql-eureka',             //env('DB_DATABASE', 'forge')
-                    'username' => 'admin',                       //env('DB_USERNAME', 'forge')
+                    'database' => 'dbeureka',             //env('DB_DATABASE', 'forge')
+                    'username' => 'yuyongxue',                       //env('DB_USERNAME', 'forge')
                     'password' => '$$yuYONGxue19680630',         //env('DB_PASSWORD', '')
                     'unix_socket' => env('DB_SOCKET', ''),
                     'charset' => 'utf8mb4',
