@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// This will automatically add those common authentication-related actions, 
+// such as registration, login, and password reset etc.
 Auth::routes();
 
 Route::get('/home', 

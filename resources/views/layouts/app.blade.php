@@ -94,7 +94,7 @@
             
             <div class="container"> 
                 <img onclick="scrollToTop()"
-                    src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
+                    src="/images/YUYX_S.jpg" style="width: 30px;border-radius:18px;">
                 <a style="color:rgb(231, 72, 228); font-size: 30px;" 
                     class="navbar-brand animate__animated animate__rotateInDownLeft animate__slower animate__repeat-3"   
                     href="{{ url('/') }}">
