@@ -72,7 +72,7 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" 
-                                        type="password" c
+                                        type="password" 
                                         lass="form-control" 
                                         name="password_confirmation" required 
                                         autocomplete="new-password">
