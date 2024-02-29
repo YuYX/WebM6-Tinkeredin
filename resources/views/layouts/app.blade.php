@@ -27,7 +27,7 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>{{ "Eureka Migrating from Heroku to AWS!" }}</title> 
 
-    <link rel="icon" href="{{ url('images/archimedes.webp') }}">
+    <link rel="icon" href="{{ url('images/YUYX_S.jpg') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
