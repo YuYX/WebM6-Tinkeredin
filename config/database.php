@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Str; 
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$host = $url["host"] ?? null;
-$username = $url["user"] ?? null;
-$password = $url["pass"] ?? null;
-$database = substr($url["path"], 1);
+// $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+// $host = $url["host"] ?? null;
+// $username = $url["user"] ?? null;
+// $password = $url["pass"] ?? null;
+// $database = substr($url["path"], 1);
 
 
 return [
@@ -71,15 +71,15 @@ return [
         //     ]) : [],
         // ],
 
-        // For Heroku Deployment
-        'mysql' => [
+        // For AWS-RDS Deployment
+        'mysql' => [ 
             'driver' => 'mysql',
-            //'url' => env("CLEARDB_DATABASE_URL"),               //env('DATABASE_URL')
-            'host' => $host,    // 'us-cdbr-east-06.cleardb.net',  //env('DB_HOST', '127.0.0.1')
-            'port' => env('DB_PORT', '3306'),
-            'database' => $database,    //'heroku_bde3bd9298b9f68',             //env('DB_DATABASE', 'forge')
-            'username' => $username,    //'be28bae2435b55',                     //env('DB_USERNAME', 'forge')
-            'password' => $password,    //'62f7ef57',                           //env('DB_PASSWORD', '')
+            //'url' => env("CLEARDB_DATABASE_URL"),             //env('DATABASE_URL')
+            'host' => env('RDS_HOSTNAME','db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com'),//'db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com',  //env('DB_HOST', '127.0.0.1')
+            'port' => env('RDS_PORT', '3306'),
+            'database' => env('RDS_DB_NAME','dbeureka'),             //env('DB_DATABASE', 'forge')
+            'username' => env('RDS_USERNAME','yuyonguxe'),                       //env('DB_USERNAME', 'forge')
+            'password' => env('RDS_PASSWORD','$$yuYONGxue19680630'),//'$$yuYONGxue19680630',         //env('DB_PASSWORD', '')
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

@@ -27,7 +27,7 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>{{ "Eureka!" }}</title> 
 
-    <link rel="icon" href="{{ url('images/archimedes.webp') }}">
+    <link rel="icon" href="{{ url('images/YUYX_S.jpg') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -94,7 +94,7 @@
             
             <div class="container"> 
                 <img onclick="scrollToTop()"
-                    src="/images/archimedes.webp" style="width: 30px;border-radius:18px;">
+                    src="/images/YUYX_S.jpg" style="width: 40px;border-radius:4px;">
                 <a style="color:rgb(231, 72, 228); font-size: 30px;" 
                     class="navbar-brand animate__animated animate__rotateInDownLeft animate__slower animate__repeat-3"   
                     href="{{ url('/') }}">

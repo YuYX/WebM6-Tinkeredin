@@ -107,7 +107,7 @@
         <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 ">
             <div class="fixed px-6 py-4 sm:block"> 
                 {{-- <img src="/images/archimedes.webp" style="width: 30px;border-radius:18px;"> --}}
-                <img src="/images/YUYX_S.jpg" style="width: 30px;border-radius:18px;">
+                <img src="/images/YUYX_S.jpg" style="width: 40px;border-radius:4px;">
                 <label style="color:rgb(231, 72, 228); font-size: 30px;" > 
                     Eureka!
                 </label><br>
