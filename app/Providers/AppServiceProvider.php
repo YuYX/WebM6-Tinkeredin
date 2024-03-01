@@ -29,7 +29,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         //YUYX
-        if (app()->environment('remote')) {
+        // if (app()->environment('remote')) {
+        //     URL::forceScheme('https');
+        // }
+        
+        if (app()->environment('production')) {
             URL::forceScheme('https');
         }
     }
