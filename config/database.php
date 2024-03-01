@@ -95,11 +95,11 @@ return [
                 'mysql' => [
                     'driver' => 'mysql',
                     //'url' => env("CLEARDB_DATABASE_URL"),             //env('DATABASE_URL')
-                    'host' => 'db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com',  //env('DB_HOST', '127.0.0.1')
-                    'port' => env('DB_PORT', '3306'),
-                    'database' => 'dbeureka',             //env('DB_DATABASE', 'forge')
-                    'username' => 'yuyongxue',                       //env('DB_USERNAME', 'forge')
-                    'password' => '$$yuYONGxue19680630',         //env('DB_PASSWORD', '')
+                    'host' => env('RDS_HOSTNAME','db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com'),//'db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com',  //env('DB_HOST', '127.0.0.1')
+                    'port' => env('RDS_PORT', '3306'),
+                    'database' => env('RDS_DB_NAME','dbeureka'),             //env('DB_DATABASE', 'forge')
+                    'username' => env('RDS_USERNAME','yuyonguxe'),                       //env('DB_USERNAME', 'forge')
+                    'password' => env('RDS_PASSWORD','$$yuYONGxue19680630'),//'$$yuYONGxue19680630',         //env('DB_PASSWORD', '')
                     'unix_socket' => env('DB_SOCKET', ''),
                     'charset' => 'utf8mb4',
                     'collation' => 'utf8mb4_unicode_ci',

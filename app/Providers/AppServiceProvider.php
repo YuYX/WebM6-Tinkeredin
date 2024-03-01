@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         //     URL::forceScheme('https');
         // }
         
+        // To force all the HTTP request to be HTTPS.
         if (app()->environment('production')) {
             URL::forceScheme('https');
         }
