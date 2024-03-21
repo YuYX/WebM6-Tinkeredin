@@ -74,7 +74,7 @@ return [
         // For Heroku Deployment - ClearDB
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env("CLEARDB_DATABASE_URL"),               //env('DATABASE_URL')
+            //'url' => env("CLEARDB_DATABASE_URL"),               //env('DATABASE_URL')
             'host' => 'db-mysql-eureka.c9ogeewm4jwk.ap-southeast-1.rds.amazonaws.com',//'us-cdbr-east-06.cleardb.net',  //env('DB_HOST', '127.0.0.1')
             'port' => env('DB_PORT', '3306'),
             'database' => 'heroku_84ad0baa9817629', //$database,    //'heroku_84ad0baa9817629',             //env('DB_DATABASE', 'forge')
